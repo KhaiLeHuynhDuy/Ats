@@ -1,0 +1,67 @@
+﻿@model Ats.Models.Member.MemberLifecycleSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_MemberLifecycle_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    SelectList membertagCategories = ViewBag.MemberTagCategories;
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_memberlifecycle</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item active">@Resource.Common_label_memberlifecycle</li>
+                    </ol>
+                </div>
+            </div>
+            @*//*@
+        </div>
+        <!-- end page title -->
+        <!-- start page content -->
+        @*@using (Html.BeginForm("Edit", "MemberLifecycle", new { role = "form" }, FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()*@
+            <div class="row mt-1">
+                <div class="col-12 text-right">
+                    <button type="submit" class="btn btn-group-sm btn-primary  mb-2"><a href="@Url.Action("Edit", "MemberLifecycle")" class="text-white"><i class="far fa-edit"></i> @Resource.Common_label_edit</a></button>
+                </div>
+            </div>
+            @*@using (Html.BeginForm("Detail", "MemberLifecycle", new { role = "form" }, FormMethod.Get))
+            {
+                @Html.AntiForgeryToken()*@
+                <div class="row mt-2">
+                    @foreach (var item in Model.MemberLifecycles)
+                    {
+                        <div class="col-3 shadow-lg ">
+                            <div class="card shadow-lg ">
+                                <div class="card-body shadow-lg  ">
+                                    <div class="row bg-white shadow-lg  ">
+                                        <div class="col-9"><strong class="text-left text-dark font-size-16">@item.MemberLifeCycleName   @*New protect*@</strong></div>
+                                        <div class="col-3 text-right"> <i class="fas fa-users text-primary font-site-16"> 0</i></div>
+                                        <div class="col-12">
+                                            <p class="font-size-13">Members who registered within the last [@item.LastRegisterMonthDuration] months, made [@item.TotalTransaction] transaction.</p>
+                                        </div>
+                                        <div class="col-12 text-right mt-4">
+                                            <button  data-id="@item.Id" type="submit" class="btn btn-sm btn-primary text-white"> <a asp-action="Detail" asp-route-id="@item.Id" class="text-white">@Resource.Common_label_analysis</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+                    }
+                </div>
+            @*}*@
+          @*}*@
+    </div> <!-- container-fluid -->
+</div><!-- End Page-content -->
+

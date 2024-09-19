@@ -1,0 +1,132 @@
+﻿@using Ats.Web.Resources
+@model Ats.Models.Department.DepartmentUserEditModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resource.DepartmentUser;
+    ViewBag.SubTitle = Resource.EditDepartmentUser;
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="primary-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header">
+                    <p>
+                        @Resource.DepartmentUser
+                    </p>
+                    @Html.HiddenFor(model => model.DepartmentId)
+                    <span>@ViewBag.SubTitle</span>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li><a class="no-link">@Resource.Admin</a></li>
+                        <li class="active">@Html.ActionLink(Resource.Departments, "Departments", "Admin")</li>
+                        <li class="active">@Html.ActionLink(Resource.EditDepartment, "EditDepartment", new { id = Model.DepartmentId })</li>
+                    </ol>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="content">
+                            <div class="box-header">
+                                <div class="padding">
+                                    @if (ViewBag.StatusMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.StatusMessage
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (ViewBag.ErrorMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-error-action">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                @ViewBag.ErrorMessage
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.User</span>
+                                        <div class="form-group ats-input">
+                                            @if (Model.userList != null)
+                                            {
+                                                @*@Html.DropDownListFor(model => model.UserId, new SelectList(Model.userList, "Value", "Text"))*@
+                                                @Html.TextBoxFor(model => model.userList.FirstOrDefault(x => x.Value == Model.UserId.ToString()).Text,
+                                           new { @class = "form-control", @readonly = "readonly" })
+                                                @Html.ValidationMessageFor(model => model.UserId)
+                                            }
+                                            @Html.HiddenFor(model => model.Id)
+                                            @Html.HiddenFor(model => model.UserId)
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.StartDateProUser</span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker1", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.Role</span>
+                                        <div class="form-group ats-select">
+                                            @Html.DropDownListFor(model => model.Role, Html.GetEnumSelectList(Model.Role.GetType()), new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Role)
+                                        </div>
+                                    </div>
+                                    @*@Html.DisplayFor(m => m.Role, new { @class = "form-control", @readonly = "readonly" })*@
+                                    <div class="col-xs-4">
+                                        <span class="default_label">@Resource.EndDate</span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker2", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+                                <div class="col-xs-12">
+                                    <span class="">
+                                        @if (Model.userList != null && Model.userList.Count() > 0)
+                                        {
+                                            <input type="submit" value="@Resource.Save" class="btn-ats-save" />
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section scripts {
+    <script>
+
+        jQuery(document).ready(function () {
+
+            $('#datepicker1').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+
+            $('#datepicker2').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+        })
+
+   
+    </script>
+}

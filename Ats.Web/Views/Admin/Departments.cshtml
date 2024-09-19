@@ -1,0 +1,198 @@
+﻿@using Ats.Web.Resources
+@model Ats.Models.Department.DepartmentSearchViewModel
+@{
+    ViewBag.Title = Resource.Departments;
+    var totalItems = Model.TotalItem;
+    var pageIndex = Model.PageIndex;
+    int pageSize = Model.PageSize;
+    var totalPages = (int)Math.Ceiling((double)totalItems / (double)pageSize);
+}
+
+<section class="primary-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="content-header">
+                <p>
+                    @Resource.Departments
+                </p>
+                @*<span>@Resource.Departments</span>*@
+                <p class="text-success">@ViewBag.StatusMessage</p>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><a class="no-link">@Resource.Admin</a></li>
+                    <li class="active">@Resource.Departments</li>
+                </ol>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="content">
+                        <div class="deparment">
+                            @using (Html.BeginForm("SearchDepartmentWithPaging", "Admin", FormMethod.Get))
+                            {
+                                <div class="row top_content background-ababab ">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            @Html.EditorFor(m => m.SearchText, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", placeholder = Resource.TypeToSearch } })
+                                        </div>
+                                        @Html.HiddenFor(m => m.PageIndex, new { Value = 1 })
+                                    </div>
+                                    <div class="big-float-right">
+                                        <div class="search_item_nn">
+                                            <input type="submit" value="@Resource.Search" class="search" id="search_depart" />
+                                        </div>
+                                        <div class="add_new_item">
+                                            <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                            <span>@Html.ActionLink(Resource.NewDepartment, "EditDepartment", new { id = Guid.Empty })</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                        <div class="box-table">
+                            <table class="table table-ats table-ats-v2 table-stripe " id="">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>@Resource.Code</th>
+                                        <th>@Resource.Name</th>
+                                        <th>@Resource.Manager</th>
+                                        <th width="100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Departments)
+                                    {
+                                        <tr>
+                                            <td>@item.DepartmentCode</td>
+                                            <td>@item.DepartmentName</td>
+                                            <td>
+                                                @if (@item.Manager != null)
+                                                {
+                                                    @String.Format("{0} {1}", item.Manager.FirstName, item.Manager.LastName);
+                                                }
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a href="@Url.Action("EditDepartment", new { id = item.Id })" class="" style="margin-right:5px"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <a href='@Url.Action("DeleteDepartment", new { id = item.Id, pageIndex = Model.PageIndex })' class="" onclick="return confirm('Are you sure you wish to delete this item?(Bạn có muốn xóa?)');"><i style="color:#bd081c" class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--Paging-->
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 ats-paging border-bot" style="border-bottom:none">
+                                <div class="risa-paging" style="margin:-20px auto">
+                                    <ul class="pager">
+                                        @{
+                                            var pre = pageIndex - 1;
+                                            var next = pageIndex + 1;
+                                        }
+
+                                        <!-- #region Previous -->
+                                        @{
+                                            if (pageIndex == 1 || pageIndex == 0)
+                                            {
+                                                <li class="disabled page"><a>Previous</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new {searchText = Model.SearchText, pageIndex = pre})">Previous</a></li>
+                                            }
+                                        }
+                                        <!-- #endregion -->
+                                        <!-- #region display limited number -->
+                                        @{
+                                            var numberPageDisplay = 5;
+                                            if (totalPages <= numberPageDisplay)
+                                            {
+                                                for (int i = 1; i <= totalPages; i++)
+                                                {
+                                                    if (i == pageIndex)
+                                                    {
+                                                        <li class="page"><a class="active">@i</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new { searchText = Model.SearchText, pageIndex = i})">@i</a></li>
+                                                    }
+
+                                                }
+                                            }
+                                            if (totalPages > numberPageDisplay)
+                                            {
+                                                if (pageIndex + 1 < numberPageDisplay)
+                                                {
+                                                    for (int i = 1; i <= numberPageDisplay; i++)
+                                                    {
+                                                        if (i == pageIndex)
+                                                        {
+                                                            <li class="page"><a class="active">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new { searchText = Model.SearchText, pageIndex = i})">@i</a></li>
+                                                        }
+                                                    }
+                                                    <li>...</li>
+                                                }
+                                                else if (pageIndex - 2 > 1 && pageIndex + 2 < totalPages)
+                                                {
+                                                    <li>...</li>
+                                                    for (int i = pageIndex - 2; i <= pageIndex + 2; i++)
+                                                    {
+                                                        if (i == pageIndex)
+                                                        {
+                                                            <li class="page"><a class="active">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new { searchText = Model.SearchText, pageIndex = i})">@i</a></li>
+                                                        }
+                                                    }
+                                                    <li>...</li>
+                                                }
+                                                else if (totalPages - 2 <= pageIndex)
+                                                {
+                                                    <li>...</li>
+                                                    for (int i = totalPages - numberPageDisplay + 1; i <= totalPages; i++)
+                                                    {
+                                                        if (i == pageIndex)
+                                                        {
+                                                            <li class="page"><a class="active">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new { searchText = Model.SearchText, pageIndex = i})">@i</a></li>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        <!-- #endregion -->
+                                        <!-- #region Next -->
+                                        @{
+                                            if (pageIndex == totalPages || totalPages == 0 || pageIndex == 0)
+                                            {
+                                                <li class="disabled"><a class="page">Next</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page"><a href="@Url.Action("SearchDepartmentWithPaging",new {searchText = Model.SearchText, pageIndex = next})">Next</a></li>
+                                            }
+                                        }
+                                        <!-- #endregion -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,94 @@
+﻿@model Ats.Models.Loyalty.PointRuleCategoryViewModel;
+@using Lpnet.WebApp.Resources
+@{ 
+    ViewBag.Title = @Resource.ViewBag_Title_PointRuleCate_Create;
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@{
+    SelectList listCategory = ViewBag.Categories;
+    SelectList listLoyaltyPointRule = ViewBag.LoyaltyPointRule;
+
+}
+@section styles{
+    <!-- DataTables -->
+
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+
+
+}
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("CreateItemPointRuleCategory", "LoyaltyPointRules", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper custom-validation", enctype = "multipart/form-data", role = "form" }))
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_title_CustomPointRule</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_title_loyalty</a></li>
+                            <li class="breadcrumb-item active">@Resource.Common_label_createItemPointRuleCategory</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-danger font-italic font-size-12">@ViewBag.ErrorMessage</p>
+
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.LoyaltyPointRuleId)
+
+
+                            <div class="col-12 mt-1  ">
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <label class=" mt-1 text-left"><a class="text-danger">*</a> @Resource.Common_label_selectProductCategory:</label>
+                                    </div>
+                                    <div class="col-7">
+                                        @Html.DropDownListFor(m => m.ProductCateId, listCategory, new { placeholder = "", @class = "js-example-basic-single", required = default(string) , @style = "width: 100%"})
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_active:</label>
+                                    <div class="col-lg-6">
+                                        @Html.CheckBoxFor(m => m.Valid, new { @class = "form-group", id = "ckbActive" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2 ml-1">
+                                <a href="@Url.Action("Detail", "LoyaltyPointRules",  new { Id = Model.LoyaltyPointRuleId })" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>}
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+
+
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+      <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+
+            });
+        });
+    </script>
+   
+}
+

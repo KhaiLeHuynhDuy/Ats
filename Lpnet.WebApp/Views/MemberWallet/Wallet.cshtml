@@ -1,0 +1,184 @@
+﻿@model Ats.Models.MemberWallet.MemberWalletsSearchViewModel;
+@using Ats.Commons.Utilities;
+@using Lpnet.WebApp.Resources;
+
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Wallet_History;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = "false", Text = "Female" }, new SelectListItem() { Value = "true", Text = "Male" } }, "Value", "Text");
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList occupations = ViewBag.Occupations;
+
+    SelectList addresses1 = ViewBag.Addresses1;
+    SelectList addresses2 = ViewBag.Addresses2;
+
+    SelectList loanProducts = ViewBag.LoanProducts;
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_title_MemberwalletsHistory</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "MemberWallet")">@Resource.Sidebar_title_Memberwallets</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript: void(0);">@Resource.Sidebar_title_history</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Search", "MemberWallet", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the Code, Name, Phone, Email", @class = "form-control", id = "org-search-input" })
+                                </div>
+
+                                <div>
+                                    <div class=" row collapse" id="collapseExample">
+                                        <div class=" col-lg-6 col-xxl-4 ">
+                                            <div class="form-group row">
+                                                <label for="txtFirstName" class="col-lg-3 col-form-label text-right">email </label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.MemberWallet.Email, new { placeholder = "", @class = "form-control", id = "txtFirstName", name = "txtFirstName" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xxl-4">
+                                            <div class="form-group row">
+                                                <label for="txtEmail" class="col-lg-3 col-form-label text-right">phone </label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.MemberWallet.Phone, new { placeholder = "", @class = "form-control", id = "txtEmail", name = "txtEmail" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        @Resource.Common_label_search <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        @Resource.Common_label_memberCode <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Email", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_firstName <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Email", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_lastName <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Email", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_email <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Email", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_phone <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Phone", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_point <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "Point", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Commom_label_TransactionDate <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "dob", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.MemberWalletsHistory)
+                                {
+                                    <tr>                                      
+                                        <td class="text-left">@item.MemberCode</td>
+                                        <td class="text-left">@item.FistName</td>
+                                        <td class="text-left">@item.LastName</td>
+                                        <td class="text-left">@item.Email</td>
+                                        <td class="text-left">@item.Phone</td>
+                                        @if (item.PointTypeId <= 2 || item.PointTypeId == 4 || item.PointTypeId == 6 || item.PointTypeId == 7 || item.PointTypeId == 9 || item.PointTypeId == 10 || item.PointTypeId == 11 || item.PointTypeId == 13 || item.PointTypeId == 15)
+                                        {
+                                            <td><a class="text-success">+ </a>@item.Point</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td><a class="text-danger">- </a>@item.Point</td>
+                                        }
+                                        <td class="text-left">@item.TransactionDate</td>                                                                         
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <!-- Required datatable js -->
+    <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/assets/js/pages/datatables.init.js"></script>
+}

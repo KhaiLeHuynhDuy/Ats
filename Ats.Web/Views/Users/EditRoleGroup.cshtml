@@ -1,0 +1,121 @@
+﻿@using Ats.Web.Resources
+@using Ats.Commons.Utilities;
+@model Ats.Models.Account.GroupViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resource.RoleGroups;
+    var dic = new Dictionary<string, object>();
+    if (Model != null && Model.Id != Guid.Empty)
+    {
+        ViewBag.SubTitle = Resource.EditRoleGroup;
+        dic.Add("readonly", "readonly");
+    }
+    else
+    {
+        ViewBag.SubTitle = Resource.AddRoleGroup;
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="primary-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header">
+                    <p>
+                        @Resource.RoleGroups
+                    </p>
+                    <span>@ViewBag.SubTitle</span>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li><a href="javasript:void(0)">@Resource.Admin</a></li>
+                        <li class="active">@Html.ActionLink(Resource.RoleGroups, "RoleGroups", "Users")</li>
+                    </ol>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="content">
+                            <div class="box-header">
+                                <div class="padding">
+                                    @*<span>
+                                            @Resource.Detail
+                                        </span>*@
+                                    @if (ViewBag.StatusMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.StatusMessage
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-error-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <span class="red_label">@Resource.Name</span>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Name, StringUtils.GetHtmlAttributes(new { @class = "form-control padding-5p" }, dic))
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <span class="default_label">@Resource.Desc</span>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control padding-5p" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model != null)
+                            {
+                                <div class="box-header">
+                                    <div class="padding">
+                                        <span>
+                                            @Resource.Roles
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach (var role in Model.ListRoles)
+                                    {
+                                        <div class="col-xs-3">
+                                            <label class="ATS-custom-seleced" style="font-size:15px;">
+                                                @role.Text
+                                                <input type="checkbox" name="SelectedRoles" checked="@role.Selected" value="@role.Value">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+                                <div class="col-xs-12">
+                                    <span class="">
+                                        <input type="submit" value="@Resource.Save" class="btn-ats-save" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script>
+    jQuery(document).ready(function ($) {
+        $('#notification').delay(5000).fadeOut('slow');
+    })
+</script>

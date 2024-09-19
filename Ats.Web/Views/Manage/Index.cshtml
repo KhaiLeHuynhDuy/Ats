@@ -1,0 +1,91 @@
+﻿@using Ats.Web.Resources
+
+@{
+    ViewBag.Title = Resource.Manage;
+}
+<h2>@Resource.Manage</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>@Resource.ManageTitle</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading" style="background-color: #961e3c; color: white; font-weight: bold">@Resource.Settings</div>
+                <div class="panel-body">
+                    <p><b>@Resource.Login</b></p>
+                    <p>
+                        @if (Model.HasPassword)
+                        {
+                            <i class="fas fa-key fa-fw"></i> @Html.ActionLink(Resource.ChangePW, "ChangePassword")
+                        }
+                        else
+                        {
+                            @Html.ActionLink(Resource.CreatePW, "SetPassword")
+                        }
+                    </p>
+                    <p>
+                        <i class="fas fa-share-square fa-fw"></i> @Resource.Login:
+                        @Model.Logins.Count [
+                        @Html.ActionLink(Resource.Manage, "ManageLogins") ]
+                        @*
+                            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                             Uncomment the following block after you have set up two-factor authentication
+                        *@
+                        @*
+                            <dt>Phone Number:</dt>
+                            <dd>
+                                @(Model.PhoneNumber ?? "None")
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    <br />
+                                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                                    }
+                                }
+                                else
+                                {
+                                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                                }
+                             </dd>
+                        *@
+                    </p>
+                    <p><i class="fas fa-shield-alt"></i>@Resource.TwoFactor:</p>
+                    <p>
+                        @Resource.TwoFactorCont1 <a href="http://go.microsoft.com/fwlink/?LinkId=403804">@Resource.ThisArticle</a>
+                        @Resource.TwoFactorCont2
+                        @*@if (Model.TwoFactor)
+                            {
+                                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <text>Enabled
+                                    <input type="submit" value="Disable" class="btn btn-link" />
+                                    </text>
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <text>Disabled
+                                    <input type="submit" value="Enable" class="btn btn-link" />
+                                    </text>
+                                }
+                            }*@
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,87 @@
+﻿ManagerNotification
+@{
+    Layout = "~/Views/Email/_Layout.cshtml";
+}
+
+@section EmailHeader{
+
+}
+
+@section EmailBody{
+
+}
+<style>
+    .responsive {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+<section id="header">
+    <div name="name">ATS System</div>
+    <div name="from">admin@thoikhoabieu.io</div>
+    <div name="to">@Model.ToAddress</div>
+    <div name="bcc">dquanghuysg@gmail.com</div>
+    <div name="subject">Đơn xin nghỉ phép</div>
+    <div name="ishtml">true</div>
+</section>
+<section id="body">
+    <div style="background-color:lightgrey">
+        <div style="width:90%; margin:auto; background-color:#eaeaea">
+            <div style="width:80%; margin:auto; background-color:white">
+                <img src="https://b76aec11-a-62cb3a1a-s-sites.googlegroups.com/site/aegonamail/home/Untitled-1.png?attachauth=ANoY7cp66oVgO195NAOBW0DgAUkk0CdOzzOHQMwSvYAy_v8Jn8q7gFMG1jAq-n6S4t9HYQ51hwJdHDBTg4haVGTMitUkGJnW9SiKiEzMjKddhJPTOCUs-HI2kUVjGg1-lpQY6Rf-dSyqt2QsCzvAdPBx2ZCLkhgU43ZPgML9eVt17qJrf1KRFoYa8ywsR4B4aEfBheaYbJ6PvdL_mcBVl4V0UgMWBno4LA%3D%3D&attredirects=0" class="responsive" width="100%" />
+                <!--Body-->
+                <div style="font-size: 14px; padding:20px; color:grey">
+                    <i>Chào, <b> @Model.ClientName</b>!</i><br /><br />
+                    <b>Đây là mail tự động được gửi để cho bạn biết bạn có một đơn xin nghỉ đã bị TỪ CHỐI. Chi tiết đơn xin nghỉ:</b><br /><br />
+                    <table border="0" style="width:100%; background-color:#eaeaea; padding:20px;">
+                        <tr>
+                            <td>
+                                Người chấp nhận: @Model.UserName
+                            </td>
+                            <td>
+                                Ngày gửi đơn: <b>@Model.DateSend</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Người xin phép: @Model.EmployeeName
+                            </td>
+                            <td>
+                                Trạng thái: Đã Bị Từ Chối
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Dạng nghỉ phép: @Model.LeaveType
+                            </td>
+                            <td></td>
+                        </tr>
+                         <tr>
+                            <td>
+                                Nghỉ từ: <b>@Model.DateFrom @Model.TimeFrom</b>
+                            </td>
+                            <td>
+                                Nghỉ đến: <b>@Model.DateTo @Model.TimeTo</b>
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <td>
+                                Nghỉ lúc: <b>@Model.TimeFrom</b>
+                            </td>
+                            <td>
+                                Nghỉ đến: <b>@Model.TimeTo</b>
+                            </td>
+                        </tr>*@
+                    </table>
+                    <p>Lí do: @Model.Reason</p>
+                    <p>Bình luận: @Model.Comment</p>
+                    @Model.UrlLink<br />
+                    <i><b>Thân</b>, hệ thống quản lí nghỉ phép</i>
+                    <br /><br /><br />
+                </div>
+                <!--Body-->
+            </div>
+        </div>
+    </div>
+</section>
+

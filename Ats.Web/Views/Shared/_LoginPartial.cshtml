@@ -1,0 +1,71 @@
+﻿@using Ats.Domain.Identity.Models
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@using Ats.Web.Resources
+@using System.Globalization
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model Ats.Models.LoginSessionViewModel
+
+@{
+    if (Model != null && Model.UserTitle != null)
+    {
+        if (Model.UserTitle.Length > 25)
+        {
+            Model.UserTitle = Model.UserTitle.Substring(0, 25) + "...";
+        }
+    }
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="nav-right">
+        <div class="icon flag-popup-show">
+            @await Html.PartialAsync("_SelectLanguagePartial")
+        </div>
+
+        <div class="icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+        <div class="icon"><i class="fa fa-bell-o" aria-hidden="true"></i></div>
+        @if (this.User.IsInRole(Ats.Commons.Constants.SYS_ROLE_SYSTEM_ADMINISTRATION))
+        {
+            <div class="icon flag-popup-show">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <ul class="setting flag-popup-hidden">
+                    <li>@Html.ActionLink(Resource.Users, "Index", "Users")</li>
+                    <li>@Html.ActionLink(Resource.RoleGroups, "RoleGroups", "Users")</li>
+                    <li>@Html.ActionLink(Resource.Departments, "Departments", "Admin")</li>
+                </ul>
+            </div>
+        }
+        @if (Model != null)
+        {
+            //@Html.AntiForgeryToken()
+            <div class="info-user flag-popup-show">
+                <img src="@Url.Content(Model.AttachmentLink)" class="img-info-user" alt="" height="50" width="50">
+                <div class="info-user-small">
+                    <span><b>@Model.UserName</b></span>
+                    <br />
+                    <span id="" data-toggle="tooltip" data-placement="bottom" title="">@Model.UserTitle</span>
+                </div>
+                <ul class="flag-popup-hidden setting_info_user">
+                    <li>
+                        <a href="@Url.Action("EditProfile","Manage",new {id = User.FindFirst(ClaimTypes.NameIdentifier).Value })"><i class="fa fa-user-o" aria-hidden="true"></i> @Resource.Profile </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangePassword","Manage")"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>@Resource.ChangePassword</a>
+                    </li>
+                    <li><a href="@Url.Action("LogOff","Account")"><i class="fa fa-sign-out" aria-hidden="true"></i> @Resource.Logout </a></li>
+                </ul>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

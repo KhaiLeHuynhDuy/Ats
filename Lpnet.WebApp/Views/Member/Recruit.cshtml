@@ -1,0 +1,433 @@
+﻿    
+@model Ats.Models.Member.MemberRecruitmentViewModel;
+@using Lpnet.WebApp.Resources;
+
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Member_AddMember;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+@{
+  SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = null, Text = "Unspecific" }, new SelectListItem() { Value = "false", Text = Resource.Common_label_female }, new SelectListItem() { Value = "true", Text = Resource.Common_label_male } }, "Value", "Text");
+    SelectList occupations = ViewBag.Occupations;
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList countries = ViewBag.Countries;
+
+    SelectList provinces = ViewBag.Provinces;
+    SelectList districts = ViewBag.Districts;
+    SelectList years = ViewBag.Years;
+    SelectList maritalStatus = ViewBag.MaritalStatus;
+    SelectList channelCategories = ViewBag.ChannelCategories;
+    SelectList storeCategories = ViewBag.StoreCategories;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_recruit</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item active">@Resource.Common_label_recruit</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-danger font-italic font-size-12">@ViewBag.ErrorMessage</p>
+                        @using (Html.BeginForm("Recruit", "Member", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>@Resource.ManageMember_form_title_personalDetails</h4>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="@Url.Action("Index", "Member",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                        @Resource.Common_label_cancel
+                                    </a>
+                                    <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-floppy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtcode" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_memberCode</label>
+                                            @{
+
+                                                var disabled = Model.MemberCodeAutomatically ? "" : "disabled";
+                                                <div class="col-lg-8">
+                                                    @Html.TextBoxFor(m => m.MemberCode, new { @class = "form-control", id = "codeMember", name = "codeMember" })
+
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <div class="col-lg-1">
+                                                <div class="mt-2 ">
+                                                    @Html.CheckBoxFor(m => m.MemberCodeAutomatically, new { @class = "form-group", id = "ckb_autocodegen" })
+                                                </div>
+                                            </div>
+                                            <label for="ckb_autocodegen" class="col-lg-9 col-form-label text-left mb-2">@Resource.Common_label_member_Code_Automatically </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtFirstName" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_firstName</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", id = "txtFirstName", name = "txtFirstName",required="required" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txtLastName" class="col-lg-4 col-form-label text-right">@Resource.Common_label_lastName</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", id = "txtLastName", name = "txtLastName" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="ddlGender" class="col-lg-4 col-form-label text-right">@Resource.Common_label_sex</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(m => m.Gender, genders, new { @class = "form-control", id = "cbbGender" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtOfBirth" class="col-lg-4 col-form-label text-right">@Resource.Common_label_birthday</label>
+                                            <div class="col-lg-3">
+                                                @Html.DropDownListFor(m => m.YOB, Model.Year, @Resource.Common_label_years, new { placeholder = "", @class = "form-control", id = "txtYearOfBirth", name = "txtYearOfBirth" })
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select id="ddlBirthdayMonth" name="month" class="form-control">
+                                                    <option value="0">@Resource.Common_label_month</option>
+                                                    @for (int i = 1; i <= 12; i++)
+                                                    {
+                                                        if (Model.Month == i)
+                                                        {
+                                                            <option selected="selected" value="@i">@i</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@i">@i</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select id="ddlBirthdayDay" name="day" class="form-control">
+                                                    <option value="0">@Resource.Common_label_day</option>
+                                                    @for (int i = 1; i <= 31; i++)
+                                                    {
+                                                        if (Model.Day == i)
+                                                        {
+                                                            <option selected="selected" value="@i">@i</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@i">@i</option>
+                                                        }
+
+                                                    }
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtPhoneNumber" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_phone</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.PhoneNumber, new { placeholder = "", @class = "form-control", id = "txtPhoneNumber",type="number",  name = "txtPhoneNumber" ,required="required"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txtEmail" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_email</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.Email, new { placeholder = "", @class = "form-control", id = "txtEmail",type="email",size="64", maxLength="64" ,name = "txtEmail",required="required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txtMaritalStatus" class="col-lg-4 col-form-label text-right">@Resource.ManageLead_form_label_maritalStatus</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(m => m.MaritalStatus, maritalStatus, new { @class = "form-control", id = "ckbMaritalStatus" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txtWeddingDate" class="col-lg-4 col-form-label text-right">@Resource.Common_label_weddingAnniversary</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.WeddingDate, new { placeholder = "", @class = "form-control", id = "txtWeddingDate", type = "date", name = "txtWeddingDate" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtJobTitleId" class="col-lg-4 col-form-label text-right">@Resource.Common_label_jobTitle</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(m => m.JobTitleId, jobTitles, new { @class = "form-control", id = "ckbJobTitle" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txtOccupationId" class="col-lg-4 col-form-label text-right">@Resource.Common_label_occupation</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(m => m.OccupationId, occupations, new { @class = "form-control", id = "ckbOccupation" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class=" col-lg-6 col-xxl-4 ">
+                                        <div class="form-group row">
+                                            <label for="txtHomeAddress" class="col-lg-4 col-form-label text-right">@Resource.Common_label_homeAddressAddress</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(m => m.Address1, new { placeholder = "", @class = "form-control", id = "txtHomeAddress", name = "txtHomeAddress" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class=" row ">
+                                    <div class="col-lg-6 col-xxl-4">
+                                        <div class="form-group row">
+                                            <label for="txt
+                                                   " class="col-lg-4 col-form-label text-right">@Resource.Common_label_provinceName</label>
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(m => m.ProvinceId, provinces, new { @class = "form-control", id = "ProvinceId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6 col-xxl-4 ">
+                                            <div class="form-group row">
+                                                <label for="txtDistrictId" class="col-lg-4 col-form-label text-right">@Resource.Common_label_district</label>
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(m => m.DistrictId, districts, new { @class = "form-control", id = "DistrictId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageMember_form_title_brandPreferences</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageMember_form_title_memberTags</h4>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-12">@Resource.Common_label_conditionalTag</label>
+                                            <hr />
+                                            <label class="col-lg-12">@Resource.Common_label_unConditionalTag</label>
+                                            <div class="form-group">
+                                                <button class="btn btn-outline-info col-lg-12" type="button">
+                                                    <a href="@Url.Action("Create", "Member")"> <i class="mdi mdi-plus "></i> @Resource.Common_label_assignTag</a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageMember_form_title_communicationPreferences</h4>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <span class="col-lg-8">@Resource.Member_AcceptToReceiveMarketing</span>
+                                            <div class="col-lg-4 text-right">
+                                                @Html.CheckBoxFor(m => m.AcceptToReceiveMarketing, new { @checked = "checked", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <span class="col-lg-8">@Resource.Member_AcceptToReceiveLoyaltyInformation</span>
+                                            <div class="col-lg-4 text-right">
+                                                @Html.CheckBoxFor(m => m.AcceptToReceiveLoyaltyInformation, new { @checked = "checked", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <span class="col-lg-8">@Resource.Member_AcceptToBeContactedViaMobilePhone</span>
+                                            <div class="col-lg-4 text-right">
+                                                @Html.CheckBoxFor(m => m.AcceptToBeContactedViaMobilePhone, new { @checked = "checked", @class = "form-control" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <span class="col-lg-8">@Resource.Member_AcceptToBeContactedViaMobileEmail</span>
+                                            <div class="col-lg-4 text-right">
+                                                @Html.CheckBoxFor(m => m.AcceptToBeContactedViaMobileEmail, new { @checked = "checked", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <span class="col-lg-8">@Resource.Member_NotAcceptAnyContact</span>
+                                            <div class="col-lg-4 text-right">
+                                                @Html.CheckBoxFor(m => m.NotAcceptAnyContact, new { @checked = "checked", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageMember_formtitle_termsOfUse</h4>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row form-group">
+                                    <div class="mt-2 checkbox col-lg-1" style="text-align:right">
+                                        @Html.CheckBoxFor(m => m.AcceptTermOfService, new { @class = "form-group", id = "ckbTermOfUse", required = "required" })
+                                    </div>
+                                    <label for="ckbTermOfUse" class="col-form-label text-left">@Resource.Common_label_termsOfUse</label>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6 ">
+                                        <a href="@Url.Action("Index", "Member",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                            @Resource.Common_label_cancel
+                                        </a>
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $('#ProvinceId').on('change',
+            function () {
+                $('#DistrictId').empty();
+                $.get("/Member/UpdateDistrict",
+                    { id: $("#ProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#DistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+    </script>
+    <script>
+        function myFunction() {
+            var x = Math.floor((Math.random() * 1000000) + 1);
+            document.getElementById("codeMember").innerHTML = x;
+        }
+        function memberOnSuccess(res) {
+            Swal.fire(
+              '@Resource.Common_label_Success',
+              '@Resource.Common_label_Success',
+                'success');
+            
+             
+        }
+        function memberOnFailure(res) {
+            Swal.fire(
+                '@Resource.Common_label_Error',
+                res.responseJSON?.errorMessage,
+                'error');
+         }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#ckb_autocodegen").click(function () {
+                $("#codeMember").attr('disabled', !$("#codeMember").attr('disabled'));
+            });
+        });
+
+
+    </script>
+ 
+}

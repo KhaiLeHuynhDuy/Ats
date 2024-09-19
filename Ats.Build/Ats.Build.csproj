@@ -1,0 +1,160 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    <!--<AssemblyName>AspNetCoreMultipleProject</AssemblyName>
+    <PackageId>AspNet5MultipleProject</PackageId>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200411080358_UpdateAttendanceLog.cs" />
+    <Compile Remove="Migrations\20200411080358_UpdateAttendanceLog.Designer.cs" />
+    <Compile Remove="Migrations\20200411081055_UpdateAttendanceLog2.cs" />
+    <Compile Remove="Migrations\20200411081055_UpdateAttendanceLog2.Designer.cs" />
+    <Compile Remove="Migrations\20200901065154_AddIsChargeableProjectUsers.cs" />
+    <Compile Remove="Migrations\20200901065154_AddIsChargeableProjectUsers.Designer.cs" />
+    <Compile Remove="Migrations\20210201063103_Added UserType to User.cs" />
+    <Compile Remove="Migrations\20210201063103_Added UserType to User.Designer.cs" />
+    <Compile Remove="Migrations\20210201092717_Update_database.cs" />
+    <Compile Remove="Migrations\20210201092717_Update_database.Designer.cs" />
+    <Compile Remove="Migrations\20210202022730_Update_organization.cs" />
+    <Compile Remove="Migrations\20210202022730_Update_organization.Designer.cs" />
+    <Compile Remove="Migrations\20210202045057_Update_6.cs" />
+    <Compile Remove="Migrations\20210202045057_Update_6.Designer.cs" />
+    <Compile Remove="Migrations\20210202141643_Create-database.cs" />
+    <Compile Remove="Migrations\20210202141643_Create-database.Designer.cs" />
+    <Compile Remove="Migrations\20210203033504_update-database.cs" />
+    <Compile Remove="Migrations\20210203033504_update-database.Designer.cs" />
+    <Compile Remove="Migrations\20210203033639_update-database.cs" />
+    <Compile Remove="Migrations\20210203033639_update-database.Designer.cs" />
+    <Compile Remove="Migrations\20210203090129_Update_Occcupation_JobTitle.cs" />
+    <Compile Remove="Migrations\20210203090129_Update_Occcupation_JobTitle.Designer.cs" />
+    <Compile Remove="Migrations\20210203101746_update.cs" />
+    <Compile Remove="Migrations\20210203101746_update.Designer.cs" />
+    <Compile Remove="Migrations\20210204025514_file-name.cs" />
+    <Compile Remove="Migrations\20210204025514_file-name.Designer.cs" />
+    <Compile Remove="Migrations\20210204031634_Update_4.cs" />
+    <Compile Remove="Migrations\20210204031634_Update_4.Designer.cs" />
+    <Compile Remove="Migrations\20210205083549_Update_profile.cs" />
+    <Compile Remove="Migrations\20210205083549_Update_profile.Designer.cs" />
+    <Compile Remove="Migrations\20210205085949_Update_lead.cs" />
+    <Compile Remove="Migrations\20210205085949_Update_lead.Designer.cs" />
+    <Compile Remove="Migrations\20210219064802_update_lead.cs" />
+    <Compile Remove="Migrations\20210219064802_update_lead.Designer.cs" />
+    <Compile Remove="Migrations\20210219081234_update_lead_table.cs" />
+    <Compile Remove="Migrations\20210219081234_update_lead_table.Designer.cs" />
+    <Compile Remove="Migrations\20210225081201_update_default_value_active.cs" />
+    <Compile Remove="Migrations\20210225081201_update_default_value_active.Designer.cs" />
+    <Compile Remove="Migrations\20210310030051_update_10_03_21.cs" />
+    <Compile Remove="Migrations\20210310030051_update_10_03_21.Designer.cs" />
+    <Compile Remove="Migrations\20210310030610_update_10_03_21.cs" />
+    <Compile Remove="Migrations\20210310030610_update_10_03_21.Designer.cs" />
+    <Compile Remove="Migrations\20210805163727_BigChangeTableMember-mot.cs" />
+    <Compile Remove="Migrations\20210805163727_BigChangeTableMember-mot.Designer.cs" />
+    <Compile Remove="Migrations\20210808154910_Create-Database.cs" />
+    <Compile Remove="Migrations\20210808154910_Create-Database.Designer.cs" />
+    <Compile Remove="Migrations\20210808174418_changeColumTableMember.cs" />
+    <Compile Remove="Migrations\20210808174418_changeColumTableMember.Designer.cs" />
+    <Compile Remove="Migrations\20210809141012_Add-Column-MemberTag.cs" />
+    <Compile Remove="Migrations\20210809141012_Add-Column-MemberTag.Designer.cs" />
+    <Compile Remove="Migrations\20210813084052_Create_database.cs" />
+    <Compile Remove="Migrations\20210813084052_Create_database.Designer.cs" />
+    <Compile Remove="Migrations\20210814084916_Update_AdditionalAddress.cs" />
+    <Compile Remove="Migrations\20210814084916_Update_AdditionalAddress.Designer.cs" />
+    <Compile Remove="Migrations\20210814085425_Update_AdditionalAddress.cs" />
+    <Compile Remove="Migrations\20210814085425_Update_AdditionalAddress.Designer.cs" />
+    <Compile Remove="Migrations\20210816022155_update_member.cs" />
+    <Compile Remove="Migrations\20210816022155_update_member.Designer.cs" />
+    <Compile Remove="Migrations\20210817033435_update-membertag-category.cs" />
+    <Compile Remove="Migrations\20210817033435_update-membertag-category.Designer.cs" />
+    <Compile Remove="Migrations\20210819020032_create_database.cs" />
+    <Compile Remove="Migrations\20210819020032_create_database.Designer.cs" />
+    <Compile Remove="Migrations\20210906171650_AddColumWalletTableMemberWallet.cs" />
+    <Compile Remove="Migrations\20210906171650_AddColumWalletTableMemberWallet.Designer.cs" />
+    <Compile Remove="Migrations\20210916144830_AddModels-Campaign.cs" />
+    <Compile Remove="Migrations\20210916144830_AddModels-Campaign.Designer.cs" />
+    <Compile Remove="Migrations\20210918024515_updateTableCampaign.cs" />
+    <Compile Remove="Migrations\20210918024515_updateTableCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210918100348_Update-MemberTag.cs" />
+    <Compile Remove="Migrations\20210918100348_Update-MemberTag.Designer.cs" />
+    <Compile Remove="Migrations\20210918152211_updateTableCampaigns.cs" />
+    <Compile Remove="Migrations\20210918152211_updateTableCampaigns.Designer.cs" />
+    <Compile Remove="Migrations\20210919064748_adding-template-to-voucher-.cs" />
+    <Compile Remove="Migrations\20210919064748_adding-template-to-voucher-.Designer.cs" />
+    <Compile Remove="Migrations\20210920122616_testCampaign.cs" />
+    <Compile Remove="Migrations\20210920122616_testCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210920135133_testCampaignAddCampaign.cs" />
+    <Compile Remove="Migrations\20210920135133_testCampaignAddCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210920140643_testCampaignAddCampaigns.cs" />
+    <Compile Remove="Migrations\20210920140643_testCampaignAddCampaigns.Designer.cs" />
+    <Compile Remove="Migrations\20210921030343_file-name.cs" />
+    <Compile Remove="Migrations\20210921030343_file-name.Designer.cs" />
+    <Compile Remove="Migrations\20210921031016_UpdateTableCampaignV2.cs" />
+    <Compile Remove="Migrations\20210921031016_UpdateTableCampaignV2.Designer.cs" />
+    <Compile Remove="Migrations\20210921034857_update_campaignV2.cs" />
+    <Compile Remove="Migrations\20210921034857_update_campaignV2.Designer.cs" />
+    <Compile Remove="Migrations\20210921071607_testCampaign.cs" />
+    <Compile Remove="Migrations\20210921071607_testCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20210921073510_testCampaigngggggg.cs" />
+    <Compile Remove="Migrations\20210921073510_testCampaigngggggg.Designer.cs" />
+    <Compile Remove="Migrations\20210921204553_update_campaingnV3.cs" />
+    <Compile Remove="Migrations\20210921204553_update_campaingnV3.Designer.cs" />
+    <Compile Remove="Migrations\20210922010025_update_campaingnV5.cs" />
+    <Compile Remove="Migrations\20210922010025_update_campaingnV5.Designer.cs" />
+    <Compile Remove="Migrations\20210923040345_update_campaingnV4.cs" />
+    <Compile Remove="Migrations\20210923040345_update_campaingnV4.Designer.cs" />
+    <Compile Remove="Migrations\20210928041920_update_tableCouponV1.cs" />
+    <Compile Remove="Migrations\20210928041920_update_tableCouponV1.Designer.cs" />
+    <Compile Remove="Migrations\20210928043911_update_tableCouponV2.cs" />
+    <Compile Remove="Migrations\20210928043911_update_tableCouponV2.Designer.cs" />
+    <Compile Remove="Migrations\20210928082106_update_tableCampaingnV5.cs" />
+    <Compile Remove="Migrations\20210928082106_update_tableCampaingnV5.Designer.cs" />
+    <Compile Remove="Migrations\20210928083032_update_tableCampaingnV6.cs" />
+    <Compile Remove="Migrations\20210928083032_update_tableCampaingnV6.Designer.cs" />
+    <Compile Remove="Migrations\20210928094141_update_tableCampaingn.cs" />
+    <Compile Remove="Migrations\20210928094141_update_tableCampaingn.Designer.cs" />
+    <Compile Remove="Migrations\20211005020444_Create_MemberGift.cs" />
+    <Compile Remove="Migrations\20211005020444_Create_MemberGift.Designer.cs" />
+    <Compile Remove="Migrations\20211005020607_Create_MemberGift.cs" />
+    <Compile Remove="Migrations\20211005020607_Create_MemberGift.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+<PrivateAssets>all</PrivateAssets>
+</PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.7" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
+    <PackageReference Include="Moment.js" Version="2.27.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ats.Data\Ats.Data.csproj" />
+    <ProjectReference Include="..\Ats.Security\Ats.Security.csproj" />
+  </ItemGroup>
+
+</Project>

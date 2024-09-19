@@ -1,0 +1,815 @@
+﻿'Ats.Web.exe' (CoreCLR: DefaultDomain): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Private.CoreLib.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Web.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Hosting.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Hosting.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.DependencyInjection.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.DependencyInjection.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Hosting.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.FileProviders.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Collections.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.EnvironmentVariables.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.Tasks.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.Extensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Linq.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.IO.FileSystem.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.CommandLine.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\netstandard.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Server.Kestrel.Core.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Server.Kestrel.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Server.IIS.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.InteropServices.RuntimeInformation.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Server.IISIntegration.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.ComponentModel.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Http.Features.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.DiagnosticSource.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Http.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Http.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.Core.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.FileProviders.Physical.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Memory.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.FileExtensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.Json.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.UserSecrets.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Configuration.Binder.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Private.Uri.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.InteropServices.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.IO.FileSystem.Watcher.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.ComponentModel.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Collections.Concurrent.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.FileSystemGlobbing.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.Timer.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.Overlapped.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\Microsoft.Win32.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Text.Json.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Text.Encoding.Extensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Buffers.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Numerics.Vectors.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.CompilerServices.Unsafe.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.Tracing.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Options.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.Configuration.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Options.ConfigurationExtensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.Console.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.Debug.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Logging.EventSource.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Connections.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.HostFiltering.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.HttpOverrides.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Routing.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.ObjectPool.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Routing.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.ObjectModel.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.Emit.Lightweight.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\AutoMapper.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Build.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Data.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.Tasks.Extensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Domain.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Identity.Stores.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Services.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Cors.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Security.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Models.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Localization.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.Localization.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.Razor.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.DataAnnotations.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Commons.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Linq.Expressions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Identity.Core.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Identity.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authentication.Cookies.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authentication.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authentication.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authentication.Core.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Claims.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.DataProtection.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.DataProtection.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Cryptography.Internal.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.WebEncoders.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Text.Encodings.Web.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Localization.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Text.RegularExpressions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.ComponentModel.Annotations.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.ViewFeatures.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Collections.Specialized.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Ats.Web.Views.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Razor.Runtime.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.ApiExplorer.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authorization.Policy.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Authorization.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.Cors.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Components.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.JSInterop.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Antiforgery.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Caching.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Extensions.Caching.Memory.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.TagHelpers.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Razor.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Mvc.RazorPages.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.Emit.ILGeneration.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Console.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.Thread.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\System.IO.Pipelines.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Threading.ThreadPool.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\log4net.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Diagnostics.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.HttpsPolicy.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.StaticFiles.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.CookiePolicy.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Localization.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.Net.Http.Headers.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Resources.ResourceManager.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.ComponentModel.TypeConverter.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Drawing.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Principal.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\Microsoft.Win32.Registry.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Xml.XDocument.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Private.Xml.Linq.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Private.Xml.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.Debug.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: Information: User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Collections.NonGeneric.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.Extensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.Serialization.Formatters.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.Serialization.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.IO.FileSystem.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.IO.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Xml.XmlDocument.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Xml.ReaderWriter.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Cryptography.Algorithms.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Text.Encoding.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.TypeExtensions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Globalization.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.TraceSource.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [rollingStyle] to set object on [log4net.Appender.FileAppender]
+log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [maxSizeRollBackups] to set object on [log4net.Appender.FileAppender]
+log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [maximumFileSize] to set object on [log4net.Appender.FileAppender]
+log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [staticLogFileName] to set object on [log4net.Appender.FileAppender]
+log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [staticLogFileSize] to set object on [log4net.Appender.FileAppender]
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Diagnostics.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Cryptography.X509Certificates.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Cryptography.Primitives.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.Sockets.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.NameResolution.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/  
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.Mail.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+The thread 0x41f8 has exited with code 0 (0x0).
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.Tools.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Metadata.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.Http.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Html.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'Anonymously Hosted DynamicMethods Assembly'. 
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Ats.Web.Controllers.HomeController (Ats.Web).
+Microsoft.AspNetCore.Authorization.DefaultAuthorizationService: Information: Authorization failed.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter'.
+Microsoft.AspNetCore.Mvc.ChallengeResult: Information: Executing ChallengeResult with authentication schemes ().
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.WebUtilities.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: Information: AuthenticationScheme: Identity.Application was challenged.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.HomeController.Index (Ats.Web) in 39.3994ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 10122.4293ms 302 
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Net.WebSockets.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Runtime.Intrinsics.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/Account/Login?ReturnUrl=%2F  
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String) on controller Ats.Web.Controllers.AccountController (Ats.Web).
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\MySqlConnector.dll'. Symbols loaded.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Data.Common.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Transactions.Local.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\Microsoft.CSharp.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executing ViewResult, running view Login.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Security.Cryptography.Csp.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\vi\Ats.Web.resources.dll'. Module was built without symbols.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executed ViewResult - view Login executed in 785.757ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.AccountController.Login (Ats.Web) in 1391.3143ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 1465.5139ms 200 text/html; charset=utf-8
+The thread 0x5600 has exited with code 0 (0x0).
+The thread 0x51c has exited with code 0 (0x0).
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 POST http://localhost:51115/Account/Login?ReturnUrl=%2F application/x-www-form-urlencoded 245
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(Ats.Security.Models.Account.LoginViewModel, System.String) on controller Ats.Web.Controllers.AccountController (Ats.Web).
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Linq.Queryable.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Collections.Immutable.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.Process.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (196ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.8\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (8ms) [Parameters=[@__user_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`ClaimType`, `u`.`ClaimValue`, `u`.`UserId`
+FROM `UserClaims` AS `u`
+WHERE `u`.`UserId` = @__user_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Name`
+FROM `UserRoles` AS `u`
+INNER JOIN `Roles` AS `r` ON `u`.`RoleId` = `r`.`Id`
+WHERE `u`.`UserId` = @__userId_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`ConcurrencyStamp`, `r`.`Name`, `r`.`NormalizedName`
+FROM `Roles` AS `r`
+WHERE `r`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`ClaimType`, `r`.`ClaimValue`
+FROM `RoleClaims` AS `r`
+WHERE `r`.`RoleId` = @__role_Id_0
+Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler: Information: AuthenticationScheme: Identity.Application signed in.
+Microsoft.AspNetCore.Mvc.Infrastructure.RedirectResultExecutor: Information: Executing RedirectResult, redirecting to /.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.AccountController.Login (Ats.Web) in 2868.2813ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 2904.4606ms 302 
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/  
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Ats.Web.Controllers.HomeController (Ats.Web).
+Microsoft.AspNetCore.Authorization.DefaultAuthorizationService: Information: Authorization was successful.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Diagnostics.StackTrace.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'D:\TigerNowProject\agn-worklinks\Ats.Web\bin\Debug\netcoreapp3.1\Castle.Core.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.8\System.Reflection.Emit.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'Ats.Web.exe' (CoreCLR: clrhost): Loaded 'DynamicProxyGenAssembly2'. 
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'SCDataContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: using lazy-loading proxies 
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `d`.`Id`, `d`.`AddedStamp`, `d`.`AddedUserId`, `d`.`ChangedStamp`, `d`.`ChangedUserId`, `d`.`DepartmentCode`, `d`.`DepartmentName`, `d`.`IsActive`, `d`.`ManagerId`, `d`.`Note`
+FROM `Departments` AS `d`
+WHERE `d`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`DateEnd`, `w`.`DateFrom`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`Tue`, `w`.`UserId`, `w`.`Wed`
+FROM `WorkingSchedules` AS `w`
+WHERE ((`w`.`UserId` = @__userId_0) AND (`w`.`DateFrom` <= UTC_TIMESTAMP())) AND (`w`.`DateEnd` IS NULL OR (`w`.`DateEnd` > UTC_TIMESTAMP()))
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__dateFrom_1='?' (DbType = DateTime), @__dateTo_2='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ActivityId`, `t`.`AddedStamp`, `t`.`AddedUserId`, `t`.`ApprovalId`, `t`.`ChangedStamp`, `t`.`ChangedUserId`, `t`.`DateFrom`, `t`.`DateTo`, `t`.`Hours`, `t`.`IsApproved`, `t`.`IsChargeable`, `t`.`IsOvertime`, `t`.`IsRemoteWork`, `t`.`IsSubmitted`, `t`.`Note`, `t`.`ProjectId`, `t`.`RoleId`, `t`.`TaskId`, `t`.`UserId`
+FROM `TimeLogs` AS `t`
+WHERE ((`t`.`UserId` = @__userId_0) AND (`t`.`DateFrom` >= @__dateFrom_1)) AND (`t`.`DateFrom` <= @__dateTo_2)
+ORDER BY `t`.`DateFrom`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `d`.`Id`, `d`.`AddedStamp`, `d`.`AddedUserId`, `d`.`ChangedStamp`, `d`.`ChangedUserId`, `d`.`DepartmentCode`, `d`.`DepartmentName`, `d`.`IsActive`, `d`.`ManagerId`, `d`.`Note`
+FROM `Departments` AS `d`
+WHERE `d`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`DateEnd`, `w`.`DateFrom`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`Tue`, `w`.`UserId`, `w`.`Wed`
+FROM `WorkingSchedules` AS `w`
+WHERE ((`w`.`UserId` = @__userId_0) AND (`w`.`DateFrom` <= UTC_TIMESTAMP())) AND (`w`.`DateEnd` IS NULL OR (`w`.`DateEnd` > UTC_TIMESTAMP()))
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__dateFrom_1='?' (DbType = DateTime), @__dateTo_2='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ActivityId`, `t`.`AddedStamp`, `t`.`AddedUserId`, `t`.`ApprovalId`, `t`.`ChangedStamp`, `t`.`ChangedUserId`, `t`.`DateFrom`, `t`.`DateTo`, `t`.`Hours`, `t`.`IsApproved`, `t`.`IsChargeable`, `t`.`IsOvertime`, `t`.`IsRemoteWork`, `t`.`IsSubmitted`, `t`.`Note`, `t`.`ProjectId`, `t`.`RoleId`, `t`.`TaskId`, `t`.`UserId`
+FROM `TimeLogs` AS `t`
+WHERE ((`t`.`UserId` = @__userId_0) AND (`t`.`DateFrom` >= @__dateFrom_1)) AND (`t`.`DateFrom` <= @__dateTo_2)
+ORDER BY `t`.`DateFrom`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `d`.`Id`, `d`.`AddedStamp`, `d`.`AddedUserId`, `d`.`ChangedStamp`, `d`.`ChangedUserId`, `d`.`DepartmentCode`, `d`.`DepartmentName`, `d`.`IsActive`, `d`.`ManagerId`, `d`.`Note`
+FROM `Departments` AS `d`
+WHERE `d`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`DateEnd`, `w`.`DateFrom`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`Tue`, `w`.`UserId`, `w`.`Wed`
+FROM `WorkingSchedules` AS `w`
+WHERE ((`w`.`UserId` = @__userId_0) AND (`w`.`DateFrom` <= UTC_TIMESTAMP())) AND (`w`.`DateEnd` IS NULL OR (`w`.`DateEnd` > UTC_TIMESTAMP()))
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__dateFrom_1='?' (DbType = DateTime), @__dateTo_2='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ActivityId`, `t`.`AddedStamp`, `t`.`AddedUserId`, `t`.`ApprovalId`, `t`.`ChangedStamp`, `t`.`ChangedUserId`, `t`.`DateFrom`, `t`.`DateTo`, `t`.`Hours`, `t`.`IsApproved`, `t`.`IsChargeable`, `t`.`IsOvertime`, `t`.`IsRemoteWork`, `t`.`IsSubmitted`, `t`.`Note`, `t`.`ProjectId`, `t`.`RoleId`, `t`.`TaskId`, `t`.`UserId`
+FROM `TimeLogs` AS `t`
+WHERE ((`t`.`UserId` = @__userId_0) AND (`t`.`DateFrom` >= @__dateFrom_1)) AND (`t`.`DateFrom` <= @__dateTo_2)
+ORDER BY `t`.`DateFrom`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `d`.`Id`, `d`.`AddedStamp`, `d`.`AddedUserId`, `d`.`ChangedStamp`, `d`.`ChangedUserId`, `d`.`DepartmentCode`, `d`.`DepartmentName`, `d`.`IsActive`, `d`.`ManagerId`, `d`.`Note`
+FROM `Departments` AS `d`
+WHERE `d`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`DateEnd`, `w`.`DateFrom`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`Tue`, `w`.`UserId`, `w`.`Wed`
+FROM `WorkingSchedules` AS `w`
+WHERE ((`w`.`UserId` = @__userId_0) AND (`w`.`DateFrom` <= UTC_TIMESTAMP())) AND (`w`.`DateEnd` IS NULL OR (`w`.`DateEnd` > UTC_TIMESTAMP()))
+LIMIT 1
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`Id` = @__p_0
+LIMIT 1
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executing ViewResult, running view Index.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executed ViewResult - view Index executed in 90.8909ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.HomeController.Index (Ats.Web) in 2950.0215ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 2974.4221ms 200 text/html; charset=utf-8
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/Users  
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Index", controller = "Users"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.Nullable`1[System.Int32]) on controller Ats.Web.Controllers.UsersController (Ats.Web).
+Microsoft.AspNetCore.Authorization.DefaultAuthorizationService: Information: Authorization was successful.
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'SCDataContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: using lazy-loading proxies 
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM `Users` AS `u`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`ActualHour`, `p`.`AddedStamp`, `p`.`AddedUserId`, `p`.`ChangedStamp`, `p`.`ChangedUserId`, `p`.`ClientId`, `p`.`EndDate`, `p`.`EstimationHour`, `p`.`IsActive`, `p`.`IsDefault`, `p`.`ManagerId`, `p`.`Note`, `p`.`ProjectCode`, `p`.`ProjectName`, `p`.`StartDate`
+FROM `Projects` AS `p`
+WHERE `p`.`ManagerId` IN ('a08d43b9-205d-4ea4-b1f4-0bc5e55c7056', '1a6c1ec1-2332-499a-aaf5-7a0c96d0315d', 'f5bf2e3a-3574-4db4-a441-651d830253cb', '7bcad3d0-b54c-4ede-9c0d-2e9e7f2e488d', 'a53ecfe9-94ee-49cd-a55e-22903435b83f')
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`ActualHour`, `p`.`AddedStamp`, `p`.`AddedUserId`, `p`.`ChangedStamp`, `p`.`ChangedUserId`, `p`.`ClientId`, `p`.`EndDate`, `p`.`EstimationHour`, `p`.`IsActive`, `p`.`IsDefault`, `p`.`ManagerId`, `p`.`Note`, `p`.`ProjectCode`, `p`.`ProjectName`, `p`.`StartDate`
+FROM `Projects` AS `p`
+WHERE `p`.`ManagerId` IN ('a08d43b9-205d-4ea4-b1f4-0bc5e55c7056', '1a6c1ec1-2332-499a-aaf5-7a0c96d0315d', 'f5bf2e3a-3574-4db4-a441-651d830253cb', '7bcad3d0-b54c-4ede-9c0d-2e9e7f2e488d', 'a53ecfe9-94ee-49cd-a55e-22903435b83f')
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`ActualHour`, `p`.`AddedStamp`, `p`.`AddedUserId`, `p`.`ChangedStamp`, `p`.`ChangedUserId`, `p`.`ClientId`, `p`.`EndDate`, `p`.`EstimationHour`, `p`.`IsActive`, `p`.`IsDefault`, `p`.`ManagerId`, `p`.`Note`, `p`.`ProjectCode`, `p`.`ProjectName`, `p`.`StartDate`
+FROM `Projects` AS `p`
+WHERE `p`.`ManagerId` IN ('a08d43b9-205d-4ea4-b1f4-0bc5e55c7056', '1a6c1ec1-2332-499a-aaf5-7a0c96d0315d', 'f5bf2e3a-3574-4db4-a441-651d830253cb', '7bcad3d0-b54c-4ede-9c0d-2e9e7f2e488d', 'a53ecfe9-94ee-49cd-a55e-22903435b83f')
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`ActualHour`, `p`.`AddedStamp`, `p`.`AddedUserId`, `p`.`ChangedStamp`, `p`.`ChangedUserId`, `p`.`ClientId`, `p`.`EndDate`, `p`.`EstimationHour`, `p`.`IsActive`, `p`.`IsDefault`, `p`.`ManagerId`, `p`.`Note`, `p`.`ProjectCode`, `p`.`ProjectName`, `p`.`StartDate`
+FROM `Projects` AS `p`
+WHERE `p`.`ManagerId` IN ('a08d43b9-205d-4ea4-b1f4-0bc5e55c7056', '1a6c1ec1-2332-499a-aaf5-7a0c96d0315d', 'f5bf2e3a-3574-4db4-a441-651d830253cb', '7bcad3d0-b54c-4ede-9c0d-2e9e7f2e488d', 'a53ecfe9-94ee-49cd-a55e-22903435b83f')
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`ActualHour`, `p`.`AddedStamp`, `p`.`AddedUserId`, `p`.`ChangedStamp`, `p`.`ChangedUserId`, `p`.`ClientId`, `p`.`EndDate`, `p`.`EstimationHour`, `p`.`IsActive`, `p`.`IsDefault`, `p`.`ManagerId`, `p`.`Note`, `p`.`ProjectCode`, `p`.`ProjectName`, `p`.`StartDate`
+FROM `Projects` AS `p`
+WHERE `p`.`ManagerId` IN ('a08d43b9-205d-4ea4-b1f4-0bc5e55c7056', '1a6c1ec1-2332-499a-aaf5-7a0c96d0315d', 'f5bf2e3a-3574-4db4-a441-651d830253cb', '7bcad3d0-b54c-4ede-9c0d-2e9e7f2e488d', 'a53ecfe9-94ee-49cd-a55e-22903435b83f')
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`Id` = @__p_0
+LIMIT 1
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executing ViewResult, running view Index.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executed ViewResult - view Index executed in 57.6183ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.UsersController.Index (Ats.Web) in 483.1342ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 503.4782ms 200 text/html; charset=utf-8
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/Users/Edit/a53ecfe9-94ee-49cd-a55e-22903435b83f  
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "Edit", controller = "Users"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.Guid) on controller Ats.Web.Controllers.UsersController (Ats.Web).
+Microsoft.AspNetCore.Authorization.DefaultAuthorizationService: Information: Authorization was successful.
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'SCDataContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: using lazy-loading proxies 
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Id`, `r`.`Description`, `r`.`Name`
+FROM `RoleGroups` AS `r`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`GroupId`, `u`.`UserId`
+FROM `UserGroups` AS `u`
+WHERE `u`.`UserId` = @__p_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`AdditionalEmail`, `p`.`AdditionalPhone`, `p`.`Address`, `p`.`Avatar`, `p`.`AvatarUrl`, `p`.`Code`, `p`.`CountryCode`, `p`.`DOB`, `p`.`Gender`, `p`.`IsDeleted`, `p`.`IsFulltime`, `p`.`JoiningDate`, `p`.`Lang`, `p`.`ProbationDate`, `p`.`ProfileType`, `p`.`ResignationDate`, `p`.`Skype`, `p`.`StartDate`, `p`.`TimezoneCode`, `p`.`Title`, `p`.`UserId`
+FROM `Profiles` AS `p`
+WHERE `p`.`UserId` = @__p_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`DateEnd`, `w`.`DateFrom`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`Tue`, `w`.`UserId`, `w`.`Wed`
+FROM `WorkingSchedules` AS `w`
+WHERE ((`w`.`UserId` = @__userId_0) AND (`w`.`DateFrom` <= UTC_TIMESTAMP())) AND (`w`.`DateEnd` IS NULL OR (`w`.`DateEnd` > UTC_TIMESTAMP()))
+LIMIT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `r`.`Name`
+FROM `Users` AS `u`
+INNER JOIN `UserRoles` AS `u0` ON `u`.`Id` = `u0`.`UserId`
+INNER JOIN `Roles` AS `r` ON `u0`.`RoleId` = `r`.`Id`
+WHERE `u`.`Id` = @__userId_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`UserId`, `u`.`LeaveTypeId`, `u`.`DateFrom`, `u`.`DateEnd`, `u`.`DayPerYear`
+FROM `UserLeaveSettings` AS `u`
+WHERE `u`.`UserId` = @__userId_0
+ORDER BY `u`.`DayPerYear`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`UserId`, `w`.`WorkShiftId`, `w`.`StartDate` AS `DateFrom`, `w`.`EndDate` AS `DateEnd`
+FROM `WorkShiftUsers` AS `w`
+WHERE `w`.`UserId` = @__userId_0
+ORDER BY `w`.`StartDate`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`AddedStamp`, `w`.`AddedUserId`, `w`.`ChangedStamp`, `w`.`ChangedUserId`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`TimeBreak`, `w`.`TimeBreakEnd`, `w`.`TimeBreakFrom`, `w`.`Title`, `w`.`Tue`, `w`.`ValidDateEnd`, `w`.`ValidDateFrom`, `w`.`Wed`, `w`.`WorkingTimeEnd`, `w`.`WorkingTimeFrom`, `w`.`isActive`
+FROM `WorkShifts` AS `w`
+WHERE `w`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`Id` = @__p_0
+LIMIT 1
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executing ViewResult, running view Edit.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executed ViewResult - view Edit executed in 154.9867ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.UsersController.Edit (Ats.Web) in 539.0245ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 575.1013ms 200 text/html; charset=utf-8
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/1.1 GET http://localhost:51115/Users/AddWorkShiftUser?uid=a53ecfe9-94ee-49cd-a55e-22903435b83f&WorkSheftUserId=21408a2f-bfc2-4234-8f4b-078550bd3375  
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "AddWorkShiftUser", controller = "Users"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddWorkShiftUser(System.Guid, System.Nullable`1[System.Guid]) on controller Ats.Web.Controllers.UsersController (Ats.Web).
+Microsoft.AspNetCore.Authorization.DefaultAuthorizationService: Information: Authorization was successful.
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'SCDataContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: using lazy-loading proxies 
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`AddedStamp`, `w`.`AddedUserId`, `w`.`ChangedStamp`, `w`.`ChangedUserId`, `w`.`Fri`, `w`.`IsExcludeHoliday`, `w`.`Mon`, `w`.`Sat`, `w`.`Sun`, `w`.`Thu`, `w`.`TimeBreak`, `w`.`TimeBreakEnd`, `w`.`TimeBreakFrom`, `w`.`Title`, `w`.`Tue`, `w`.`ValidDateEnd`, `w`.`ValidDateFrom`, `w`.`Wed`, `w`.`WorkingTimeEnd`, `w`.`WorkingTimeFrom`, `w`.`isActive`
+FROM `WorkShifts` AS `w`
+WHERE `w`.`isActive`
+ORDER BY `w`.`Title`
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `w`.`Id`, `w`.`AddedStamp`, `w`.`AddedUserId`, `w`.`ChangedStamp`, `w`.`ChangedUserId`, `w`.`EndDate`, `w`.`StartDate`, `w`.`UserId`, `w`.`WorkShiftId`
+FROM `WorkShiftUsers` AS `w`
+WHERE `w`.`Id` = @__p_0
+LIMIT 1
+Microsoft.EntityFrameworkCore.Infrastructure: Information: Entity Framework Core 3.1.7 initialized 'ApplicationDbContext' using provider 'Pomelo.EntityFrameworkCore.MySql' with options: None
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`ConcurrencyStamp`, `u`.`CountryCode`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`FirstName`, `u`.`IsActive`, `u`.`Lang`, `u`.`LastName`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`PhotoUrl`, `u`.`SecurityStamp`, `u`.`TimezoneCode`, `u`.`Title`, `u`.`TwoFactorEnabled`, `u`.`UserCode`, `u`.`UserName`
+FROM `Users` AS `u`
+WHERE `u`.`Id` = @__p_0
+LIMIT 1
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executing ViewResult, running view AddWorkShiftUser.
+Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor: Information: Executed ViewResult - view AddWorkShiftUser executed in 61.7185ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action Ats.Web.Controllers.UsersController.AddWorkShiftUser (Ats.Web) in 183.0251ms
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 200.573ms 200 text/html; charset=utf-8
+The program '[17860] Ats.Web.exe' has exited with code -1 (0xffffffff).

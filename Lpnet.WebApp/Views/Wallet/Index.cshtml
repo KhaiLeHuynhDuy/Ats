@@ -1,0 +1,262 @@
+﻿@model Ats.Models.Account.WalletSearchViewModel;
+@using Ats.Commons.Utilities;
+@using Lpnet.WebApp.Resources
+
+@{
+    ViewBag.Title = "Wallet | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = "false", Text = "Female" }, new SelectListItem() { Value = "true", Text = "Male" } }, "Value", "Text");
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList occupations = ViewBag.Occupations;
+
+    SelectList addresses1 = ViewBag.Addresses1;
+    SelectList addresses2 = ViewBag.Addresses2;
+
+    SelectList loanProducts = ViewBag.LoanProducts;
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_wallet</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Panda Loyalty</a></li>
+                        @*<li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_wallet</a></li>*@
+                        <li class="breadcrumb-item active">@Resource.Common_label_wallet</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                        </button>
+                        <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#transferModal">
+                            <i class="fas fa-exchange-alt"></i> @Resource.Common_label_transfer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- create new modal -->
+                <div id="createNewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Create", "Wallet", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtFirstName" class="col-lg-3 col-form-label text-danger text-left">@Resource.Common_label_username</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Wallet.UserName, new { placeholder = "", @class = "form-control", id = "txtUsername", name = "txtUsername", required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- transfer modal -->
+                <div id="transferModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Transfer", "Wallet", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="transferModalLabel"> @Resource.Common_label_transfer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtFromWallet" class="col-lg-3 col-form-label text-danger text-left">@Resource.Common_label_from</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Transfer.EmailFrom, new { placeholder = "", @class = "form-control", id = "txtFromWallet", name = "txtFromWallet", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="txtFromWallet" class="col-lg-3 col-form-label text-danger text-left">@Resource.Common_label_to</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Transfer.EmailTo, new { placeholder = "", @class = "form-control", id = "txtFromWallet", name = "txtFromWallet", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="txtFromWallet" class="col-lg-3 col-form-label text-danger text-left">@Resource.Common_label_amount</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Transfer.Amount, new { placeholder = "", @class = "form-control", id = "txtFromWallet", name = "txtFromWallet", required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_transfer</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Search", "Wallet", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <label for="example-search-input" class="col-sm-1 col-form-label">@Resource.Common_label_search</label>
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "", @class = "form-control", id = "org-search-input" })
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        @Resource.Common_label_name <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_surname <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th width="1%"></th>
+                                    <th>
+                                        @Resource.Common_label_email<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "email", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_balance<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "amount", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_createAt <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "dob", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_lastupdate <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "dob", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Wallets)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            <input id="ckCheckLead" type="checkbox" value="false" name="CheckLead" />
+                                            <input type="hidden" value="false" name="CheckLead" />
+                                        </td>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        @*<td>@{if (item.Gender) @Html.Raw("Male") else @Html.Raw("Female") }</td>*@
+                                        <td>@{ if (item.IsActive) @Html.Raw("<i class='far fa-grin text-success'></i>") else @Html.Raw("<i class='far fa-grimace text-dark'></i>")}</td>
+                                        <td>
+                                            @item.Email
+                                        </td>
+                                        <td class="text-right">@item.Balance.ToString("#,###")</td>
+                                        <td class="text-right">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-right">@item.LastUpdate.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-right">
+                                            <div>
+                                                @*<a href="@Url.Action("Profile", "Lead", new { id = "123456" })" class="btn btn-primary btn-sm"><i class="mdi mdi-eye"></i></a>*@
+                                                <a href="@Url.Action("Wallet", "Wallet", new { id = item.Id })" class="btn btn-outline-warning"><i class="mdi mdi-folder-open-outline"></i></a>
+                                                <a href="@Url.Action("Delete", "Wallet", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-danger"><i class="mdi mdi-delete"></i></a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <!-- Required datatable js -->
+    <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/assets/js/pages/datatables.init.js"></script>
+}

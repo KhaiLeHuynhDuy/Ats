@@ -1,0 +1,64 @@
+﻿@model Ats.Models.Product.ProductAttributeModel;
+@using Lpnet.WebApp.Resources
+@{
+    SelectList dataType = ViewBag.DataType;
+}
+@using (Html.BeginForm("EditProductAttribute", "Product", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="modal-header">
+        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="form-group">
+                <label>@Resource.Common_label_productProperty</label>
+                <div>
+                    @Html.TextBoxFor(m => m.ProductPropertyName, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                </div>
+            </div>
+            <input type="hidden" name="productId" value="@Model.ProductId" />
+            <div class="form-group">
+                <label>@Resource.Common_label_dataType</label>
+                <div>
+                    @Html.DropDownListFor(m => m.DataType, dataType, new { @class = "form-control", required = "required", id = "ddlDataTypeEdit", onchange = "OnChangeDDLDataType()" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>@Resource.Common_label_value</label>
+                <div id="divEditValue">
+                    <input type='text' name='value' id='inputEditValue' class='form-control' value='@Model.Value' required />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+    </div>
+}
+
+<script type="text/javascript">
+    function OnChangeDDLDataType() {
+        var value = $("#ddlDataTypeEdit").val();
+        var strValue = "";
+        if (value === "0") {
+            $("#inputEditValue").remove();
+            strValue += "<div id='inputEditValue'><input type='text' name='value' class='form-control' value='@Model.Value' required/></div>";
+            $("#divEditValue").append(strValue);
+        } else if (value === "1") {
+            $("#inputEditValue").remove();
+            strValue += "<div id='inputEditValue'><input type='number' name='value' class='form-control' value='@Model.Value' required/></div>";
+            $("#divEditValue").append(strValue);
+        } else if (value === "2") {
+            $("#inputEditValue").remove();
+            strValue += "<div id='inputEditValue'><select id='ddlValueTypeBool' name='value' class='form-control'>"
+                + "<option selected='selected' value='Yes'>@Resource.Common_label_yes</option>"
+                + "<option value='No'>@Resource.Common_label_no</option></select></div>";
+            $("#divEditValue").append(strValue);
+        } 
+    }
+</script>

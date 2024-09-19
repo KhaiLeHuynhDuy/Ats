@@ -1,0 +1,201 @@
+﻿@model Ats.Models.Loyalty.LoyaltySearchViewModel;
+@using Lpnet.WebApp.Resources
+@{ ViewBag.Title = "Data Table | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section styles{
+
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+}
+
+@{
+    SelectList listStore = ViewBag.Store;
+    SelectList listLoyaltyPointRule = ViewBag.LoyaltyPointRule;
+    SelectList listProduct = ViewBag.Products;
+    SelectList listChannel = ViewBag.Channel;
+    SelectList listCategory = ViewBag.ProductCategories;
+    SelectList listBrand = ViewBag.Brands;
+
+    //SelectList Store = ViewBag.ListStore;
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("EditPointRule", "Loyalty", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">Point Rule Custome</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Loyalty</a></li>
+                            <li class="breadcrumb-item active">Edit Point Rule</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.LoyaltyPointRule.Id)
+
+
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 text-left mt-1"><a class="text-danger">*</a>@Resource.Common_label_rulename:</label>
+                                    <div class="col-lg-7">
+                                        @Html.TextBoxFor(m => m.LoyaltyPointRule.RuleName, new { placeholder = "", @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_redemptionRate:</label>
+                                    <div class="col-lg-7">
+                                        @Html.TextBoxFor(m => m.LoyaltyPointRule.RedemptionRate, new { @class = "form-control", })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_earningRate:</label>
+                                    <div class="col-lg-7">
+                                        @Html.TextBoxFor(m => m.LoyaltyPointRule.EarningRate, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  mt-1  specificDate ">
+                                <!-- Specific Date-->
+                                <div class="form-group row ">
+                                    <label class="col-lg-2  text-left"><a class="text-danger">*</a>@Resource.Common_label_validityperiot :</label>
+                                    <div class="col-lg-7">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.EffectiveFrom, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateBegin", type = "date", name = "effectiveDateBegin" })
+                                            </div>
+                                            <div class="col-2 mt-1 text-center"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                            <div class="col-5">
+                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.EffectiveTo, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateEnd", type = "date", name = "effectiveDateEnd" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_active:</label>
+                                    <div class="col-lg-6">
+                                        @Html.CheckBoxFor(m => m.LoyaltyPointRule.Valid, new { @class = "form-group", id = "ckbActive" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1">
+                                <label for="" class="text-left"><a class="text-danger">*</a>@Resource.Common_label_remark:</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "", @class = "form-control" })
+                            </div>
+
+
+                            <div class="row mt-2 ml-1">
+                                <button type="button" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2"> <a href="@Url.Action("PointRule","Loyalty")" class="text-white">@Resource.Common_label_cancel</a></button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>}
+
+        <!--Point Rule Stores-->
+        <partial name="~/Views/Loyalty/ViewItemStore.cshtml" />
+        <!--End Point Rule Store-->
+        <!-- Point Rule Products-->
+        <partial name="~/Views/Loyalty/ViewItemProduct.cshtml" />
+        <!--End Point RuleProduct-->
+        <!--Point Rule Channel-->
+        <partial name="~/Views/Loyalty/ViewItemChannel.cshtml" />
+        <!--End Point Rule Channel-->
+        <!--Point Rule Brand-->
+        <partial name="~/Views/Loyalty/ViewItemBrand.cshtml" />
+        <!--End Point Rule Brand-->
+        <!--Point Rule Category-->
+        <partial name="~/Views/Loyalty/ViewItemCatrgory.cshtml" />
+        <!--End Point Rule Category -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/assets/libs/parsleyjs/parsley.min.js"></script>
+    <script src="~/assets/libs/bootstrap-editable/js/index.js"></script>
+    <script src="~/assets/js/pages/form-validation.init.js"></script>
+    <script>
+
+
+        $("input[name='RedemptionRate']").TouchSpin({
+            min: 0,
+            max: 100000,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+
+
+        $("input[name='EarningRate']").TouchSpin({
+            min: 0,
+            max: 100000,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+    </script>
+
+
+
+}
+

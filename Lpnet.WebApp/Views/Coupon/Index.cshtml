@@ -1,0 +1,297 @@
+﻿@model Ats.Models.Coupon.CouponSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Coupon_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+<link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+<link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+
+}
+@{
+    SelectList couponCategories = ViewBag.CouponCategories;
+    SelectList channelCategories = ViewBag.ChannelCategories;
+    SelectList storeCategories = ViewBag.StoreCategories;
+
+    SelectList Expiry_Coupon = ViewBag.Expiry_Coupon;
+
+
+    SelectList ExpiredCoupon = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = "-- Select --" },
+        new SelectListItem() { Value = "1", Text = "Expired" },
+        new SelectListItem() { Value = "2", Text = "Out of Date" },
+}, "Value", "Text");
+
+    SelectList CouponType = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = null, Text = "-- Select --" },
+        new SelectListItem() { Value = "true", Text = "Cash" },
+        new SelectListItem() { Value = "false", Text = "Amount" },
+}, "Value", "Text");
+    SelectList ValidityPreiot = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "true", Text = "Relative Date" },
+        new SelectListItem() { Value = "false", Text = "Specific Date" },
+}, "Value", "Text");
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_coupon</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Campaign")">@Resource.Common_label_campaign</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action("Index", "Coupon")">@Resource.Sidebar_configurations_coupon</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-6" data-toggle=" " data-target=" " aria-expanded=" " aria-controls=" ">
+                    </div>
+                    <div class="col-6 mt-2">
+                        <div class=" text-center float-right">
+                            @*<button class="btn btn-outline-info waves-effect waves-light ml-1 " type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                <a href="@Url.Action("Create", "Coupon")" class="text-dark"><i class="mdi mdi-plus"></i>@Resource.Common_label_addCoupon</a>
+                                </button>*@
+                            <div class="col-sm-12">
+                                <button class="btn btn-outline-info float-right text-dark" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                    <a href="@Url.Action("Create", "Coupon")" class="text-dark"><i class="mdi mdi-plus"></i>@Resource.Common_label_create @Resource.Sidebar_configurations_coupon</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "Coupon", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the name code Coupon ", @class = "form-control", id = "occupation-search-input" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="btnSearch" name="search" value="search" class="btn  btn-block btn-primary" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-magnify mr-2"></i>@Resource.Common_label_search
+                                        </button>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mt-0"><button class="btn btn-primary btn-block waves-effect waves-light" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample"><i class="fas fa-search"></i>&nbsp;@Resource.Common_label_searchAdvanced</button></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row collapse" id="collapseExample">
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 1 -->
+                                <div class="row form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for="txtMemberCode" class="col-lg-3  l text-right">@Resource.Common_label_coupontype</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.couponType, CouponType, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for="txtMemberCode" class="col-lg-3  l text-right">@Resource.Common_label_channel</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.ChannelID, channelCategories, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 2 -->
+                                <div class="row  form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <label lass="col-form-label text-right">@Resource.Common_label_effectivedatebegin</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.fromEffectiveDateBegin, new { placeholder = "", @class = "form-control", type = "date", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                                <div class="col-1 mt-2 text-center">
+                                                    <a class="ml-2"><i class="fas fa-arrow-right"></i> </a>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.toEffectiveDateBegin, new { placeholder = "", @class = "form-control", type = "date", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <label class="col-lg-3 col-form-label text-right">@Resource.Common_label_effectivedateend</label>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.fromEffectiveDateEnd, new { placeholder = "", @class = "form-control", type = "date", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                                <div class="col-1 mt-2 text-center"><a class="ml-2"><i class="fas fa-arrow-right"></i></a></div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.toEffectiveDateEnd, new { placeholder = "", @class = "form-control", type = "date", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 3 -->
+                                <div class="row  form-group">
+                                        <div class=" col-lg-6">
+                                            <div class="  row">
+                                                <label for="txtMemberCode" class="col-lg-3 col-form-label text-right">@Resource.Common_label_expirycoupon</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.expiryCoupon, Expiry_Coupon, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 ">
+                                            <div class="  row">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-0">
+                                    <!-- Advanced Search Row Button 4 -->
+                                <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button runat="server" type="submit" class="btn btn-outline-info btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_reset</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button type="submit" id="btnSearch1" name="search" value="search" class=" btn btn-primary btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_search</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="dtHorizontalVerticalExample mt-2" style="overflow: auto hidden">
+                            <table id="dtHorizontalVerticalExample" class="table table-bordered table-hover dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th> <input type="checkbox" id="checked" /></th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_couponcode<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "couponcode", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_couponname<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "couponname", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_coupontype<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "type", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+
+                                        <th class="text-left">
+                                            @Resource.Common_label_effectiveBegin <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "effectivedatebegin", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_effectiveEnd <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "effectivedateend", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+
+                                        <th class="text-left">
+                                            @*@Resource.Common_label_operation*@ <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "operation", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"> </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Coupons)
+                                    {
+                                        <tr>
+                                            <td class="text-left"><input type="checkbox" id="checkedvalue" /></td>
+                                            <td class="text-left">@item.CouponCode</td>
+                                            <td class="text-left">@item.CouponName</td>
+                                            <td class="text-left">
+                                                @if (item.CouponType != false)
+                                                {
+                                                    <a>Cash</a>
+                                                }
+                                                else
+                                                {
+                                                    <a>Amount</a>
+                                                }
+                                            </td>
+                                            @if (item.ValidityPeriodType == true)
+                                            {
+                                                <td class="text-left">@item.AfterReceptionDay   @Resource.Common_label_dayafterreception</td>
+                                                <td class="text-left">@item.AfterEffectiveDay   @Resource.Common_label_afteractivation</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-left">@item.EffectualDateBegin</td>
+                                                <td class="text-left">@item.EffectualDateEnd</td>
+                                            }
+
+                                            <td class="text-right">
+                                                <div>
+                                                    <a href=" @Url.Action("Detail", "Coupon", new { id = item.Id })" class="btn btn-outline-primary"><i class="far fa-eye"></i></a>
+
+                                                    <a href=" @Url.Action("Edit", "Coupon", new { id = item.Id })" class="btn btn-outline-warning"><i class="mdi mdi-folder-open-outline"></i></a>
+
+                                                    <a href="@Url.Action("Delete", "Coupon", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-danger"><i class="mdi mdi-delete"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <p style="float:left; width: 79px;">
+                                @{
+                                    List<SelectListItem> lstPages = new List<SelectListItem>();
+                                    lstPages.Add(new SelectListItem() { Value = "10", Text = "10" });
+                                    lstPages.Add(new SelectListItem() { Value = "20", Text = "20" });
+                                    lstPages.Add(new SelectListItem() { Value = "30", Text = "30" });
+                                    lstPages.Add(new SelectListItem() { Value = "50", Text = "50" });
+                                    lstPages.Add(new SelectListItem() { Value = "100", Text = "100" });
+
+                                }
+                                @Html.DropDownListFor(m => m.Pager.Size, lstPages, new { @class = "form-control", id = "ddlPaging" })
+                            </p>
+                            <p class=" float-right">
+                                <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->

@@ -1,0 +1,122 @@
+﻿@model Ats.Models.Product.ProductCollectionViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Create Product Collection | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section styles{
+
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Create", "ProductCollection", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_productCollection</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Campaign")">@Resource.Common_label_campaign</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "ProductCollection")">@Resource.Common_label_productCollection</a></li>
+                            <li class="breadcrumb-item active"><a href="@Url.Action("Create", "ProductCollection")">@Resource.Common_label_create</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            <div class="row  ">
+                                <div class="col-md-12 mt-1 ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_collectionname :</label>
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.Name, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-md-12 mt-1 specificDate ">
+                                    <!-- Specific Date-->
+                                    <div class="form-group row ">
+                                        <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_validityperiot :</label>
+                                        <div class="col-lg-10 buttons_added">
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    @Html.TextBoxFor(m => m.EffectiveDateBegin, new { placeholder = "", @class = "form-control", id = "effectiveDateBegin", type = "date", name = "effectiveDateBegin" })
+                                                </div>
+                                                <div class="col-2 mt-1 text-center"><a class="ml-2"><i class="fas fa-arrow-right"></i></a></div>
+                                                <div class="col-lg-5">
+                                                    @Html.TextBoxFor(m => m.EffectiveDateEnd, new { placeholder = "", @class = "form-control", id = "effectiveDateEnd", type = "date", name = "effectiveDateEnd" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="row mt-2 ml-1">
+                                 <a href="@Url.Action("Index", "ProductCollection")" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2 text-white">@Resource.Common_label_cancel</a>
+                                @*<button href="@Url.Action("Index", "ProductCollection")" type="button" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2"> <a href="@Url.Action("Index", "ProductCollection")" class="text-white">@Resource.Common_label_cancel</a></button>*@
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+   
+}

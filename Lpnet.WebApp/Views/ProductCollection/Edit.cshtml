@@ -1,0 +1,263 @@
+﻿@model Ats.Models.Product.ProductCollectionSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Edit Product Collection | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+}
+
+@section styles{
+
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Edit", "ProductCollection", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ProductCollection.Id)
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_productCollection</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Campaign")">@Resource.Common_label_campaign</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "ProductCollection")">@Resource.Common_label_productCollection</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript: void(0);">@Resource.Common_label_edit</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            <div class="row  ">
+                                <div class="col-md-12 mt-1 ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_productCollectionName :</label>
+                                        <div class="col-lg-10">
+                                            @Html.TextBoxFor(m => m.ProductCollection.Name, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-md-12 mt-1 specificDate ">
+                                    <!-- Specific Date-->
+                                    <div class="form-group row ">
+                                        <label class="col-lg-2 col-form-label text-left">@Resource.Common_label_validityperiot :</label>
+                                        <div class="col-lg-10 buttons_added">
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    @Html.TextBoxFor(m => m.ProductCollection.EffectiveDateBegin, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateBegin", type = "date", name = "effectiveDateBegin" })
+                                                </div>
+                                                <div class="col-2 mt-1 text-center"><a class="ml-2"><i class="fas fa-arrow-right"></i></a></div>
+                                                <div class="col-lg-5">
+                                                    @Html.TextBoxFor(m => m.ProductCollection.EffectiveDateEnd, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateEnd", type = "date", name = "effectiveDateEnd" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="col-lg-2 col-form-label text-left">Active :</label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class="form-group mt-2">
+                                                        @Html.CheckBoxFor(m => m.ProductCollection.IsActive, new { @class = "form-group", id = "edit-active" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2 ml-1">
+                                @*<button type="button" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2"> <a href="@Url.Action("Index", "ProductCollection")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a></button>*@
+                                <a href="@Url.Action("Index", "ProductCollection")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--<div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        <div class="float-right d-none d-md-block">
+                            <div class=" text-center">
+                                <button class="btn btn-primary waves-effect waves-light" type="button">
+                                    <i class="mdi mdi-plus"></i>  <a href="@Url.Action("AddProduct", "ProductCollection", new { idcollection = Model.ProductCollection.Id})" class="text-white">@Resource.Commom_label_addProduct</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        <!-- end col -->
+        <!--</div>--> <!-- end row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("SearchProduct", "ProductCollection", new { id = Model.ProductCollection.Id, role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the name Collection ", @class = "form-control", id = "occupation-search-input" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" id="btnSearch" name="search" value="search" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-magnify mr-2"></i>@Resource.Common_label_search
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <div class="float-right">
+                                        <button class="btn btn-primary waves-effect waves-light" type="button">
+                                            <i class="mdi mdi-plus"></i>  <a href="@Url.Action("AddProduct", "ProductCollection", new { idcollection = Model.ProductCollection.Id})" class="text-white">@Resource.Commom_label_addProduct</a>
+                                        </button>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div> <!-- end row -->
+                        }
+
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    @*<th class="text-left"> Collect Name </th>*@
+                                    <th class="text-left">
+                                        @Resource.Common_label_productname
+                                        <a href="@Url.Action("Edit","ProductCollection", new {id = Model.ProductCollection.Id, search = Model.Pager.Search, field = "productname", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left"> 
+                                    @Resource.Common_label_price
+                                        <a href="@Url.Action("Edit","ProductCollection", new {id = Model.ProductCollection.Id, search = Model.Pager.Search, field = "price", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left"> 
+                                    @Resource.Common_label_stock
+                                        <a href="@Url.Action("Edit","ProductCollection", new {id = Model.ProductCollection.Id, search = Model.Pager.Search, field = "stock", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                    @Resource.Common_label_displayOrder
+                                        <a href="@Url.Action("Edit","ProductCollection", new {id = Model.ProductCollection.Id, search = Model.Pager.Search, field = "displayorder", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left"> 
+                                    @Resource.Common_label_active
+                                        <a href="@Url.Action("Edit","ProductCollection", new {id = Model.ProductCollection.Id, search = Model.Pager.Search, field = "active", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+
+                                    <th class="text-left"> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.ProductCollectionItems)
+                                {
+                                    <tr>
+                                        @using (Html.BeginForm("AddItem", "ProductCollection", new { role = "form", id = @item.Id }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(model => model.ProductCollection.Id)
+                                            @Html.HiddenFor(model => model.ProductCollectionItem.Id)
+
+
+                                            @*<td class="text-left">@item.ProductCollection.Name</td>*@
+                                            <td class="text-left">@item.ProductName</td>
+
+                                            <td class="text-left">@item.Price</td>
+
+                                            <td class="text-left">@item.Stock</td>
+                                            <td class="text-left">@item.DisplayOrder</td>
+                                            <td class="text-left">@item.IsActive</td>
+                                            @*<td class="text-left">@item.Remark</td>*@
+
+                                            <td class="text-center">
+                                                <div class="">
+                                                    <button type="button" data-id="@item.Id" class="btn btn-outline-warning" aria-haspopup="true" aria-expanded="false">
+                                                        <a href=" @Url.Action("AddProduct", "ProductCollection", new { idcollection = Model.ProductCollection.Id ,iditem = item.Id })" class="text-warning"><i class="mdi mdi-folder-open-outline"></i></a>
+                                                    </button>
+                                                    <a href="@Url.Action("Delete", "ProductCollection", new { id = Model.ProductCollection.Id, iditem = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn  btn-outline-danger">
+                                                        <i class="mdi mdi-delete"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                    </p>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+
+}

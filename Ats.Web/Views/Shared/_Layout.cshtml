@@ -1,0 +1,289 @@
+﻿@using Ats.Web.Resources
+@using Ats.Domain.Identity.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TigerNow - @ViewBag.Title</title>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <!-- daterange picker -->
+        //<link rel="stylesheet" href="/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+        <!-- bootstrap clockpicker -->
+        <link rel="stylesheet" href="/assets/bower_components/bootstrap-clockpicker/dist/bootstrap-clockpicker.css">
+        <!-- css custom ATS -->
+        <link rel="stylesheet" href="/assets/css/custom.css">
+        <script src="/assets/js/jquery-3.2.1.js"></script>
+        <script src="/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/dist/js/bootstrap.min.js"></script>
+        @*<script src="/dist/jquery.js"></script>*@
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="/jqueryui/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/jqueryui/jquery-ui.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/assets/css/login.css">
+        <script src="/assets/js/jquery-3.2.1.js"></script>
+        <script src="/dist/js/bootstrap.min.js"></script>
+        <script src="/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    }
+
+</head>
+
+<body>
+    <div class="wrapper">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <header class="main-header">
+                <nav class="">
+                    <a class="logo-company color-custom" href="@Url.Action("Index", "Home" )">
+                        <img src="/assets/images/logo_01.png">
+                    </a>
+                    <div class="nav-left">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        @*<div class="big-search">
+                                <input type="text" placeholder="Search" class="search form-control">
+                                <span>
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
+                            </div>*@
+                    </div>
+                    @Html.Partial("_LoginPartial", ViewBag.LoginSession as Ats.Models.LoginSessionViewModel)
+                </nav>
+            </header>
+        }
+        <div class="big-layout">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="col_sidebar color-custom">
+                    <div class="master-menu-sidebar">
+                        <ul class="big-flag-color-main" style="display:block">
+                            <li>
+                                <div flag-color="#bd081c" class="flag-color-main flag-color-red"></div>
+                            </li>
+                        </ul>
+                        <ul class="list_menu" id="accordion1">
+                            <li class="panel panel-default">
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#thirdLink"><img src="../../assets/images/icon-employees.png" class="img-ats-lkt" />@Resource.Organization <i class="fa fa-angle-right"></i></a>
+                                <ul id="thirdLink" class="collapse">
+                                    <li class="color-custom" id="company-employee">@Html.ActionLink(Resource.Employee, "Index", "Profiles")</li>
+                                    <li class="color-custom" id="ogn-projects">@Html.ActionLink(Resource.Project, "Projects", "Organization")</li>
+                                    <li class="color-custom" id="ogn-departments">@Html.ActionLink(Resource.Department, "Departments", "Organization")</li>
+                                </ul>
+                            </li>
+                            <li class="panel">
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#firstLink"><img src="../../assets/images/icon-timesheet.png" class="img-ats-lkt" />@Resource.Timesheet<i class="fa fa-angle-right"></i></a>
+                                <ul id="firstLink" class="collapse">
+                                    <li class="color-custom" id="my-timesheet">@Html.ActionLink(Resource.MyTimeSheet, "Index", "Timesheet")</li>
+                                    <li class="color-custom" id="my-department">@Html.ActionLink(Resource.MyDepartments, "Index", "Department")</li>
+                                    <li class="color-custom" id="my-project">@Html.ActionLink(Resource.MyProject, "Index", "Project")</li>
+                                    <li class="color-custom" id="timesheet-approval">@Html.ActionLink(Resource.TimesheetApprovals, "Approvals", "Timesheet")</li>
+                                </ul>
+                            </li>
+                            
+                            <li class="panel">
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#reports"><img src="../../assets/images/icon-reports.png" class="img-ats-lkt" />@Resource.Reports<i class="fa fa-angle-right"></i></a>
+                                <ul id="reports" class="collapse">
+                                    <li class="color-custom" id="timesheet-report">@Html.ActionLink(Resource.TimesheetReportServices, "TimesheetReportService", "Reports")</li>
+                                    <li class="color-custom" id="attendance-report">@Html.ActionLink(Resource.AttendanceReportService, "AttendanceReportService", "Reports")</li>
+                                    <li class="color-custom" id="leave-report">@Html.ActionLink(Resource.LeaveReportServices, "LeaveReportService", "Reports")</li>
+                                    <li class="color-custom" id="leave-type-summary">@Html.ActionLink(Resource.LeaveTypeSummary, "LeaveTypeSummary", "Reports")</li>
+                                    <li class="color-custom" id="project-assignment-report">@Html.ActionLink(Resource.ProjectAssignmentReport, "ProjectAssignmentReportDashboard", "Reports")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            <!--Render body-------------------------------------------------------------------------------------------------------->
+            <div class="col_content">
+                @RenderBody()
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <section class="footer">
+                        <ul>
+                            <li><a href="">@Resource.Legal</a></li>
+                            <li><a href="">@Resource.PrivacyPolicy</a></li>
+                            <li><a href="">@Resource.AdvertisingPreferences</a></li>
+                        </ul>
+                        <p>@Resource.Copyright © 2017 - 2020 Aegona Ltd. @Resource.AllRightsReserved</p>
+                    </section>
+                }
+            </div>
+
+            <!--Render body-------------------------------------------------------------------------------------------------------->
+            <!--Footer-->
+
+        </div>
+    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <!-- date-range-picker -->
+        //<script src="/assets/bower_components/moment/min/moment.min.js"></script>
+        //<script src="/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <!-- bootstrap clockpicker -->
+        <script src="/assets/bower_components/bootstrap-clockpicker/dist/bootstrap-clockpicker.js"></script>
+        <script src="/assets/js/custom.js"></script>
+        <script>
+            function set_spiner() {
+                var html = `<div class="befor_sub">
+                                                 <span class="big_spinner"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i></span>
+                                            </div>`
+                $('body').append(html);
+            }
+            function unset_spiner() {
+                $('.befor_sub').remove();
+            }
+        </script>
+
+    }
+    @RenderSection("scripts", required: false)
+
+    <script>
+        var path = window.location.pathname;
+        //Reports
+        if (path.indexOf("/Reports") != -1) {
+            $('#reports').addClass('in').prev().attr('aria-expanded', 'true');
+            if (path.indexOf("/TimesheetReportService") != -1 || path.indexOf("/Reports/Report") != -1) {
+                $('#timesheet-report').addClass('active_menu')
+            } else if (path.indexOf("/LeaveReportService") != -1 || path.indexOf("/LeaveReport") != -1) {
+                $('#leave-report').addClass('active_menu')
+            } else if (path.indexOf("/ProjectAssignmentReport") != -1) {
+                $('#project-assignment-report').addClass('active_menu');
+            } else if (path.indexOf("/LeaveTypeSummary") != -1) {
+                $('#leave-type-summary').addClass('active_menu');
+            } else if (path.indexOf("/AttendanceReportService") != -1
+                || path.indexOf("/AttendanceReport") != -1) {
+                $('#attendance-report').addClass('active_menu');
+            } 
+            
+        }
+        else if (path.indexOf("/AttendanceReport") != -1) {
+            $('#reports').addClass('in').prev().attr('aria-expanded', 'true');
+            if (path.indexOf("/GeneralReport") != -1
+                || path.indexOf("/AttendanceSheetReport") != -1
+                || path.indexOf("/DetailAttendanceReport") != -1) {
+                $('#attendance-report').addClass('active_menu');
+            }
+        }
+
+        
+        //Attendance
+        else if (path.indexOf("/WorkShift") != -1) {
+            $('#attendance').addClass('in').prev().attr('aria-expanded', 'true');
+            if (path.indexOf("/WorkShiftManagement") != -1) {
+                $('#work-shift-management').addClass('active_menu');
+            }
+        }
+
+        else if (path.indexOf("/Attendance") != -1) {
+            $('#attendance').addClass('in').prev().attr('aria-expanded', 'true');
+
+            if (path.indexOf("/MyAttendance") != -1 || path.indexOf("/MyDetailAttendance") != -1) {
+                $('#my-attendance-new').addClass('active_menu');
+            }
+            //if (path.indexOf("/OldMyAtd") != -1) {
+            //    $('#my-attendance').addClass('active_menu');
+            //}
+            else if (path.indexOf("/FingerScan") != -1) {
+                $('#finger-scan').addClass('active_menu');
+            }
+            //else if (path.indexOf("/AtdBoard") != -1 ) {
+            //    $('#attendance-board').addClass('active_menu');
+            //}
+            else if (path.indexOf("/AttendanceSheets") != -1 || path.indexOf("/DetailAttendanceBoard") != -1) {
+                $('#attendance-sheets').addClass('active_menu');
+            }
+        }
+        else if (path.indexOf("/Organization") != -1) {
+            $('#thirdLink').addClass('in').prev().attr('aria-expanded', 'true');
+
+            if (path.indexOf("/Projects") != -1) {
+                $('#ogn-projects').addClass('active_menu');
+            }
+            if (path.indexOf("/ProjectChart") != -1) {
+                $('#ogn-projects').addClass('active_menu');
+            }
+            if (path.indexOf("/Departments") != -1) {
+                $('#ogn-departments').addClass('active_menu');
+            }
+            if (path.indexOf("/DepartmentChart") != -1) {
+                $('#ogn-departments').addClass('active_menu');
+            }
+        }
+        else if (path.indexOf("/Profiles") != -1) {
+            $('#thirdLink').addClass('in').prev().attr('aria-expanded', 'true');
+            if (path.indexOf("/Profiles") != -1) {
+                $('#company-employee').addClass('active_menu');
+            }
+        }
+        else if (path.indexOf("/Department") != -1 || path.indexOf("/Timesheet") != -1 || path.indexOf("/Project") != -1) {
+
+            if (path.indexOf('/Admin/Projects') == -1 && path.indexOf('/Admin/Departments') == -1) {
+                $('#firstLink').addClass('in').prev().attr('aria-expanded', 'true');
+
+                if (path.indexOf("/Department") != -1) {
+                    $('#my-department').addClass('active_menu');
+                }
+                else if (path.indexOf("/Project") != -1) {
+                    $('#my-project').addClass('active_menu');
+                }
+                else if (path.indexOf("/Approvals") != -1) {
+                    $('#timesheet-approval').addClass('active_menu');
+                }
+                else if (path.indexOf("/Timesheet") != -1) {
+                    $('#my-timesheet').addClass('active_menu');
+                }
+            }
+
+        }
+        else if (path.indexOf("/Leave") != -1) {
+            if (path.indexOf('/Admin/LeaveTypes') == -1) {
+                $('#secondLink').addClass('in').prev().attr('aria-expanded', 'true');
+
+                if (path.indexOf("/Approvals") != -1) {
+                    $('#leave-approval').addClass('active_menu');
+                }
+                else if (path.indexOf("/Leave") != -1) {
+                    $('#my-leave').addClass('active_menu');
+                }
+            }
+        }
+        else if (path.indexOf("/AssetMng") != -1) {
+            $('#assetManagement').addClass('in').prev().attr('aria-expanded', 'true');
+            if (path.indexOf("/AssetCategory") != -1) {
+                $('#asset-category').addClass('active_menu')
+            } else if (path.indexOf("/Approvals") != -1) {
+                $('#asset-approval').addClass('active_menu')
+            } else if (path.indexOf("/AssetMng") != -1) {
+                $('#my-asset').addClass('active_menu');
+            }
+        }
+        //Reports
+        else if (path.indexOf("/Reports") != -1) {
+            $('#reports').addClass('in').prev().attr('aria-expanded', 'true');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+version: '3.5'
+services:
+  ats-web:
+    image: 'ats-web-image'
+    container_name: "ats-web"
+    restart: always
+    networks:
+      - db-network
+    build:
+      context: ./
+      dockerfile: ./Ats.Web/Dockerfile
+    ports:
+      - '5000:80'
+    volumes:
+      - /home/aegona/docker-data/ats-web/wwwroot/uploads:/app/wwwroot/uploads
+    environment:
+      ASPNETCORE_ENVIRONMENT: '44397'
+      TZ: 'Asia/Ho_Chi_Minh'
+  ats-api:
+    image: 'ats-api-image'
+    container_name: "ats-api"
+    restart: always
+    networks:
+      - db-network
+    build:
+      context: ./
+      dockerfile: ./Ats.Api/Dockerfile
+    ports:
+      - '44397:80'
+    #volumes:
+    #  - /home/aegona/docker-data/ats-api/wwwroot:/app/wwwroot
+    environment:
+      ASPNETCORE_ENVIRONMENT: '44397'
+      TZ: 'Asia/Ho_Chi_Minh'
+  mysql:
+    image: mysql:8
+    container_name: "mysql"
+    networks:
+      - db-network
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - '3308:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: "6CQfF!&+#^#pdy=W"
+    volumes:
+      - /home/aegona/docker-data/mysql-data:/var/lib/mysql
+networks:
+  db-network:
+    name: db-network
+    driver: bridge

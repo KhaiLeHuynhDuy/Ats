@@ -1,0 +1,75 @@
+﻿@model Ats.Security.Models.Account.LoginViewModel
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Login | Panda Loyalty";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+
+<div class="accountbg" style="background: url('/assets/images/fitness-membership-bg.jpg'); background-size: cover; background-position: center;"></div>
+
+<div class="wrapper-page account-page-full">
+
+    <div class="card shadow-none">
+        <div class="card-block">
+
+            <div class="account-box">
+
+                <div class="card-box shadow-none p-4">
+                    <div class="p-2">
+                        <div class="text-center mt-4">
+                            <a href="@Url.Action("Index","Dashboard")"><img src="~/assets/images/logo-dark.png" height="120" alt="logo"></a>
+                        </div>
+
+                        @*<h4 class="font-size-18 mt-5 text-center">Welcome Back !</h4>
+                        <p class="text-muted text-center">Sign in to continue to Veltrix.</p>*@
+
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { @class = "mt-4", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <label for="username">@Resource.Common_label_username</label>
+                                @Html.TextBoxFor(m => m.Email, new { placeholder = "Enter username", @class = "form-control", id= "username", required = "required" })                                              
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="userpassword">@Resource.Common_label_password</label>
+                                @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password", @class = "form-control", id = "userpassword", required = "required" })                        
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customControlInline">
+                                        <label class="custom-control-label" for="customControlInline">@Resource.Common_label_rememberMe</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <button class="btn btn-primary w-md waves-effect waves-light" type="submit">@Resource.Common_label_login</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-2 mb-0 row">
+                                <div class="col-12 mt-3">
+                                    <a href="@Url.Action("pages-recoverpw-2","Pages")"><i class="mdi mdi-lock"></i> @Resource.Common_label_forgotYourPassword</a>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="mt-5 pt-4 text-center">
+                            <p>@Resource.Common_label_dontHaveAnAccount <a href="@Url.Action("pages-register-2","Pages")" class="font-weight-medium text-primary"> @Resource.Common_label_signUpNow </a> </p>
+                            <p>
+                                ©
+                                <script>document.write(new Date().getFullYear())</script> Panda Loyalty. Developed with <i class="mdi mdi-heart text-danger"></i> by Aegona Ltd
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

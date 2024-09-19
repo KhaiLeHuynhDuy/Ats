@@ -1,0 +1,163 @@
+﻿@model Ats.Models.Lead.LeadImportViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Form Wizard | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<SelectListItem> lstColAs = ViewBag.LeadImports;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Lead_improt_header</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Lead_import_veltrix</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Lead_import_leadManagement</a></li>
+                        <li class="breadcrumb-item active">@Resource.Lead_improt_header</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Lead Import</h4>
+                        <p class="card-title-desc">
+                            <span>
+                                @Resource.Lead_import_description
+                            </span>
+
+                            <div id="divInfoReult" class="alert alert-success" style="display:none;">
+                                <div>
+                                    <b class="text-success-action" style=" color:darkblue" id="bInfo">
+                                    </b>
+                                </div>
+                                <div>
+                                    @Resource.Lead_import_totalRowSuccess
+                                    <b class="text-success-action" id="bTotalSuccess">
+
+                                    </b>
+                                </div>
+                                <div>
+                                    @Resource.Lead_import_totalRowFail
+                                    <b class="text-success-action" id="bTotalFail">
+
+                                    </b>
+                                </div>
+                            </div>
+                        </p>
+                        @using (Html.BeginForm("ImportLeadsFromExcel", "Lead", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <form id="form-horizontal" class="form-horizontal form-wizard-wrapper">
+                                <h3>Upload File</h3>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtLeadFileUpload" class="col-lg-3 col-form-label text-left">File</label>
+                                                <div class="col-lg-9">
+                                                    <input type="file" id="fulProducts" class="filestyle" />
+                                                    @*@Html.TextBox("FormFile", "", new { type = "file", @class = "filestyle", id = "txtLeadFileUpload" })*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div id="downloadResultImportLead">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <table id="tableLead" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                                        @*Mapping giá trị*@
+                                        <thead>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h3>@Resource.Lead_import_title_mapping</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width:20%">
+                                                    @Resource.Lead_import_title_column
+                                                </th>
+                                                <th style="width:75%">
+                                                    @Resource.Lead_import_title_Field
+                                                </th>
+                                                <th style="width:5%">
+                                                    <a class="btn btn-primary" id="tbnPlusLeadSetting" onclick="Plus_LeadSetting_HTML()">
+                                                        <i class="fa fa-plus" style="color:white"></i>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyLeadSetting">
+                                        </tbody>
+
+                                        @*Giá trị mặc định*@
+                                        <thead>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h3>@Resource.Lead_import_title_default</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width:20%">
+                                                    @Resource.Lead_import_title_Field
+                                                </th>
+                                                <th style="width:75%">
+                                                    @Resource.Lead_import_title_value
+                                                </th>
+                                                <th style="width:5%">
+                                                    <a class="btn btn-primary" id="tbnPlusLeadDefaul" onclick="Plus_LeadDefaul_HTML()">
+                                                        <i class="fa fa-plus" style="color:white"></i>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyLeadDefault">
+                                        </tbody>
+
+                                    </table>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="row">
+                                        @*<button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
+                                                Upload
+                                            </button>*@
+
+                                        <a class="btn btn-primary waves-effect waves-light mr-1" style="color:white" onclick="PushLeads()">
+                                            @Resource.Common_lable_Import
+                                        </a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <!-- form wizard init -->
+    <script src="~/assets/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
+    <script src="~/assets/js/pages/lead-import.common.js"></script>
+    <script src="~/assets/js/pages/lead-import.init.js"></script>
+}

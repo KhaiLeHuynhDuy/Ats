@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using Lpnet.WebApp.Resources
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var provider = requestCulture.Provider as AcceptLanguageHeaderRequestCultureProvider;
+
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+
+    var value = "";
+    if (requestCulture.RequestCulture.UICulture.Name.Equals("vi"))
+    {
+        value = "en";
+    }
+    else if (requestCulture.RequestCulture.UICulture.Name.Equals("en"))
+    {
+        value = "vi";
+    }
+}
+
+<div>
+    @Html.Hidden("returnUrl", returnUrl)
+    @Html.Hidden("culture", value)
+    @{ 
+        var languague = value == "en" ? @Resource.VI : @Resource.EN;
+        var languageFlag = value == "en" ? "vn_flag.png" : "us_flag.jpg";
+    }
+    <div class="dropdown d-none d-md-block ml-2">
+        <button type="submit" class="btn header-item waves-effect"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="mr-2" src="~/assets/images/flags/@languageFlag" alt="Header Language" height="16"> @languague <span class="mdi mdi-chevron-down"></span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            @{
+                if (value.Equals("vi"))
+                {
+                    <a class="dropdown-item notify-item changeLang" href="@Url.Action("SetLanguage", "Home", new { culture = "vi", returnUrl = returnUrl })">
+                        <img src="~/assets/images/flags/vn_flag.png" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> @Resource.VI </span>
+                    </a>
+                }
+                else
+                {
+                    <a class="dropdown-item notify-item changeLang" href="@Url.Action("SetLanguage", "Home", new { culture = "en", returnUrl = returnUrl })">
+                        <img src="~/assets/images/flags/us_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> @Resource.EN </span>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+
+</div>

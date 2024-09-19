@@ -1,0 +1,162 @@
+﻿@model Ats.Models.Member.MemberGroupViewModel;
+@using Lpnet.WebApp.Resources
+@using   Ats.Domain.Member.Models
+@{
+    if (Model.Id == Guid.Empty)
+    {
+            ViewBag.Title = @Resource.ViewBag_Title_MemberGroup_Create;
+
+    }
+    else
+    {
+            ViewBag.Title = @Resource.ViewBag_Title_MemberGroup_Edit;
+
+    }
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    //SelectList membertag = ViewBag.MemberTag;
+    List<MemberTag> testview = ViewBag.MemberTag;
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_memberGroup</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "MemberGroup")">@Resource.Sidebar_configurations_memberGroup</a></li>
+                        @if (Model.Id == Guid.Empty)
+                        {
+                            <li class="breadcrumb-item active">@Resource.Common_label_create</li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item active">@Resource.Common_label_edit</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("Edit", "MemberGroup", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+
+                            <div class="form-group row">
+                                <label for="txtGroupName" class="col-sm-2 col-form-label">@Resource.Common_label_memberGroupName</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.MemberGroupName, new { @class = "form-control", id = "txtGroupName" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtGroupName" class="col-sm-2 col-form-label">@Resource.Common_label_conditional</label>
+                                <div class="col-sm-5">@Resource.Common_label_conditionalTag @Html.RadioButtonFor(m => m.Conditional, "true", new { id = "conditional", @checked = "checked" })</div>
+                                <div class="col-sm-5">@Resource.Common_label_unConditionalTag @Html.RadioButtonFor(m => m.Conditional, "false", new { id = "unconditional" })</div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtGroupName" class="col-sm-2 col-form-label">@Resource.Common_label_active</label>
+                                <div class="col-sm-10">
+                                    @Html.CheckBoxFor(m => m.Active, new { @class = "form-group", id = "ckbActive" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtGroupName" class="col-sm-2 col-form-label">@Resource.Common_label_membertagcategory</label>
+                                <div class="col-sm-10">
+                                    @for (var i = 0; i < Model.Tags.Count(); i++)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @Html.CheckBoxFor(it => Model.Tags[i].Selected, new { Style = "vertical-align:3px}" })
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(it => Model.Tags[i].Value)
+                                                    @Html.DisplayFor(it => Model.Tags[i].Text)
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mt-1">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <a href="@Url.Action("Index", "MemberGroup",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+   
+}

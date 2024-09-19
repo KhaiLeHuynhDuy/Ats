@@ -1,0 +1,453 @@
+﻿@using Ats.Web.Resources
+@using Ats.Commons.Utilities;
+@using Newtonsoft.Json;
+@model Ats.Models.Account.UserProfileModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ ViewBag.Title = Resource.Users;
+ var dic = new Dictionary<string, object>();
+ if (Model.Id == Guid.Empty)
+ {
+     ViewBag.SubTitle = Resource.AddUser;
+ }
+ else
+ {
+     ViewBag.SubTitle = Resource.EditUser;
+     dic.Add("readonly", "readonly");
+ }
+ var mediaUrl = "/assets/images/noimguser.png";
+ if (Model.PhotoUrl != null)
+ {
+     mediaUrl = Model.PhotoUrl;
+ }
+}
+
+@using (Html.BeginForm("Edit", "Users", new { id = Model.Id }, FormMethod.Post, null, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="primary-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header">
+                    <p>
+                        @ViewBag.Title
+                    </p>
+                    <span>@ViewBag.SubTitle</span>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li><a href="javasript:void(0)">@Resource.Admin</a></li>
+                        <li class="active">@Html.ActionLink(@Resource.Users, "Index", "Users")</li>
+                    </ol>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="content">
+                            <div class="box-header">
+                                <div class="padding">
+                                    @if (ViewBag.StatusMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.StatusMessage
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (ViewBag.NewPw != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.NewPw
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (TempData["RequiredLeaveTypes"] != null)
+                                    {
+                                        <div id="notification-password">
+                                            <span class="text-error-action">
+                                                <i class="fa fa-check"></i>
+                                                @TempData["RequiredLeaveTypes"]
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (ViewBag.StatusMessagePassword != null)
+                                    {
+                                        <div id="notification-password">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.StatusMessagePassword
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-error-action">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.ValidationSummary(true)
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="red_label">
+                                            @Resource.Code
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.UserCode, StringUtils.GetHtmlAttributes(new { @class = "form-control" }))
+                                            @Html.ValidationMessageFor(model => model.UserCode, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessage("UserCodeExist", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.Title
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="red_label">
+                                            @Resource.Username
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.UserName, StringUtils.GetHtmlAttributes(new { @class = "form-control" }, dic))
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessage("UserExist", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="red_label">
+                                            Email
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.Email, StringUtils.GetHtmlAttributes(new { @class = "form-control" }, dic))
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="red_label">
+                                            @Resource.FirstName
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.LastName
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.Phone
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessage("UserExist", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.JoiningDate
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.JoiningDate, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker1", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.JoiningDate)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.AdditionalPhone
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.AdditionalPhone, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AdditionalPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.AdditionalEmail
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.AdditionalEmail, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AdditionalEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.Skype
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.Skype, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Skype, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.DateOfBirth
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker2", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.DateOfBirth)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.Address
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.DeviceUserId
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.DeviceUserID, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.DeviceUserID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.StartDate
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker4", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.StartDate)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-1 col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.Lockout
+                                        </span>
+                                        <div class="form-group ats-select">
+                                            @Html.DropDownListFor(model => model.LockoutEnabled, Html.GetEnumSelectList(Model.LockoutEnabled.GetType()), new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.LockoutEnabled)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label">
+                                            @Resource.ResignationDate
+                                        </span>
+                                        <div class="form-group ats-input">
+                                            @Html.EditorFor(model => model.ResignationDate, new { htmlAttributes = new { @class = "form-control", type = "text", id = "datepicker3", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.ResignationDate)                                
+                                        </div>
+                                    </div>
+                                    @if (ViewBag.RoleGroups != null)
+                                    {
+                                        <div class="col-lg-offset-1 col-xs-5">
+                                            <span class="red_label">
+                                                @Resource.Role
+                                            </span>
+                                            <div class="form-group ats-select">
+                                                @Html.DropDownListFor(model => model.GroupId, new SelectList(ViewBag.RoleGroups, "Value", "Text"), new { @class = "form-control", id = "RoleGroup" })
+                                                @Html.ValidationMessageFor(model => model.GroupId)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span class="default_label" style="display:block">
+                                            @Resource.Image
+                                        </span>
+                                        <div style="margin-bottom:20px">
+                                            <div class="" style="margin-bottom:15px;margin-top:10px;">
+                                                <div class="input-file" style="display:inline-block">
+                                                    <div id="flag_chose_img">Choose file</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="big-img-nkh">
+                                                <img class="about-img imgfile full-width" src="@Url.Content(mediaUrl)">
+                                                <i class="fa fa-times" aria-hidden="true" id="flag_delete_img"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.File, new { type = "file", style = "display:none", accept = "image/*" })
+                                            <div style="display:none; margin:10px 0px">
+                                                <button class="btn btn-success">Edit</button>
+                                                <button class="btn btn-danger">Delete</button>
+                                            </div>
+                                            @Html.Hidden("AttachmentLink", mediaUrl)
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+
+                                                @*<input type="submit" name="action:Save" value="@Resource.Save" class="btn-ats-save" style="margin-right: 10px" />
+                                                <input type="submit" formaction="ResetPwd" value="@Resource.ResetPW" class="btn-ats-close" onclick="return confirm('Are you sure you wish to reset?');" />*@
+                                                <input type="submit" value="@Resource.Save" class="btn-ats-save" style="margin-right: 10px" />
+                                                @Html.ActionLink(Resource.ResetPW, "ResetPassword", new { userId = Model.Id }, new { @class = "btn-ats-close", onclick = "return confirm('Are you sure you wish to reset?')" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5 col-lg-offset-1" style="padding-left:0px;">
+                                        <div class="col-xs-12">
+                                            <label class="ATS-custom-seleced" style="font-size:16px;">
+                                                @Resource.Active
+                                                @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked" })
+                                                <span class="checkmark" style="height:22px;width:22px;"></span>
+                                            </label>
+                                        </div>
+                                        
+                                      
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @if (Model.Roles != null)
+                                    {
+                                        <div class="col-xs-5">
+                                            <div class="content list_roles">
+                                                <div class="item">
+                                                    <span>@Resource.Roles</span>
+                                                </div>
+                                                <select multiple class="form-control" id="sel2" size="20" style="padding-top:10px;">
+                                                    @foreach (var item in Model.Roles)
+                                                    {
+                                                        <option><b><i class="fas fa-check"></i></b> @item.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </section>
+}
+@section scripts {
+
+    <script>
+
+
+        jQuery(document).ready(function ($) {
+
+            var flag_icon_delete = '@mediaUrl';
+            if (flag_icon_delete=='/assets/images/noimguser.png') {
+            $('#flag_delete_img').css('display', 'none');
+            }
+
+            //custom date input => error when trying format date to datepicker's format => hide default text in input type = date => type = "text"
+            // standard on load code goes here with $ prefix
+            // note: the $ is setup inside the anonymous function of the ready command
+            $('#datepicker1').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            })
+            $('#datepicker2').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            })
+            $('#datepicker3').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            })
+              $('#datepicker4').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            })
+            //$('#notification').delay(5000).fadeOut('slow');
+
+            $('#flag_chose_img').on('click', function (event) {
+                event.preventDefault();
+                $('input[name="File"]').click();
+            });
+
+            $('#flag_delete_img').on('click', function (event) {
+                event.preventDefault();
+                $('input[name="File"]').val('');
+                var preview = document.querySelector('img.imgfile'); //selects the query named img
+                preview.src = "/assets/images/noimguser.png";
+                $('input[name="AttachmentLink"]').attr('value', '/assets/images/noimguser.png');
+                $('#flag_delete_img').css('display', 'none');
+                });
+                $('input[name="File"]').change(function () {
+                    previewFile();
+                });
+        });
+        function previewFile() {
+            var preview = document.querySelector('img.imgfile'); //selects the query named img
+            var file = document.querySelector('input[name="File"]').files[0]; //sames as here
+            var reader = new FileReader();
+            var old_img = localStorage.getItem('user-image');
+            if (file.size < 2200000) {
+                reader.onloadend = function () {
+                preview.src = reader.result;
+                localStorage.setItem('user-image-chose', reader.result);
+            }
+            if (file) {
+                reader.readAsDataURL(file); //reads the data as a URL
+                $('#flag_delete_img').css('display','block');
+            } else {
+                preview.src = "/assets/images/noimguser.png";
+            }
+            } else {
+                alert('file too big');
+                var val_img = localStorage.getItem('user-image-chose');
+                $('img.imgfile').attr('src', old_img);
+
+                $('input[name="File"]').val('');
+                $('#flag_delete_img').css('display', 'none');
+            }
+
+        }
+
+        $( "#confirmDialog" ).dialog({
+            autoOpen: false
+        });
+
+        $('#addUserLeave').click(function (e) {
+            if ('@Model.Id' == '@Guid.Empty') {
+                alert("@Resource.PleaseSaveUser");
+                return false;
+            }
+            return true;
+        });
+        $('#addUserWorkShift').click(function (e) {
+            if ('@Model.Id' == '@Guid.Empty') {
+                alert("@Resource.PleaseSaveUser");
+                return false;
+            }
+            return true;
+        });
+
+    </script>
+}

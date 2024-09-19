@@ -1,0 +1,318 @@
+﻿@model Ats.Models.Product.ProductOrderSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_ProductOrder_Edit;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    SelectList member = ViewBag.Member;
+    SelectList productorderstatus = ViewBag.ProductOrderStatus;
+    SelectList productcollectionitem = ViewBag.ProductCollectionItem;
+    SelectList InTransit = new SelectList(new List<SelectListItem>()
+{
+        new SelectListItem() { Value = "3", Text = "Hoàn Thành" },
+        new SelectListItem() { Value = "4", Text = "Đã Hủy" }}, "Value", "Text");
+    SelectList NewOrders = new SelectList(new List<SelectListItem>()
+{       new SelectListItem() { Value = "1", Text = "Đang Duyệt" },
+        new SelectListItem() { Value = "2", Text = "Đang Giao" },
+        new SelectListItem() { Value = "4", Text = "Đã Hủy" }}, "Value", "Text");
+    var OldModel = ViewBag.CheckOle;
+
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Edit", "ProductOrder", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ProductOrder.Id)
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_productOrder</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "ProductOrder")">@Resource.Common_label_productOrder</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Edit", "ProductOrder" , new { id = Model.ProductOrder.Id})">@Resource.Common_label_editOrder</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card ">
+                        @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                        {<div class="card-header bg-success text-xl-center"><h4 class="text-white mt-2">@Resource.Commom_Label_new</h4></div>}
+                        @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY)
+                        {<div class="card-header  bg-warning  text-xl-center"><h4 class="text-white mt-2">@Resource.Commom_Label_on_delivery</h4></div>}
+                        @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE)
+                        {<div class="card-header  bg-info  text-xl-center"><h4 class="text-white mt-2">@Resource.Commom_Label_complete</h4></div>}
+                        @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL)
+                        {<div class="card-header  bg-danger  text-xl-center"><h4 class="text-white mt-2">@Resource.Commom_Label_cancel</h4></div>}
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            <div class="row  ">
+                                <div class="col-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a>@Resource.Common_label_member</label>
+                                        <div class="col-lg-7 ">
+                                            @Html.TextBoxFor(m => m.ProductOrder.NameMember, new { placeholder = "", @class = "form-control", @readonly = "readonly" })
+                                            @Html.HiddenFor(m => m.ProductOrder.MemberId, new { placeholder = "", @class = "form-control" })
+                                            @Html.HiddenFor(m => m.ProductOrder.CheckMemberId, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                        @if (Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                                        {
+                                            <div class="col-lg-2 selectmember">
+                                                <div class="col-sm-10">
+                                                    <div class="float-right d-none d-md-block">
+                                                        <div class=" text-center">
+                                                            <a href=" @Url.Action("EditMember", "ProductOrder", new { idorder = Model.ProductOrder.Id, iditem = Model.ProductOrder.ProductItemId })" class="btn btn-primary text-white">@Resource.Common_label_selectMember</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a>@Resource.Common_label_productItem</label>
+                                        <div class="col-lg-7 ">
+                                            @Html.TextBoxFor(m => m.ProductOrder.NameProduct, new { placeholder = "", @class = "form-control", @readonly = "readonly" })
+                                            @Html.HiddenFor(m => m.ProductOrder.ProductItemId, new { placeholder = "", @class = "form-control" })
+                                            @Html.HiddenFor(m => m.ProductOrder.CheckProductItemId, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                        @if (Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                                        {
+                                            <div class="col-lg-2 selectproduct">
+                                                <div class="col-sm-10">
+                                                    <div class="float-right d-none d-md-block">
+                                                        <div class=" text-center">
+
+                                                            <a href=" @Url.Action("EditProduct", "ProductOrder", new {idorder = Model.ProductOrder.Id, idmember = Model.ProductOrder.MemberId })" class=" btn btn-primary text-white">@Resource.Common_label_selectproduct</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                                @*<div class="col-md-12 mt-1  ">
+            <div class="form-group row">
+                <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a>@Resource.Common_label_pointofMember</label>
+                <div class="col-lg-7">
+                    @Html.TextBoxFor(m => m.ProductOrder.Point, new { placeholder = "", @class = "form-control", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.ProductOrder.CheckPoint, new { placeholder = "", @class = "form-control" })
+                </div>
+            </div>
+        </div>*@
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a>@Resource.Common_label_price</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.ProductOrder.Price, new { placeholder = "", @class = "form-control", @id = "Price", @readonly = "readonly" })
+                                            @Html.HiddenFor(m => m.ProductOrder.CheckPrice, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY && Model.ProductOrder.OrderStatus != Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                                {
+                                    <div class="col-md-12 mt-1  ">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a> @Resource.Common_label_Quantity</label>
+                                            <div class="col-lg-7">
+                                                @Html.TextBoxFor(m => m.ProductOrder.Quantity, new { @class = "form-control", @id = "Quantity" })
+                                            </div>
+
+                                            <div class="col-lg-3 mt-2">
+                                                @Resource.Common_label_Total: <span class="gettotal">@Html.DisplayFor(m => m.ProductOrder.TotalPoint)</span> @Resource.Common_td_Point
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12 mt-1  ">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a> @Resource.Common_label_Quantity</label>
+                                            <div class="col-lg-7">
+                                                @Html.TextBoxFor(m => m.ProductOrder.Quantity, new { @class = "form-control", @id = "Quantity", disabled = "disabled" })
+                                            </div>
+
+                                            <div class="col-lg-3 mt-2">
+                                                @Resource.Common_label_Total: <span class="gettotal">@Html.DisplayFor(m => m.ProductOrder.TotalPoint)</span> @Resource.Common_td_Point
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                                {
+                                    <div class="col-md-12 mt-1  ">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2  mt-1   text-left"><a class="text-danger"></a> @Resource.Common_label_orderStatus</label>
+                                            <div class="col-lg-7">
+                                                @Html.DropDownListFor(m => m.ProductOrder.OrderStatus, NewOrders, new { placeholder = "", @class = "form-control", @id = "OrderStatus" })
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY)
+                                {
+                                    <div class="col-md-12 mt-1  ">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2  mt-1   text-left"><a class="text-danger"></a> @Resource.Common_label_orderStatus</label>
+                                            <div class="col-lg-7">
+                                                @Html.DropDownListFor(m => m.ProductOrder.OrderStatus, InTransit, new { placeholder = "", @class = "form-control", @id = "OrderStatus" })
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE || Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL)
+                                {
+                                    <div class="col-md-12 mt-1  ">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2  mt-1   text-left"><a class="text-danger"></a> @Resource.Common_label_orderStatus</label>
+                                            <div class="col-lg-7">
+                                                @Html.TextBoxFor(m => m.ProductOrder.OrderStatus, new { placeholder = "", @class = "form-control", @id = "DisplayNameOrder", @readonly = "readlonly" })
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1   text-left"><a class="text-danger"></a> @Resource.Common_label_date</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.ProductOrder.Date, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "Date", type = "date", name = "Date" })
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a> @Resource.Commom_Label_receiver</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.ProductOrder.Receiver, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a>  @Resource.Commom_Label_phoneno</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.ProductOrder.PhoneNo, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a>@Resource.Common_label_shippingAddress</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextAreaFor(m => m.ProductOrder.ShippingAddress, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger"></a>@Resource.Common_label_remark</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextAreaFor(m => m.ProductOrder.Remark, new { placeholder = "", @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2 ml-1">
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.NEW)
+                                {<a href="@Url.Action("Index", "ProductOrder")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>}
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.ON_DELIVERY)
+                                {<a href="@Url.Action("IndexTabDelivering", "ProductOrder")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>}
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.COMPLETE)
+                                {<a href="@Url.Action("IndexTabReceived", "ProductOrder")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>}
+                                @if (Model.ProductOrder.OrderStatus == Ats.Domain.Store.Models.PRODUCT_ORDER_STATUS.CANCEL)
+                                {<a href="@Url.Action("IndexTabCancelled", "ProductOrder")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>}
+
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+
+        $("#OrderStatus").on('change', function () {
+            if (this.value == 4) {
+                $(".selectmember").hide();
+                $(".selectproduct").hide();
+            }
+            if (this.value == 1 || this.value == 2 || this.value == 3) {
+                $(".selectmember").show();
+                $(".selectproduct").show();
+            }
+        });
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+
+        $("input[name='Price']").TouchSpin({
+            min: 0,
+            max: 10000000,
+            step: 1000,
+            decimals: 0,
+            initval: 0,
+            forcestepdivisibility: 'none',
+            stepinterval: 50,
+            maxboostedstep: 0,
+            prefix: ''
+        });
+        $("input[name='ProductOrder.Quantity']").TouchSpin({
+            min: 1,
+            initval: 0,
+            forcestepdivisibility: 'none',
+            stepinterval: 50,
+            maxboostedstep: 0,
+            prefix: ''
+        });
+
+    </script>
+    <script>
+
+        $(function () {
+
+            $("#Quantity,#Price").change(function (e) {
+
+                var q = $("#Price").val();
+                var p = $("#Quantity").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = parseFloat(q) * parseFloat(p);
+                }
+                $('.gettotal').text(result);
+
+            });
+
+        });
+    </script>
+
+}

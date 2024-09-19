@@ -1,0 +1,387 @@
+﻿@model Ats.Models.Loyalty.LoyaltySearchViewModel;
+
+
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_PointRuleStandard_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h5 {
+        border-left: 5px solid #626ed4;
+    }
+
+    <b:tag name='style' >
+    .buttons_added {
+        opacity: 1;
+        display: inline-block;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .is-form {
+        overflow: hidden;
+        position: relative;
+        background-color: #f9f9f9;
+        height: 2.2rem;
+        width: 1.9rem;
+        padding: 0;
+        text-shadow: 1px 1px 1px #fff;
+        border: 1px solid #ddd;
+    }
+
+        .is-form:focus, .input-text:focus {
+            outline: none;
+        }
+
+        .is-form.minus {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .is-form.plus {
+            border-radius: 0 4px 4px 0;
+        }
+
+    .input-qty {
+        background-color: #fff;
+        height: 2.2rem;
+        text-align: center;
+        font-size: 1rem;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-left: 0;
+        border-right: 0;
+        padding: 0;
+    }
+
+        .input-qty::-webkit-outer-spin-button, .input-qty::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+</style>
+
+@{
+    SelectList listStore = ViewBag.Store;
+    SelectList listLoyaltyPointRule = ViewBag.LoyaltyPointRule;
+    SelectList listProduct = ViewBag.Products;
+    SelectList listChannel = ViewBag.Channel;
+    SelectList listCategory = ViewBag.ProductCategories;
+    SelectList listBrand = ViewBag.Brands;
+
+    //SelectList Store = ViewBag.ListStore;
+}
+
+@{
+    SelectList couponCategories = ViewBag.CouponCategories;
+    SelectList listmonths = ViewBag.Month;
+    SelectList months = ViewBag.Months;
+    SelectList districts = ViewBag.Districts;
+
+    //add new list category
+
+
+    SelectList NoDecimal = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "1", Text = "No Decimal" },
+}, "Value", "Text");
+    SelectList RoundDown = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "1", Text = "Round Down" },
+}, "Value", "Text");
+    SelectList ExpireOn = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "1", Text = "1st" },
+        new SelectListItem() { Value = "1", Text = "2st" },
+        new SelectListItem() { Value = "1", Text = "3st" },
+}, "Value", "Text");
+
+}
+
+@using (Html.BeginForm("Setting", "LoyaltyPointRules", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LoyaltyPointSetting.Id)
+    @Html.AntiForgeryToken()
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_pointstandardrule</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("PointRuleStandard", "LoyaltyPointRules")">@Resource.Common_label_loyalty</a></li>
+                            <li class="breadcrumb-item active"><a href="@Url.Action("PointRuleStandard", "LoyaltyPointRules")">@Resource.Common_label_pointrule</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- menu page -->
+                                    <ul class="nav nav-pills" role="tablist">
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link active" href="@Url.Action("PointRuleStandard","LoyaltyPointRules")">@Resource.Common_label_pointstandardrule</a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" href="@Url.Action("PointRule","LoyaltyPointRules")">@Resource.Common_title_CustomPointRule</a>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+
+                                <div class="tab-content  col-lg-12 m-2" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="Standard" role="tabpanel" aria-labelledby="Standard-tab">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <!-- secsion 1 --><!-- secsion 1 --><!-- secsion 1 --><!-- secsion 1 --><!-- secsion 1 --><!-- secsion 1 --><!-- secsion 1 -->
+                                                        <div class="row border-bottom pb-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1">*</a>@Resource.Common_label_pointname @*Point name*@:</label>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointSetting.Name, new { placeholder = "Points", @class = "form-control", id = "", name = "" })
+                                                            </div>
+                                                            <div class="col-lg-2 mt-2">
+                                                                <input type="checkbox" value="" id="" name="" /><a class="text-dark ml-1 " href="#">@Resource.Common_label_usedefaultvalue</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- secsion 2 --><!-- secsion 2 --><!-- secsion 2 --><!-- secsion 2 --><!-- secsion 2 --><!-- secsion 2 --><!-- secsion 2 -->
+                                                        <div class="row pb-3 pt-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1">*</a>@Resource.Common_label_pointearnrule :</label>
+                                                            </div>
+                                                            <div class="col-lg-2 mt-1 ">
+                                                                <a class="col-form-label text-left">@Resource.Common_label_decimalplaces:</a>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, NoDecimal, new { placeholder = "select list decimal", @class = "form-control", id = "", name = "" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  pb-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-2 mt-1">
+                                                                <a  class="col-form-label text-left">@Resource.Common_label_decimalprecisionmethod:</a>
+                                                            </div>
+                                                            <div class="col-lg-3 ">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, RoundDown, new { placeholder = "select list method", @class = "form-control", id = "", name = "" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border-bottom pb-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-2 mt-1">
+                                                                <a  class="col-form-label text-left">@Resource.Common_label_spend :</a>
+                                                            </div>
+                                                            <div class="col-lg-3 ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointSetting.PointEarn, new { placeholder = "0", @class = "form-control text-center", id = "", name = " " })
+                                                            </div>
+                                                            <div class="col-lg-1 ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "Point(s)", @class = "form-control text-center", id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- secsion 3 --><!-- secsion 3 --><!-- secsion 3 --><!-- secsion 3 --><!-- secsion 3 --><!-- secsion 3 --><!-- secsion 3 -->
+                                                        <div class="row pb-3 pt-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1">*</a>@Resource.Common_label_pointredemptionrule :</label>
+                                                            </div>
+                                                            <div class="col-lg-2 mt-1 ">
+                                                                <a  class="col-form-label text-left">@Resource.Common_label_decimalplaces:</a>
+                                                            </div>
+                                                            <div class="col-lg-3  ">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, NoDecimal, new { placeholder = "select list decimal", @class = "form-control", id = "", name = "" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  pb-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-2  mt-1 ">
+                                                                <a  class="col-form-label text-left">@Resource.Common_label_decimalprecisionmethod :</a>
+                                                            </div>
+                                                            <div class="col-lg-3  ">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, RoundDown, new { placeholder = "select list method", @class = "form-control", id = "", name = "" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border-bottom pb-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-2  ">
+                                                                <a  class="col-form-label text-left"> </a>
+                                                            </div>
+                                                            <div class="col-lg-3  ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointSetting.PointRedemption, new { placeholder = "0", @class = "form-control float-right text-center", id = "", name = "" })
+                                                            </div>
+                                                            <div class="col-lg-1  ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "Point(s)", @class = "form-control float-left readonly text-center", id = "", name = "", value = false, text = false, @readonly = "readonly" })
+                                                            </div>
+                                                            <div class="col-lg-3 mt-2 ">
+                                                                <a for="" class="col-form-label text-left"> @Resource.Common_label_for1sgd  </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- secsion 4 --><!-- secsion 4 --><!-- secsion 4 --><!-- secsion 4 --><!-- secsion 4 --><!-- secsion 4 --><!-- secsion 4 -->
+
+                                                        <div class="row pb-3 pt-3">
+                                                            <div class="col-lg-2">
+                                                                <label class="col-form-label text-left"><a class="text-danger mr-1">*</a>@Resource.Common_label_pointexpiryrule:</label>
+                                                            </div>
+                                                            <div class="col-lg-2  mt-1 ">
+                                                                @Html.RadioButtonFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "", @class = "form-control text-center  ", @readonly = "readonly", @checked = "true" })
+                                                                <a class="col-form-label text-left mr-2">@Resource.Common_label_neverexpire</a>
+                                                            </div>
+                                                            <div class="col-lg-3  ">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  pb-3">
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-2 mt-1">
+                                                                @Html.RadioButtonFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "", @class = "form-control text-center" })
+                                                                <a  class="col-form-label text-left mb-1">@Resource.Common_label_expireafter</a>
+                                                            </div>
+                                                            <div class="col-lg-2  ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "1", @class = "form-control text-center", type = "number", min = 0, max = 31, id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                            <div class="col-lg-2  ">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, months, new { placeholder = "Month(s)", @class = "form-control", id = "Months", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  pb-3">
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a></label>
+                                                            </div>
+                                                            <div class="col-lg-4  mt-1  ">
+                                                                @Html.RadioButtonFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "", @class = "form-control text-center", id = "neverexpire", name = "expirelastday", value = "Expire last day" })
+                                                                <a for="txtPhoneNumber" class="col-form-label text-left mr-2">@Resource.Common_label_Expirethelastdayofthemonthafter</a>
+                                                            </div>
+                                                            <div class="col-lg-2  ">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "0", @class = "form-control text-center", type = "number", min = 0, max = 100, id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                            <div class="col-lg-1  mt-2 ml-1 ">
+                                                                <a  class="col-form-label text-left"><a class="text-danger"></a>@Resource.Common_label_year </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row   pb-3">
+                                                            <div class="col-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-2"></a></label>
+                                                            </div>
+                                                            <div class="col-2 mt-1 ">
+                                                                @Html.RadioButtonFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "", @class = "form-control text-center", id = "neverexpire", name = "expirelastday", value = "Expire last day" })
+                                                                <a  class="col-form-label text-left mr-2">@Resource.Common_label_expireon</a>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, months, new { placeholder = "select  ", @class = "form-control", id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                            <div class="col-2">
+                                                                @Html.DropDownListFor(m => m.LoyaltyPointRule.Remark, ExpireOn, new { placeholder = "select  ", @class = "form-control", id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                            <a  class="col-form-label text-left mt-0 ml-3 mr-3">@Resource.Common_label_after</a>
+                                                            <div class="col-2">
+                                                                @Html.TextBoxFor(m => m.LoyaltyPointRule.Remark, new { placeholder = "0", @class = "form-control text-center float-left", type = "number", min = 0, max = 100, id = "", name = "", @readonly = "readonly" })
+                                                            </div>
+                                                            <div class="col-1 mt-1 ">
+                                                                <a  class="col-form-label text-left mr-2 mt-2">@Resource.Common_label_year</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border-bottom pb-3">
+                                                            <div class="col-2">
+                                                                <label class="col-form-label text-left"><a class="text-danger mr-2"></a></label>
+                                                            </div>
+                                                            <div class="col-8 mt-1 ">
+                                                                <a  class="col-form-label text-left text-primary"><i class="fas fa-info-circle mr-1"></i>@Resource.Common_label_ifday293031 </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- secsion 5 --><!-- secsion 5 --><!-- secsion 5 --><!-- secsion 5 --><!-- secsion 5 --><!-- secsion 5 --><!-- secsion 5 -->
+                                                        <div class="row pb-3 border-bottom pt-3">
+                                                            <!--  -->
+                                                            <div class="col-lg-2">
+                                                                <label  class="col-form-label text-left"><a class="text-danger mr-1"></a>@Resource.Common_label_remark :</label>
+                                                            </div>
+                                                            <div class="col-lg-8 mt-1 ">
+                                                                @*CHÚ Ý CHÚ YS XIN CHÚ Ý CHÚ Ý CHÚ YS XIN CHÚ Ý CHÚ Ý CHÚ YS XIN CHÚ Ý CHÚ Ý CHÚ YS XIN CHÚ Ý CHÚ Ý CHÚ YS XIN CHÚ Ý CHÚ Ý CHÚ YS XIN CHÚ Ý*@
+                                                                @Html.TextAreaFor(m => m.LoyaltyPointSetting.Remark, new { placeholder = "Earned points expire every 24 months", @class = "form-control ", id = "", name = "" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- secsion 6 --><!-- secsion 6 --><!-- secsion 6 --><!-- secsion 6 --><!-- secsion 6 --><!-- secsion 6 --><!-- secsion 6 -->
+                                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; word-break: break-word;">
+                                                            <thead>
+                                                                @*data of the table loyalty point types*@
+                                                                <tr>
+                                                                    <th class="text-left">
+                                                                        @Resource.Common_label_typename<a class="btn btn-xs btn-link p-0"> </a>
+                                                                    </th>
+                                                                    <th class="text-right">
+                                                                        @Resource.Common_label_description<a class="btn btn-xs btn-link p-0"> </a>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="p-2 m-2">
+                                                                @foreach (var item in Model.LoyaltyPointTypes)
+                                                                {
+                                                                    <tr class="p-xl-5 m-xl-5">
+                                                                        <td class="text-left">@item.Name</td>
+                                                                        <td class="text-right">@item.Decs</td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div><!-- end col -->
+                                                </div> <!-- end row -->
+                                            </div>
+                                        </div>
+                                    </div><!-- end page one -->
+                                    <!-- end page one -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+
+
+        </div> <!-- container-fluid -->
+    </div>
+}
+<!-- End Page-content -->
+
+@section scripts{
+    <!-- Required datatable js -->
+
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+}

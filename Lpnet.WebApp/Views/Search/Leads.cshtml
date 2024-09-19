@@ -1,0 +1,187 @@
+﻿@model Ats.Models.Search.SearchLeadViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Directory | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList amounts = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = "--- Chọn ---" },
+        new SelectListItem() { Value = "1", Text = "Dưới 5 triệu" },
+        new SelectListItem() { Value = "2", Text = "5 triệu - 10 triệu" },
+        new SelectListItem() { Value = "3", Text = "10 triệu - 30 triệu" },
+        new SelectListItem() { Value = "4", Text = "30 triệu - 50 triệu" },
+        new SelectListItem() { Value = "5", Text = "Trên 50 triệu" },
+        }, "Value", "Text");
+
+    SelectList occupations = ViewBag.Occupations;
+    SelectList addresses1 = ViewBag.Addresses1;
+    SelectList loanProducts = ViewBag.LoanProducts;
+    SelectList periods = ViewBag.LoanPeriod;
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_leads</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Megapoint</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_main_search</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_main_search_searchLeads</li>
+                    </ol>
+                </div>
+            </div>
+
+            @*<div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-settings mr-2"></i> Settings
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <!-- end page title -->
+        @if (Model != null)
+        {
+            Model.Pager.Action = "Leads";
+            <!-- search -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            @using (Html.BeginForm("SearchLeads", "Search", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="txtKeyword">@Resource.Common_label_keyword</label>
+                                                @Html.TextBoxFor(m => m.Keyword, new { placeholder = "", @class = "form-control", id = "txtKeyword", name = "txtKeyword" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="ddlLocations">@Resource.Common_label_location</label>
+                                                @Html.DropDownListFor(m => m.ProvinceId, addresses1, new { @class = "form-control", id = "ddlLocations", name = "ddlLocations" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="ddlOccupations">@Resource.Common_label_occupation</label>
+                                                @Html.DropDownListFor(m => m.OccupationId, occupations, new { @class = "form-control", id = "ddlOccupations", name = "ddlOccupations" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="ddlLoanProduct">@Resource.ManageLead_form_label_loanProduct</label>
+                                                @Html.DropDownListFor(m => m.LoanProductId, loanProducts, new { @class = "form-control", id = "ddlLoanProduct", name = "ddlLoanProduct" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="ddlAmountRanges">@Resource.ManageLead_form_label_amount</label>
+                                                @Html.DropDownListFor(m => m.LoanAmount, amounts, new { @class = "form-control", id = "ddlAmountRanges", name = "ddlAmountRanges" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="ddlLoanPeriods">@Resource.ManageLead_form_label_loanPeriod</label>
+                                                @Html.DropDownListFor(m => m.LoanPeriod, periods, new { @class = "form-control", id = "ddlLoanPeriods", name = "ddlLoanPeriods" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="btnSearch">&nbsp;</label>
+                                                <div class="mt-0"><button type="submit" id="btnSearch" class="btn btn-danger btn-block waves-effect waves-light"><i class="fas fa-search"></i>&nbsp;@Resource.Common_label_search</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <div class="row mb-2">
+                <div class="col-7">
+                    Showing 1 - 20 of 1,524
+                </div>
+                <div class="col-5">
+                    <div class="btn-group float-right">
+                        @*<button type="button" class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-left"></i></button>
+                            <button type="button" class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-right"></i></button>*@
+                    </div>
+                </div>
+            </div>
+            <!-- leads -->
+            <div class="row">
+                @foreach (var item in Model.Leads)
+                {
+                    <div class="col-xl-4 col-md-6">
+                        <div class="card directory-card">
+                            <div class="card-body">
+                                <div class="media">
+                                    @{
+                                        var avatar_photo = "female-0.png";
+                                        if (item.Gender)
+                                            avatar_photo = "male-0.png";
+                                    }
+                                    <img src="~/assets/images/users/@avatar_photo" alt="" class="img-fluid img-thumbnail rounded-circle avatar-lg" />
+                                    <div class="media-body ml-3">
+                                        <h5 class="text-primary font-size-18 mt-0 mb-1"><a href="@Url.Action("View", "Search", new { id = item.Id })">@item.FirstName @item.LastName</a></h5>
+                                        <p class="font-size-12 mb-2">
+                                            @item.JobTitleName
+                                        </p>
+                                        <p class="font-size-12 mb-0"><i class="ti-location-pin"></i>&nbsp; @item.ProfileAddress</p>
+                                    </div>
+                                    <ul class="list-unstyled social-links float-right">
+                                        <li>@if (item.Gender)@Html.Raw("<a href=\"#\" class=\"btn-success\"><i class=\"fas fa-mars\"></i></a>") else @Html.Raw("<a href=\"#\" class=\"btn-pink\"><i class=\"fas fa-venus\"></i></a>")</li>
+                                        <li>@if (item.YOB > 0)@Html.Raw($"<a href=\"#\" class=\"btn-info\"><p class=\"font-size-12 mt-1\">{DateTime.Now.Year - item.YOB}</p></a>")</li>
+                                    </ul>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <span class="font-size-12 text-secondary mt-0">@item.LeadDate.ToString("hh:mm dd/MM/yyyy")</span>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <span class="font-size-12 text-dark mt-0">@item.LoadProductName</span>
+                                    </div>
+                                    <div class="col-lg-4 text-right">
+                                        <span class="font-size-15 text-pink mb-0"><strong>@item.Amount.ToString("#,##")</strong><sup><small>đ</small></sup></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-xl-12 col-md-12">
+                    <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                </div>
+                <!-- end col -->
+
+            </div>
+            <!-- end row -->
+        }
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->

@@ -1,0 +1,14 @@
+﻿.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #fff!important;
+    background-color: #bd081c!important;
+    border: 1px solid #bd081c!important;
+}
+.nav-custom > li > a {
+    color: #000
+}
+.nav-custom {
+    background-color: #959595;
+}
+.tab-detail {
+    margin-top: 15px;
+}

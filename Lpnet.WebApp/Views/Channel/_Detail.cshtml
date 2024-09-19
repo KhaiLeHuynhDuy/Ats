@@ -1,0 +1,30 @@
+﻿@model Ats.Models.Channel.ChannelSearchViewModel;
+@using Lpnet.WebApp.Resources
+@using (Html.BeginForm("Edit", "Channel", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Channel.Id)
+    <div class="modal-header">
+        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div>
+
+            <div class="form-group">
+                <label>@Resource.Common_label_name</label>
+                <div>
+                    @Html.TextBoxFor(m => m.Channel.ChannelName, new { placeholder = " ", @class = "form-control", id = "edit-name", required = "required" })
+                </div>
+            </div>           
+            <div class="form-group">
+                @Html.CheckBoxFor(m => m.Channel.Active, new { @class = "form-group", id = "edit-active" })
+                <label for="edit-active"> @Resource.Common_label_active</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+    </div>
+}

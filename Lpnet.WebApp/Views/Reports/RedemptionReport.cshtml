@@ -1,0 +1,227 @@
+﻿@model Ats.Models.Reports.RedemptionReportsSearchViewModel;
+
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_RedemptionReport_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    SelectList lsCollections = ViewBag.Collections;
+
+}
+@section styles{
+    <!-- DataTables -->
+
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+
+
+}
+
+<div class="page-content">
+
+     <div class="container-fluid">
+        <!-- start page title -->
+         
+            @using (Html.BeginForm("ExportRedemption", "Reports", FormMethod.Get, new { target = "_blank", role = "form" }))
+              {
+          
+            <div class="row align-items-center">
+               @Html.AntiForgeryToken()                                                               
+                @Html.HiddenFor(m=> m.collectionId)
+              <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_GiftReport</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_reports</a></li>
+                            <li class="breadcrumb-item active">@Resource.Common_label_GiftReport</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                <div class="page-title-box">
+                    <div class="form-group float-right">
+            
+                       <div class="mt-0">
+                           <button type="submit" value="export" id="spinner" name="export" class="btn btn-info btn-spinner btn-spinner-example"
+                       >@Resource.Commom_label_ExportExcel  <i class="mdi mdi-download"></i>
+                      </button>
+                      </div>
+                    
+                     </div>
+                </div>
+            </div>      
+           </div>
+              }
+         </div>
+   
+
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card  h-100">
+                    <div class="card-header bg-primary text-xl-center"><h4 class="text-white mt-2">@Resource.Common_label_ControlPannel</h4></div>
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                           @using (Html.BeginForm("SearchRedemption", "Reports", new { role = "form" }, FormMethod.Post))
+                          {  @Html.AntiForgeryToken()
+                            <fieldset id="myForm">
+                                <div class="row">
+                                    <div class="col-12 mt-5">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label class="mb-0 mb-1">@Resource.Common_label_SelectProductCollection</label>
+                                                @Html.DropDownListFor(m => m.collectionId, lsCollections, new { @class = "js-example-basic-single", id = "ls_lsCollections", name = "lst_lsCollections", @style = "width: 100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-5">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button runat="server" type="submit" class="btn btn-outline-info btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_reset</button></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button type="submit" value="reset" name="reset" class=" btn btn-primary btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_Generate</button></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                           }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card  h-100">
+                    <div class="card-header bg-soft-dark">
+                        <div class="col-lg-12 ">
+                            <div class="row">
+                                <div class="col-6">
+                                
+                                        <h4 class="font-size-16 mt-2" style="border-left: 4px  #3f51b5">
+                                            <a class="ml-0 mr-0">
+                                                <i class="mdi mdi-power-on text-white" style="font-weight:bold"></i>
+                                            </a>
+                                            @if (Model.collectionId != Guid.Empty && Model.collectionId != null)
+                                            {
+                                                @Html.DisplayFor(Model => Model.collectionName)
+
+                                            }
+                                            else
+                                            { <a class="ml-2"></a>
+                                            }
+                                        </h4>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="card-body">
+               
+
+                            <!-- end page title -->
+                            <div class="dtHorizontalVerticalExample" style="overflow: auto hidden">
+                                <table id="dtHorizontalVerticalExample" class="table table-hover table-bordered table-sm " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+
+                                            <th class="text-center align-text-bottom">
+                                                @Resource.common_prCode <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search,  sort = !Model.PagerRedemptionReports.OrderSort, page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+                                            <th class="text-center align-text-bottom">
+                                                @Resource.common_prName <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search,  sort = !Model.PagerRedemptionReports.OrderSort ,page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+                                            <th class="text-center">
+                                                @Resource.Common_label_TotalNewOrders  <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search,  sort = !Model.PagerRedemptionReports.OrderSort, page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+
+                                            <th class="text-center">
+                                                @Resource.Common_label_TotalInTransit  <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search,  sort = !Model.PagerRedemptionReports.OrderSort ,  page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+                                            <th class="text-center">
+                                                @Resource.Common_label_TotalCompleted  <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search, sort = !Model.PagerRedemptionReports.OrderSort ,  page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+                                            <th class="text-center">
+                                                @Resource.Common_label_TotalCanceled  <a href="@Url.Action(Model.PagerRedemptionReports.Action, new { search = Model.PagerRedemptionReports.Search, sort = !Model.PagerRedemptionReports.OrderSort ,  page = Model.PagerRedemptionReports.Page, Model.PagerRedemptionReports.Size })" class="btn btn-xs btn-link p-0">
+                                                </a>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.redemptionReports)
+                                        {
+
+                                            <tr>
+                                                <td>@item.ProductCode</td>
+                                                <td>@item.ProductName</td>
+                                                <td class="text-center"> @if (@item.TotalNewOrder == 0)
+                                                { <a class="text-danger">@item.TotalNewOrder</a> }
+                                                else { <b>@item.TotalNewOrder</b>} 
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (@item.TotalInTransit == 0)
+                                                    {<a class="text-danger">@item.TotalInTransit</a> }
+                                                else
+                                                { <b>@item.TotalInTransit</b>}
+                                                 </td>
+                                                <td class="text-center">
+                                                    @if (@item.TotalCompleted == 0)
+                                                    {<a class="text-danger">@item.TotalCompleted</a> }
+                                                else
+                                                { <b>@item.TotalCompleted</b>}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (@item.TotalCanceled == 0)
+                                                    {<a class="text-danger">@item.TotalCanceled</a> }
+                                                else
+                                                { <b>@item.TotalCanceled</b>}
+                                                </td>
+
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <p>
+                                    <partial name="~/Views/Shared/_pagerRedemptionReports.cshtml" for="@Model.PagerRedemptionReports">
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+     
+        <!-- End Upload Area -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+@section scripts{
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+
+            });
+        });
+    </script>
+}

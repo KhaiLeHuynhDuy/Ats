@@ -1,0 +1,653 @@
+﻿@model Ats.Models.Member.MemberTagViewModel;
+@using Lpnet.WebApp.Resources
+@using Lpnet.WebApp.Extentions;
+
+@{
+   @if (Model.Id == Guid.Empty)
+   {
+         ViewBag.Title = @Resource.ViewBag_Title_MemberTag_Create;
+   }
+  else
+   {
+         ViewBag.Title = @Resource.ViewBag_Title_MemberTag_Edit;
+   }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .select2-container .select2-results__options li[aria-selected="true"] {
+            background-color: #626ed4;
+        }
+    </style>
+}
+@{
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+
+    SelectList birthdaysTag = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = @Resource.Select },
+        new SelectListItem() { Value = "1", Text = @Resource.Today },
+        new SelectListItem() { Value = "7", Text = @Resource.Last_7days },
+        new SelectListItem() { Value = "10", Text = @Resource.Last_10days },
+        new SelectListItem() { Value = "15", Text = @Resource.Last_15days },
+        new SelectListItem() { Value = "30", Text = @Resource.Last_30days },
+    }, "Value", "Text");
+
+    SelectList WeddingAnniversary = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = @Resource.Select  },
+        new SelectListItem() { Value = "1", Text = @Resource.Today },
+        new SelectListItem() { Value = "7", Text =  @Resource.Last_7days},
+        new SelectListItem() { Value = "14", Text = @Resource.Last_2weeks  },
+        new SelectListItem() { Value = "30", Text = @Resource.Last_1months  },
+        new SelectListItem() { Value = "60", Text = @Resource.Last_2months  },
+        new SelectListItem() { Value = "90", Text = @Resource.Last_3months  },
+    }, "Value", "Text");
+
+    SelectList beforeMonths = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = @Resource.Select },
+        new SelectListItem() { Value = "1", Text = @Resource.Before_1months  },
+        new SelectListItem() { Value = "3", Text = @Resource.Before_3months  },
+        new SelectListItem() { Value = "6", Text = @Resource.Before_6months  },
+        new SelectListItem() { Value = "9", Text = @Resource.Before_9months  },
+        new SelectListItem() { Value = "12", Text =@Resource.Before_12months  },
+    }, "Value", "Text");
+
+    SelectList lastMonths = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = @Resource.Select  },
+        new SelectListItem() { Value = "1", Text = @Resource.Last_1months},
+        new SelectListItem() { Value = "3", Text = @Resource.Last_3months},
+        new SelectListItem() { Value = "6", Text = @Resource.Last_6months},
+        new SelectListItem() { Value = "9", Text = @Resource.Last_9months},
+        new SelectListItem() { Value = "12", Text = @Resource.Last_12months },
+     }, "Value", "Text");
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_memberTag</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "MemberTag")">@Resource.Common_label_memberTag</a></li>
+                        @if (Model.Id == Guid.Empty)
+                        {
+                            <li class="breadcrumb-item active">@Resource.Common_label_create</li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item active">@Resource.Common_label_edit</li>
+                        }
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("Edit", "MemberTag", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                        {
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+
+                            <div class="form-group row">
+                                <label for="txtMemberTagName" class="col-sm-2 col-form-label">@Resource.Common_label_tagname</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(m => m.TagName, new { @class = "form-control", id = "txtGroupName" })
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_membertagcategory</label>
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(m => m.TagCagetoryId, MemberTagCategories, new { @class = "form-control", id = "ddlTagCategory" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtGroupName" class="col-sm-2 col-form-label">@Resource.Common_label_conditional</label>
+                                <div class="col-sm-5">@Resource.Common_label_conditionalTag @Html.RadioButtonFor(m => m.TagType, "true", new { id = "conditional", @checked = "checked" })</div>
+                                <div class="col-sm-5">@Resource.Common_label_unConditionalTag @Html.RadioButtonFor(m => m.TagType, "false", new { id = "unconditional" })</div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_active</label>
+                                <div class="col-sm-10">
+                                    @Html.CheckBoxFor(m => m.Active, new { @class = "form-group", id = "ckActive" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_condition</label>
+                                <div class="col-sm-10">
+                                    <a class="text-info"><i class="fas fa-info"></i> @Resource.Common_label_selectoneormore</a>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.GenderSelected, new { @class = "form-group", @id = "ckb_gender_selected", onclick = "toggle('ckb_gender_selected', 'ckb_gender_male', 'ckb_gender_female');" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_gender</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        @{
+                                            <div class="col-md-6">
+                                                @Html.CheckBoxFor(m => m.GenderMale, new { @class = "form-group", @id = "ckb_gender_male" })<a class="text-dark ml-1" href="#">@Resource.Common_label_male</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.CheckBoxFor(m => m.GenderFemale, new { @class = "form-group", @id = "ckb_gender_female" })<a class="text-dark ml-1" href="#">@Resource.Common_label_female</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.AgeSelected, new { @class = "form-group", @id = "ckb_age_selected", onclick = "toggle('ckb_age_selected', 'txt_age_from', 'txt_age_to');" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_age</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        @{
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(m => m.AgeFrom, new { @class = "form-group", @id = "txt_age_from" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(m => m.AgeTo, new { @class = "form-group", @id = "txt_age_to" })
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.BirthdaySelected, new { @class = "form-group", @id = "ckb_birthday_selected", onclick = "toggle('ckb_birthday_selected', 'txt_birthday', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_birthday</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.BirthdayValue, birthdaysTag, new { @class = "form-control", @id = "txt_birthday" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.BirthdayMonthSelected, new { @class = "form-group", @id = "ckb_birthday_month_selected", onclick = "toggle('ckb_birthday_month_selected', 'txt_birthday_month', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_birthdaymonth</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.BirthdayMonthValue, Model.BirthdayMonthList, new { @multiple = "", @class = "js-example-responsive", id = "txt_birthday_month", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_defaultpersonaldetails</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.ProvinceSelected, new { @class = "form-group", @id = "ckb_province_selected", onclick = "toggle('ckb_province_selected', 'txt_province', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_province</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.ProvinceValue, Model.ProvinceList, new { placeholder = "", @multiple = "", @class = "js-example-responsive", id = "txt_province", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.WeddingAnniversarySelected, new { @class = "form-group", @id = "ckb_wedding_selected", onclick = "toggle('ckb_wedding_selected', 'txt_wedding', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_weddingAnniversary</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.WeddingAnniValue, WeddingAnniversary, new { placeholder = "", @class = "form-control", id = "txt_wedding" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.MarriedYearSelected, new { @class = "form-group", @id = "ckb_married_year_selected", onclick = "toggle('ckb_married_year_selected', 'txt_married_year', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_marriedYear</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.MarriedYearValue, Model.MarriedYearList, new { @multiple = "", @class = "js-example-responsive", id = "txt_married_year", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.WeddingMonthSelected, new { @class = "form-group", @id = "ckb_wedding_month_selected", onclick = "toggle('ckb_wedding_month_selected', 'txt_wedding_month', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_weddingMonth</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.WeddingMonthValue, Model.WeddingMonthList, new { @multiple = "", @class = "js-example-responsive", id = "txt_wedding_month", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.MarriedStatusSelected, new { @class = "form-group", @id = "ckb_maratial_status_selected", onclick = "toggle('ckb_maratial_status_selected', 'txt_maratial_status', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_maratialStatus</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.MarriedStatusValue, Model.MarriedStatusList, new { @multiple = "", @class = "js-example-responsive", id = "txt_maratial_status", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.PreferredBrandSelected, new { @class = "form-group", @id = "ckb_preferred_brand_selected", onclick = "toggle('ckb_preferred_brand_selected', 'txt_preferred_brand', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_preferredBrand</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.PreferredBrandValue, Model.PreferredBrandList, new { @multiple = "", @class = "js-example-responsive", id = "txt_preferred_brand", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Sidebar_title_preferredBrand</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.PreferredStoreSelected, new { @class = "form-group", @id = "ckb_preferred_store_selected", onclick = "toggle('ckb_preferred_store_selected', 'txt_preferred_store', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_preferredStore</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.PreferredStoreValue, Model.PreferredStoreList, new { @multiple = "", @class = "js-example-responsive", id = "txt_preferred_store", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.PreferredProductSelected, new { @class = "form-group", @id = "ckb_preferred_product_selected", onclick = "toggle('ckb_preferred_product_selected', 'txt_preferred_product', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_preferredProduct</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.PreferredProductValue, Model.PreferredProductList, new { @multiple = "", @class = "js-example-responsive", id = "txt_preferred_product", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.MemberTierSelected, new { @class = "form-group", @id = "ckb_tier_selected", onclick = "toggle('ckb_tier_selected', 'txt_tier', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_tier</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.MemberTierValue, Model.MemberTierList, new { @multiple = "", @class = "js-example-responsive", id = "txt_tier", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.RegistrationDateSelected, new { @class = "form-group", @id = "ckb_registration_date_selected", onclick = "toggle('ckb_registration_date_selected', 'txt_registration_date', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_registrationDate</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @*@Html.TextBoxFor(m => m.RegistrationDateValue, new { placeholder = "", @class = "form-control", id = "txt_registration_date" })*@
+                                    @Html.TextBoxFor(m => m.RegistrationDateValue, "{0:yyyy-MM-dd}", new { @class = "form-control w-100", id = "txt_registration_date", type = "date", autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_loyalty</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.AvailablePointSelected, new { @class = "form-group", @id = "ckb_available_point_selected", onclick = "toggle('ckb_available_point_selected', 'txt_available_point_from', 'txt_available_point_to');" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_availablePoint</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        @{
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(m => m.PointFrom, new { @class = "form-group", @id = "txt_available_point_from" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(m => m.PointTo, new { @class = "form-group", @id = "txt_available_point_to" })
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.RegistationChannelSelected, new { @class = "form-group", @id = "ckb_registation_channel_selected", onclick = "toggleElmArray('ckb_registation_channel_selected', ['ckb_registation_channel_megapoint_cloud', 'ckb_registation_channel_corporate_website', 'ckb_registation_channel_store_pos', 'ckb_registation_channel_zalo', 'ckb_registation_channel_e_commerce', 'ckb_registation_channel_member_portal']);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_registrationChannel</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @{
+                                        <div class="row">
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelMegapointCloud, new { @class = "form-group", @id = "ckb_registation_channel_megapoint_cloud" })<a class="text-dark ml-1" href="#">Megapoint Cloud</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelCorporateWebsite, new { @class = "form-group", @id = "ckb_registation_channel_corporate_website" })<a class="text-dark ml-1" href="#">Corporate Website</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelStorePos, new { @class = "form-group", @id = "ckb_registation_channel_store_pos" })<a class="text-dark ml-1" href="#">Store-POS</a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelZalo, new { @class = "form-group", @id = "ckb_registation_channel_zalo" })<a class="text-dark ml-1" href="#">Zalo</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelECommerce, new { @class = "form-group", @id = "ckb_registation_channel_e_commerce" })<a class="text-dark ml-1" href="#">E-Commerce</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.RegistationChannelMemberPortal, new { @class = "form-group", @id = "ckb_registation_channel_member_portal" })<a class="text-dark ml-1" href="#">Member Portal</a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.FirstTransactionDateSelected, new { @class = "form-group", @id = "ckb_first_transaction_selected", onclick = "toggle('ckb_first_transaction_selected', 'txt_first_transaction_date', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_firstTransactionDate</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.FirstTransactionDateValue, beforeMonths, new { @class = "form-control", id = "txt_first_transaction_date", name = "txtFirtTransactionDate" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_transaction</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.LastTransactionDateSelected, new { @class = "form-group", @id = "ckb_last_transaction_selected", onclick = "toggle('ckb_last_transaction_selected', 'txt_last_transaction_date', null);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_lastTransactionDate</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(m => m.LastTransactionDateValue, beforeMonths, new { @class = "form-control", id = "txt_last_transaction_date", name = "txtLastTransactionDate" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-3">
+                                    @Html.CheckBoxFor(m => m.NumberOfTransactionSelected, new { @class = "form-group", @id = "ckb_number_transaction_selected", onclick = "toggleElmArray('ckb_number_transaction_selected', ['cb_number_transactions', 'txt_number_transaction_from','txt_number_transaction_to']);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_numberOfTransaction</a>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        @{
+                                            <div class="col-md-4">
+                                                @Html.DropDownListFor(m => m.NumberOfTransactionValue, lastMonths, new { @class = "form-control", @id = "cb_number_transactions" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(m => m.NumberOfTransactionFrom, new { placeholder = "", @class = "form-control", @id = "txt_number_transaction_from" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(m => m.NumberOfTransactionTo, new { placeholder = "", @class = "form-control", @id = "txt_number_transaction_to" })
+                                            </div>
+                                            <div class="col-md-2">
+                                                times
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-3">
+                                    @Html.CheckBoxFor(m => m.AmountOfTransactionSelected, new { @class = "form-group", @id = "ckb_amount_transaction_selected", onclick = "toggleElmArray('ckb_amount_transaction_selected', ['cb_amount_transactions', 'txt_amount_transactions_form','txt_amount_transactions_to']);" })<a class="col-md-2 text-dark" href="#">@Resource.Common_label_amountOfTransaction</a>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        @{
+                                            <div class="col-md-4">
+                                                @Html.DropDownListFor(m => m.AmountOfTransactionValue, lastMonths, new { @class = "form-control", @id = "cb_amount_transactions" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(m => m.AmountOfTransactionFrom, new { placeholder = "", @class = "form-control", @id = "txt_amount_transactions_form" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(m => m.AmountOfTransactionFrom, new { placeholder = "", @class = "form-control", @id = "txt_amount_transactions_to" })
+                                            </div>
+                                            <div class="col-md-2">
+                                                VN$
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_memberlifecycle</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.MemberLifecycleSelected, new { @class = "form-group", @id = "ckb_memberlifecycle_selected", onclick = "toggle('ckb_memberlifecycle_selected', 'lst_memberlifecycle', null);" })<a class="col-md-2 text-dark" href="#">Opt-in</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ListBoxFor(m => m.MemberLifecycleValue, Model.MemberLifecycleList, new { @multiple = "", @class = "js-example-responsive", @id = "lst_memberlifecycle", @style = "width: 100%" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txt" class="col-sm-2 col-form-label">@Resource.Common_label_communicationPreferrences</label>
+                                <div class="col-sm-2">
+                                    @Html.CheckBoxFor(m => m.CommunicationPreferenceSelected, new { placeholder = "", @class = "form-group", @id = "ckb_communication_preferrences_selected", onclick = "toggleElmArray('ckb_communication_preferrences_selected', ['ckb_communication_preference_sms', 'ckb_communication_preference_email', 'ckb_communication_preference_mobile', 'ckb_communication_preference_marketing', 'ckb_communication_preference_loayalty']);" })<a class="col-md-2 text-dark" href="#">Opt-in</a>
+                                </div>
+                                <div class="col-sm-8">
+                                    @{
+                                        <div class="row">
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.CommunicationPreferenceSms, new { @class = "form-group", @id = "ckb_communication_preference_sms" })<a class="text-dark ml-1" href="#">SMS</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.CommunicationPreferenceEmail, new { @class = "form-group", @id = "ckb_communication_preference_email" })<a class="text-dark ml-1" href="#">Email</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.CommunicationPreferenceMobile, new { @class = "form-group", @id = "ckb_communication_preference_mobile" })<a class="text-dark ml-1" href="#">Mobile</a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.CommunicationPreferenceMarketing, new { @class = "form-group", @id = "ckb_communication_preference_marketing" })<a class="text-dark ml-1" href="#">Marketing Communication</a>
+                                            </div>
+                                            <div class="col-4">
+                                                @Html.CheckBoxFor(m => m.CommunicationPreferenceLoayalty, new { @class = "form-group", @id = "ckb_communication_preference_loayalty" })<a class="text-dark ml-1" href="#">Loyalty Communication</a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-1">
+                                    <button type="submit" id="getvalues" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <a href="@Url.Action("Index", "MemberTag",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                                </div>
+                                @if (Model.Id != System.Guid.Empty)
+                                {
+                                    <div class="col-md-3 mt-1 text-right">
+                                        <label for="txt" class="col-form-label">@Resource.Commom_label_TotalMember: </label>
+                                        @Html.DisplayFor(m => m.TotalMember)
+                                    </div>
+                                    <div class="col-md-3 mt-1 text-right">@Html.ActionLink("Analyst", "Analyst", "MemberTag", new { @id = Model.Id }, new { @class = "btn btn-primary waves-effect waves-light" })</div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (!$("#ckb_gender_selected")[0].checked) {
+                $("#ckb_gender_male").attr('disabled', true);
+                $("#ckb_gender_female").attr('disabled', true);
+            }
+
+            if (!$("#ckb_age_selected")[0].checked) {
+                $("#txt_age_from").attr('disabled', true);
+                $("#txt_age_to").attr('disabled', true);
+            }
+
+            $("#txt_birthday").attr('disabled', !$("#ckb_birthday_selected")[0].checked);
+            $("#txt_birthday_month").attr('disabled', !$("#ckb_birthday_month_selected")[0].checked);
+            $("#txt_province").attr('disabled', !$("#ckb_province_selected")[0].checked);
+            $("#txt_wedding").attr('disabled', !$("#ckb_wedding_selected")[0].checked);
+            $("#txt_married_year").attr('disabled', !$("#ckb_married_year_selected")[0].checked);
+            $("#txt_wedding_month").attr('disabled', !$("#ckb_wedding_month_selected")[0].checked);
+            $("#txt_maratial_status").attr('disabled', !$("#ckb_maratial_status_selected")[0].checked);
+            $("#txt_preferred_brand").attr('disabled', !$("#ckb_preferred_brand_selected")[0].checked);
+            $("#txt_preferred_store").attr('disabled', !$("#ckb_preferred_store_selected")[0].checked);
+            $("#txt_preferred_product").attr('disabled', !$("#ckb_preferred_product_selected")[0].checked);
+            $("#txt_tier").attr('disabled', !$("#ckb_tier_selected")[0].checked);
+            $("#txt_registration_date").attr('disabled', !$("#ckb_registration_date_selected")[0].checked);
+            $("#txt_available_point_from").attr('disabled', !$("#ckb_available_point_selected")[0].checked);
+            $("#txt_available_point_to").attr('disabled', !$("#ckb_available_point_selected")[0].checked);
+            $("#txt_first_transaction_date").attr('disabled', !$("#ckb_first_transaction_selected")[0].checked);
+            $("#txt_last_transaction_date").attr('disabled', !$("#ckb_last_transaction_selected")[0].checked);
+            $("#cb_number_transactions").attr('disabled', !$("#ckb_number_transaction_selected")[0].checked);
+            $("#txt_number_transactions_from").attr('disabled', !$("#ckb_number_transaction_selected")[0].checked);
+            $("#txt_number_transactions_to").attr('disabled', !$("#ckb_number_transaction_selected")[0].checked);
+            $("#cb_amount_transactions").attr('disabled', !$("#ckb_amount_transaction_selected")[0].checked);
+            $("#txt_amount_transactions_from").attr('disabled', !$("#ckb_amount_transaction_selected")[0].checked);
+            $("#txt_amount_transactions_to").attr('disabled', !$("#ckb_amount_transaction_selected")[0].checked);
+            $("#lst_memberlifecycle").attr('disabled', !$("#ckb_memberlifecycle_selected")[0].checked);
+            //$("#").attr('disabled', !$("#ckb_communication_channel_selected")[0].checked);
+            if (!$("#ckb_communication_preferrences_selected")[0].checked) {
+                $("#ckb_communication_preference_sms").attr('disabled', true);
+                $("#ckb_communication_preference_email").attr('disabled', true);
+                $("#ckb_communication_preference_mobile").attr('disabled', true);
+                $("#ckb_communication_preference_marketing").attr('disabled', true);
+                $("#ckb_communication_preference_loayalty").attr('disabled', true);
+            }
+            if (!$("#ckb_registation_channel_selected")[0].checked) {
+                $("#ckb_registation_channel_megapoint_cloud").attr('disabled', true);
+                $("#ckb_registation_channel_corporate_website").attr('disabled', true);
+                $("#ckb_registation_channel_store_pos").attr('disabled', true);
+                $("#ckb_registation_channel_zalo").attr('disabled', true);
+                $("#ckb_registation_channel_e_commerce").attr('disabled', true);
+                $("#ckb_registation_channel_member_portal").attr('disabled', true);
+            }
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        function toggle(ck, elm1, elm2) {
+            var sel = document.getElementById(ck);
+            if (elm1 != null) {
+                var elm = document.getElementById(elm1);
+                if (sel.checked) {
+                    elm.removeAttribute("disabled", "");
+                    elm.setAttribute("enabled", "");
+                }
+                else {
+                    elm.removeAttribute("enabled", "");
+                    elm.setAttribute("disabled", "");
+                }
+            };
+
+            if (elm2 != null) {
+                var elm = document.getElementById(elm2);
+                if (sel.checked) {
+                    elm.removeAttribute("disabled", "");
+                    elm.setAttribute("enabled", "");
+                }
+                else {
+                    elm.removeAttribute("enabled", "");
+                    elm.setAttribute("disabled", "");
+                }
+            };
+        }
+    </script>
+
+    <script type="text/javascript">
+        function toggleElmArray(ck, elmArray = []) {
+            var sel = document.getElementById(ck);
+            for (let i = 0; i < elmArray.length; i++) {
+                if (elmArray[i] != null) {
+                    var elm = document.getElementById(elmArray[i]);
+                    if (sel.checked) {
+                        elm.removeAttribute("disabled", "");
+                        elm.setAttribute("enabled", "");
+                    }
+                    else {
+                        elm.removeAttribute("enabled", "");
+                        elm.setAttribute("disabled", "");
+                    }
+                };
+            }
+
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-responsive').select2({
+                width: 'resolve',
+                placeholder: "",
+                allowClear: true
+            });
+        });
+
+
+    </script>
+
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+
+    <script>
+        $("input[name='AgeFrom']").TouchSpin({
+            min: 0,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 100,
+            prefix: ''
+        });
+        $("input[name='AgeTo']").TouchSpin({
+            min: 0,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 100,
+            prefix: ''
+        });
+
+        $("input[name='PointFrom']").TouchSpin({
+            min: 0,
+            max: 10000000,
+            stepinterval: 0,
+            maxboostedstep: 10000000,
+            prefix: ''
+        });
+        $("input[name='PointTo']").TouchSpin({
+            min: 0,
+            max: 10000000,
+            stepinterval: 1,
+            maxboostedstep: 10000000,
+            prefix: ''
+        });
+    </script>
+}

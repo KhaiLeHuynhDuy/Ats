@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using Ats.Web.Resources
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var provider = requestCulture.Provider as AcceptLanguageHeaderRequestCultureProvider;
+
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+
+    var value = "";
+    if (requestCulture.RequestCulture.UICulture.Name.Equals("vi"))
+    {
+        value = "en";
+    }
+    else if (requestCulture.RequestCulture.UICulture.Name.Equals("en"))
+    {
+        value = "vi";
+    }
+}
+
+    <div>
+        @using (Html.BeginForm("SetLanguage", "Home", FormMethod.Post, new { id = "selectLanguage" }))
+        {
+            @Html.Hidden("returnUrl", returnUrl)
+            @Html.Hidden("culture", value)
+            var languague = value == "en" ? @Resource.VN : @Resource.GB;
+            <div class="icon flag-popup-show">
+                <div class="btn btn-danger nn-btn-language">@languague <i class="fa fa-globe" style="font-size:20px" aria-hidden="true"></i></div>
+            </div>
+            <ul class="setting-language flag-popup-hidden" style="width: 115px;">
+                @{
+                    if (value.Equals("vi"))
+                    {
+                        <li class="changeLang" title="Vietnamese" style="padding-left:15px">@Resource.VN</li>
+                    }
+                    else
+                    {
+                        <li class="changeLang" title="English" style="padding-left:15px">@Resource.GB</li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".changeLang").click(function () {
+            $("#selectLanguage").submit();
+        })
+    });
+</script>

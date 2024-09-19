@@ -1,0 +1,513 @@
+﻿@model Ats.Models.Member.MemberDetailViewModel;
+@using Lpnet.WebApp.Resources
+@using Ats.Commons.Utilities
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Member_EditMember;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+@{
+     SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = null, Text = "Unspecific" }, new SelectListItem() { Value = "false", Text = Resource.Common_label_female }, new SelectListItem() { Value = "true", Text = Resource.Common_label_male } }, "Value", "Text");
+
+    SelectList occupations = ViewBag.Occupations;
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList maritalStatus = ViewBag.MaritalStatus;
+
+    SelectList provinces = ViewBag.Provinces;
+    SelectList districts = ViewBag.Districts;
+
+    SelectList channelCategories = ViewBag.ChannelCategories;
+    SelectList storeCategories = ViewBag.StoreCategories;
+    SelectList brands = ViewBag.Brands;
+    SelectList products = ViewBag.Products;
+}
+
+@section styles{
+
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .ui-autocomplete-loading {
+            background: white url("~/assets/images/ui-anim_basic_16x16.gif") right center no-repeat;
+        }
+    </style>
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @if (Model != null)
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li> 
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_edit</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <!-- start lead summary -->
+            <!-- end row -->
+            <!-- lead personal information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-danger font-italic font-size-12">@ViewBag.ErrorMessage</p>
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            @using (Html.BeginForm("EditMember", "Member", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageMember_form_title_RegistrationInformation</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a href="@Url.Action("Index", "Member",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                            Cancel
+                                        </a>
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtRegisterDate" class="col-lg-4 col-form-label text-right">@Resource.Common_label_registrationDate :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.RegisterDate, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly", id = "datepicker", type = "text", name = "txtRegisterDate" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtEmployee" class="col-lg-4 col-form-label text-right">@Resource.Common_label_registrationEmployees :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.RegisterEmployee, new { @disabled = "disabled", @readonly = "readonly", @class = "form-control", id = "txtEmployee", name = "txtEmployee" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>@Resource.ManageMember_form_title_personalDetails</h4>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtcode" class="col-lg-4 col-form-label text-right">@Resource.Common_label_code :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.MemberCode, new {  placeholder = "", @class = "form-control", id = "txtcode", name = "txtcode" ,required="required"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="ddlGender" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_sex :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.Gender, genders, new { @class = "form-control", id = "cbbGender" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtFirstName" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_firstName :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.FirstName, new { placeholder = "", @class = "form-control", id = "txtFirstName", name = "txtFirstName" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtLastName" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_lastName :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.LastName, new { placeholder = "", @class = "form-control", id = "txtLastName", name = "txtLastName",required="required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtYearOfBirth" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_birthday :</label>
+                                                    <div class="col-lg-3">
+                                                        @Html.DropDownListFor(m => m.YOB, Model.Year, @Resource.Common_label_years, new { placeholder = "", @class = "form-control", id = "txtYearOfBirth", name = "txtYearOfBirth" })
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <select id="ddlBirthdayMonth" name="month" class="form-control">
+                                                            <option value="0">@Resource.Common_label_month</option>
+                                                            @for (int i = 1; i <= 12; i++)
+                                                            {
+                                                                if (Model.Month == i)
+                                                                {
+                                                                    <option selected="selected" value="@i">@i</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <select id="ddlBirthdayDay" name="day" class="form-control">
+                                                            <option value="0">@Resource.Common_label_day</option>
+                                                            @for (int i = 1; i <= 31; i++)
+                                                            {
+                                                                if (Model.Day == i)
+                                                                {
+                                                                    <option selected="selected" value="@i">@i</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtWeddingDate" class="col-lg-4 col-form-label text-right">@Resource.Common_label_weddingAnniversary:</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.WeddingDate, "{0:yyyy-MM-dd}", new { @class = "form-control w-100", id = "datepicker", type = "date", name = "txtWeddingDate", autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtPhoneNumber" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_phone :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.PhoneNumber, new { placeholder = "", @class = "form-control", id = "txtPhoneNumber",type="number",  name = "txtPhoneNumber" ,required="required"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtEmail" class="col-lg-4 col-form-label text-right"><a class="text-danger mr-1">*</a>@Resource.Common_label_email:</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.Email, new { placeholder = "", @class = "form-control", id = "txtEmail", name = "txtEmail" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtMaritalStatus" class="col-lg-4 col-form-label text-right">@Resource.ManageLead_form_label_maritalStatus:</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.MaritalStatus, maritalStatus, new { @class = "form-control", id = "creation-selection" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtHomeAddress" class="col-lg-4 col-form-label text-right">@Resource.Common_label_homeAddressAddress:</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.TextBoxFor(m => m.address1, new { placeholder = "", @class = "form-control", id = "txtHomeAddress", name = "txtHomeAddress" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="DistrictId" class="col-lg-4 col-form-label text-right">@Resource.Common_label_district :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.DistrictId, districts, new { @class = "form-control", id = "DistrictId" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="ProvinceId" class="col-lg-4 col-form-label text-right">@Resource.Common_label_provinceName :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.ProvinceId, provinces, new { @class = "form-control", id = "ProvinceId" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="Valid" class="col-lg-4 col-form-label text-right">@Resource.Common_label_Status :</label>
+                                                    <div class="col-lg-8 mt-2">
+                                                        @Html.CheckBoxFor(m => m.valid, new { @class = "form-group", id = "ck_valid" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>@Resource.ManageMember_form_title_brandPreferences</h4>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="col-12">
+                                        <div class=" row">
+                                            <div class=" col-lg-6 col-xxl-4 ">
+                                                <div class="form-group row">
+                                                    <label for="txtChannel" class="col-lg-4 col-form-label text-right">@Resource.Common_label_registrationChannel :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.ChannelId, channelCategories, new { placeholder = "", @class = "form-control", id = "txtChannel", name = "txtChannel" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-xxl-4">
+                                                <div class="form-group row">
+                                                    <label for="txtStore" class="col-lg-4 col-form-label text-right">@Resource.Common_label_registrationStore :</label>
+                                                    <div class="col-lg-8">
+                                                        @Html.DropDownListFor(m => m.StoreId, storeCategories, new { placeholder = "", @class = "form-control", id = "txtStore", name = "txtStore" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>@Resource.ManageMember_form_title_memberTags</h4>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row col-md-12">
+                                        <div class="row col-md-12 form-group">
+                                            @{
+                                                foreach (SelectListItem item in ViewBag.Tags)
+                                                {
+                                                    <button class="btn btn-outline-info waves-effect waves-light" type="button">@item.Text <i class="mdi mdi-layers-remove"></i></button>
+                                                    <span>&nbsp;</span>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row col-md-12 form-group">
+                                            <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#modal-assign-tag">
+                                                <i class="mdi mdi-plus"></i>  @Resource.Common_label_assignTag
+                                            </button>
+                                        </div>
+                                        <!-- create new modal -->
+                                        <div id="modal-assign-tag" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_name</label>
+                                                                <div>
+                                                                    <input id="txt-member-tag" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    </div>
+                                    <div class="row form-group">
+                                        <hr />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>@Resource.ManageMember_form_title_communicationPreferences</h4>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <span class="col-lg-8">@Resource.Member_AcceptToReceiveMarketing</span>
+                                                <div class="col-lg-4 text-right">
+                                                    @Html.CheckBoxFor(m => m.AcceptToReceiveMarketing, new { @checked = "checked", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <span class="col-lg-8">@Resource.Member_AcceptToReceiveLoyaltyInformation</span>
+                                                <div class="col-lg-4 text-right">
+                                                    @Html.CheckBoxFor(m => m.AcceptToReceiveLoyaltyInformation, new { @checked = "checked", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <span class="col-lg-8">@Resource.Member_AcceptToBeContactedViaMobilePhone</span>
+                                                <div class="col-lg-4 text-right">
+                                                    @Html.CheckBoxFor(m => m.AcceptToBeContactedViaMobilePhone, new { @checked = "checked", @class = "form-control" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <span class="col-lg-8">@Resource.Member_AcceptToBeContactedViaMobileEmail</span>
+                                                <div class="col-lg-4 text-right">
+                                                    @Html.CheckBoxFor(m => m.AcceptToBeContactedViaMobileEmail, new { @checked = "checked", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <span class="col-lg-8">@Resource.Member_NotAcceptAnyContact</span>
+                                                <div class="col-lg-4 text-right">
+                                                    @Html.CheckBoxFor(m => m.NotAcceptAnyContact, new { @checked = "checked", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <a href="@Url.Action("Index", "Member",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                                Cancel
+                                            </a>
+                                            <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                                <i class="mdi mdi-floppy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+
+@section scripts{
+
+   
+    <script type="text/javascript">
+
+        $('#ProvinceId').on('change',
+            function () {
+                $('#DistrictId').empty();
+                $.get("/Member/UpdateDistrict",
+                    { id: $("#ProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#DistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+    </script>
+    @*Comment detail*@
+    <script>
+
+        jQuery(document).ready(function ($) {
+            $('#datepicker').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-responsive').select2({
+                width: 'resolve',
+                placeholder: "",
+                allowClear: true
+            });
+        });
+
+
+    </script>
+
+    <!-- Plugins js -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt-member-tag").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Member/SearchMemberTag",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            //response($.map(data, function (item) {
+                            //    return { label: item.Name, value: item.Name };
+                            //}))
+                            response(data);
+                        }
+                    })
+                },
+                minLength: 3,
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        })
+    </script>
+
+
+}

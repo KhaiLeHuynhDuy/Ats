@@ -1,0 +1,561 @@
+﻿@model Ats.Models.Product.ProductSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+  ViewBag.Title = @Resource.ViewBag_Title_Product_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+    <link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+    <link href="~/assets/css/UploadFile.css" rel="stylesheet" type="text/css" />
+
+
+}
+@{
+    SelectList productCategories = ViewBag.ProductCategories;
+    SelectList brandCategories = ViewBag.BrandCategories;
+    SelectList unitCategories = ViewBag.UnitCategories;
+}
+<style type="text/css">
+    .a {
+        white-space: nowrap;
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_product</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action("Index", "Product")">@Resource.Sidebar_configurations_product</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        <button class="btn btn-outline-info text-dark float-right" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create @Resource.Sidebar_configurations_product
+                        </button>
+                    </div>
+                </div>
+
+                <!-- create new modal -->
+                <div id="createNewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-6">
+                                                        <label><a class="text-danger">*</a>@Resource.Common_label_code</label>
+                                                        @Html.TextBoxFor(m => m.Product.Code, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label>@Resource.Common_label_shortName</label>
+                                                        @Html.TextBoxFor(m => m.Product.ShortName, new { placeholder = "", @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><a class="text-danger">*</a>@Resource.Common_label_name</label>
+                                            <div>
+                                                @Html.TextBoxFor(m => m.Product.Name, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-4">
+                                                        <label><a class="text-danger">*</a>@Resource.Common_label_productCategoryId</label>
+                                                        @Html.DropDownListFor(m => m.Product.ProductCategoryId, productCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                                    </div>
+                                                    @* <div class="col-lg-4">
+                                                        <label><a class="text-danger">*</a>@Resource.Common_label_brandId</label>
+                                                        @Html.DropDownListFor(m => m.Product.BrandId, brandCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                                    </div> *@
+                                                    <div class="col-lg-4">
+                                                        <label><a class="text-danger">*</a>@Resource.Common_label_unitId</label>
+                                                        @Html.DropDownListFor(m => m.Product.UnitId, unitCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-6">
+                                                        <label>@Resource.Common_label_RetailPrice</label>
+                                                        @Html.TextBoxFor(m => m.Product.RetailPrice, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label>@Resource.Common_label_PurchasedPrice</label>
+                                                        @Html.TextBoxFor(m => m.Product.PurchasedPrice, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-6">
+                                                        <label>@Resource.Common_label_Currency</label>
+                                                        @Html.TextBoxFor(m => m.Product.Currency, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label>@Resource.Common_label_displayOrder</label>
+                                                        @Html.TextBoxFor(m => m.Product.DisplayOrder, new { @Value = "", @class = "form-control", id = "creation-name" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="profile">
+                                                        <div class="avatar" style="width:100px;height:100px" id="avatar">
+                                                            <div id="preview">
+                                                                <img src="https://gallery.kissclipart.com/20191005/ile/kissclipart-interface-icon-arrows-icon-upload-icon-45315613fb1a3e5f.jpg" id="avatar-image" class="avatar_img">
+                                                            </div>
+                                                            <div>
+                                                                <label class="avatar_upload">
+                                                                    <input asp-for="Product.ImageProfile" type="file" id="upload" accept=".png, .jpg, .jpeg">
+                                                                    <div class="nickname2 mt-lg-5">
+                                                                        <span id="name"></span>
+                                                                    </div>
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>@Resource.Common_label_description</label>
+                                            <div>
+                                                @Html.TextAreaFor(m => m.Product.Description, new { placeholder = "", @class = "form-control", id = "creation-description", rows = "3" })
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-6">
+                                                        @Html.CheckBoxFor(m => m.Product.AllowEarnPoint, new { @class = "form-group", @checked = "checked" })
+                                                        <label>@Resource.Common_label_AllowEarnPoint</label>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        @Html.CheckBoxFor(m => m.Product.AllowRedeem, new { @class = "form-group", @checked = "checked" })
+                                                        <label>@Resource.Common_label_AllowRedeem</label>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">                                                  
+                                                    <div class="col-lg-4">
+                                                        @Html.CheckBoxFor(m => m.Product.IsActive, new { @class = "form-group", @checked = "checked" })
+                                                        <label>@Resource.Common_label_active</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <div id="editModalProduct" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div id="myModalContentProduct">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- edit modal -->
+
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "Product", new { role = "form" }, FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                @*<label for="example-search-input" class="col-sm-1 col-form-label">@Resource.Common_label_search</label>*@
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = @Resource.Commom_placeholder_EnterProduct, @class = "form-control", id = "occupation-search-input" })
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        @Resource.Common_label_search <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                                @*<div class="col-sm-7">
+                                        <button class="btn btn-outline-info text-dark float-right" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                                        </button>
+                                    </div>*@
+                            </div>
+                        }
+                        <div class="dtHorizontalVerticalExample" style="overflow: auto hidden">
+                            <table id="dtHorizontalVerticalExample" class="table table-sm table-hover table-bordered  table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                     
+                                        <th class="text-left">
+                                            @Resource.Common_label_productcode<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "code", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+
+                                        <th class="text-left">
+                                            @Resource.Common_label_productname<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_productCategory<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "category",  sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                               <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_brandId<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search,field = "brand",  sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_unitId<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "unit", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_RetailPrice<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "retailprice" ,sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_PurchasedPrice<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "purchasedprice", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+
+                                        <th class="text-left">
+                                            @Resource.Common_label_Currency<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search,field = "currency" ,  sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_displayOrder<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search,field="displayorder",  sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_image<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center">
+                                            @Resource.Common_label_AllowEarnPoint <a href="@Url.Action(Model.Pager.Action, new {  search = Model.Pager.Search, field = "allowearnpoint", sort = !Model.Pager.OrderSort, page = Model.Pager.Page  })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_AllowRedeem <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "allowredeem", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_active <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "isactive", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Products)
+                                    {
+                                        <tr>
+                                       
+                                            <td class="text-left">@item.Code</td>
+                                            <td class="text-left"><div class="nameProduct a">@item.Name</div></td>
+                                            <td class="text-left">@item.ProductCategoryName</td>
+                                @*             <td class="text-left">@item.BrandCategoryName</td> *@
+                                            <td class="text-left">@item.UnitCategoryName</td>
+                                            <td class="text-left">@item.RetailPrice</td>
+                                            <td class="text-left">@item.PurchasedPrice</td>
+                                            <td class="text-left">@item.Currency</td>
+                                            <td class="text-left">@item.DisplayOrder</td>
+                                            <td class="text-center"><img src="~/images/@item.ImageUrl" style="width:40px;height:50px;"></td>
+
+                                            <td class="text-center">
+                                                @if (item.AllowEarnPoint)
+                                                {
+                                                    <span class="badge badge-info">@item.AllowEarnPoint</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-danger">@item.AllowEarnPoint</span>
+                                                }
+                                            </td>
+                                            <td class="text-center">
+                                                @if (item.AllowRedeem)
+                                                {
+                                                    <span class="badge badge-info">@item.AllowRedeem</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-danger">@item.AllowRedeem</span>
+                                                }
+                                            </td>
+
+                                            <td class="text-center">
+                                                @if (item.IsActive)
+                                                {
+                                                    <span class="badge badge-info">@item.IsActive</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-danger">@item.IsActive</span>
+                                                }
+                                            </td>
+                                            <td class="text-right">
+                                                <div>
+                                                    <a href="@Url.Action("Edit", "Product", new { id = item.Id })" class="btn btn-outline-warning "><i class="mdi mdi-folder-open-outline"></i></a>
+
+                                                    <a href="@Url.Action("Delete", "Product", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-danger "><i class="mdi mdi-delete"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+
+    <script>
+        var upload = document.getElementById("upload");
+        var preview = document.getElementById("preview");
+        var avatar = document.getElementById("avatar");
+        var avatar_name = document.getElementById("name");
+        var avatars = {
+            srcList: [],
+            activeKey: 1,
+            add: function (_name, _src) {
+                this.activeKey = this.srcList.length;
+                return (this.srcList.push({ name: _name, src: encodeURIComponent(_src) }) - 1);
+            },
+            changeName: function (key, _name) {
+
+                if (!Number.isInteger(key)) {
+                    return false;
+                }
+                this.srcList[key].name = _name;
+                if (avatar_name.dataset.key == key) {
+                    avatar_name.textContent = _name;
+                }
+                return _name;
+            },
+
+        };
+        /** Handle uploading of files */
+        upload.addEventListener("change", handleFiles, false);
+        function handleFiles() {
+            var files = this.files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /^image\//;
+
+                if (!imageType.test(file.type)) {
+                    avatar.classList.add("avatar--upload-error");
+                    setTimeout(function () {
+                        avatar.classList.remove("avatar--upload-error");
+                    }, 1200);
+                    continue;
+                }
+
+                avatar.classList.remove("avatar--upload-error");
+
+                while (preview.firstChild) {
+                    preview.removeChild(preview.firstChild);
+                }
+
+                var img = document.createElement("img");
+                img.file = file;
+                img.src = window.URL.createObjectURL(file);
+                img.onload = function () {
+                    // window.URL.revokeObjectURL(this.src);
+                }
+                img.className = "avatar_img";
+
+                /* Clear focus and any text editing mode */
+                document.activeElement.blur();
+                window.getSelection().removeAllRanges();
+
+                var _avatarKey = avatars.add(file.name, img.src);
+                avatar_name.textContent = file.name;
+                avatar_name.setAttribute("data-key", _avatarKey);
+                preview.appendChild(img);
+            }
+        }
+
+
+
+    </script>
+    @*<script>
+            var EditProduct = '/Product/EditProduct';
+            $(function () {
+                $(".edit-product").click(function () {
+                    var $buttonClicked = $(this);
+                    var id = $buttonClicked.attr('data-id');
+                    $.ajax({
+                        type: "GET",
+                        url: EditProduct,
+                        contentType: false,
+                        data: { "Id": id },
+                        datatype: "json",
+                        success: function (data) {
+                            $('#myModalContentProduct').html(data);
+                            $('#editModalProduct').modal('show');
+
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+        </script>*@
+    <script>
+        $(document).ready(function () {
+            $('.nameProduct').click(function () {
+                $(this).toggleClass('a').siblings().removeClass('a');
+            });
+        });
+    </script>
+    @*<script>
+            var upload2 = document.getElementById("upload2");
+            var preview2 = document.getElementById("preview-update");
+            var avatar2 = document.getElementById("avatar2");
+            var avatar_name2 = document.getElementById("name");
+            var avatar_name_change_box =
+                document.getElementById("change-name-box");
+
+            var avatars2 = {
+                srcList: [],
+                activeKey: 1,
+                add: function (_name, _src) {
+                    this.activeKey = this.srcList.length;
+                    return (this.srcList.push({ name: _name, src: encodeURIComponent(_src) }) - 1);
+                },
+                changeName: function (key, _name) {
+
+                    if (!Number.isInteger(key)) {
+                        return false;
+                    }
+                    this.srcList[key].name = _name;
+                    if (avatar_name2.dataset.key == key) {
+                        avatar_name2.textContent = _name;
+                    }
+                    return _name;
+                },
+
+            };
+            upload2.addEventListener("change", handleFilesUpdate, false);
+            /** Handle uploading of files */
+            function handleFilesUpdate() {
+                var files = this.files;
+                console.log(preview, preview2);
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var imageType = /^image\//;
+
+                    if (!imageType.test(file.type)) {
+                        avatar2.classList.add("avatar--upload-error");
+                        setTimeout(function () {
+                            avatar2.classList.remove("avatar--upload-error");
+                        }, 1200);
+                        continue;
+                    }
+
+                    avatar2.classList.remove("avatar--upload-error");
+
+                    while (preview2.firstChild) {
+                        preview2.removeChild(preview2.firstChild);
+                    }
+
+                    var img = document.createElement("img");
+                    img.file = file;
+                    img.src = window.URL.createObjectURL(file);
+                    img.onload = function () {
+                        // window.URL.revokeObjectURL(this.src);
+                    }
+                    img.className = "avatar_img";
+
+                    /* Clear focus and any text editing mode */
+                    document.activeElement.blur();
+                    window.getSelection().removeAllRanges();
+
+                    var _avatarKey = avatars2.add(file.name, img.src);
+                    avatar_name2.textContent = file.name;
+                    avatar_name2.setAttribute("data-key", _avatarKey);
+                    preview2.appendChild(img);
+                    console.log(preview2);
+                }
+            }
+
+
+
+        </script>*@
+
+}

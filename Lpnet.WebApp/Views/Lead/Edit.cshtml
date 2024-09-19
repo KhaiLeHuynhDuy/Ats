@@ -1,0 +1,156 @@
+﻿@model Ats.Models.Lead.LeadViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Edit Lead | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SelectList genders = ViewBag.Genders;
+    SelectList occupations = ViewBag.Occupations;
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList countries = ViewBag.Countries;
+    SelectList provinces = ViewBag.Provinces;
+    SelectList districts = ViewBag.Districts;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">Edit Lead</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Lead Management</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Manage Lead</a></li>
+                        <li class="breadcrumb-item active">Edit Lead</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("Edit", "Lead", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label>@Resource.Common_label_firstName</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Enter a first name", @class = "form-control", id = "creation-name", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>@Resource.Common_label_lastName</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.LastName, new { placeholder = "Enter a last name", @class = "form-control", id = "creation-name", required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>@Resource.Common_label_phone</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Phone, new { placeholder = "Enter a phone", @class = "form-control", id = "creation-name", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>@Resource.Common_label_emailAddress</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Enter an email address", @class = "form-control", id = "creation-name", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>@Resource.Common_label_id</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.PersonalId, new { placeholder = "Enter an ID", @class = "form-control", id = "creation-name", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label class="col-form-label">@Resource.Common_label_gender</label>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.Gender, genders, new { @class = "custom-select", id = "creation-selection" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>@Resource.Common_label_dob</label>
+                                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", type = "date", id = "datepicker", autocomplete = "off", required = "required" } })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label class="col-form-label">@Resource.Common_label_occupation</label>
+                                    @Html.DropDownListFor(model => model.OccupationId, occupations, new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="col-form-label">@Resource.Common_label_jobTitle</label>
+                                    @Html.DropDownListFor(model => model.JobTitleId, jobTitles, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label class="col-form-label">@Resource.Common_label_address</label>
+                                    @Html.TextBoxFor(m => m.Address1, new { placeholder = "Enter an address", @class = "form-control", id = "creation-name" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-form-label">@Resource.Common_label_province</label>
+                                    @Html.DropDownListFor(model => model.ProvinceId, provinces, new { @class = "form-control", id = "ProvinceId" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-form-label">@Resource.Common_label_district</label>
+                                    @Html.DropDownListFor(model => model.DistrictId, districts, new { @class = "form-control", id = "DistrictId" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
+                                        @Resource.Common_label_save
+                                    </button>
+                                    <a href="@Url.Action("Index", "Lead",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                        @Resource.Common_label_cancel
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $('#ProvinceId').on('change',
+            function () {
+                $('#DistrictId').empty();
+                $.get("/Lead/UpdateDistrict",
+                    { id: $("#ProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#DistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+    </script>
+    <script src="~/assets/libs/parsleyjs/parsley.min.js"></script>
+
+    <script src="~/assets/js/pages/form-validation.init.js"></script>
+}

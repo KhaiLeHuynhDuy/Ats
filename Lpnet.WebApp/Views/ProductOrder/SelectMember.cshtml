@@ -1,0 +1,213 @@
+﻿@model Ats.Models.Product.ProductOrderSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_ProductOrder_SelectMember;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    SelectList member = ViewBag.Member;
+    SelectList productorderstatus = ViewBag.ProductOrderStatus;
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="col-xl-12">
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_productOrder</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "ProductOrder")">@Resource.Common_label_productOrder</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Create", "ProductOrder")">@Resource.Common_label_createOrder</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_selectMember</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-6" data-toggle=" " data-target=" " aria-expanded=" " aria-controls=" ">
+                        </div>
+                        <div class="col-6 mt-2">
+                            <div class=" text-center float-right">
+                                <button class="btn btn-primary waves-effect waves-light ml-1 " type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                    <a href="@Url.Action("Create", "ProductOrder", new {  iditem = Model.CheckItemID, idmemberold = Model.IdMemberOld })" class="text-white">@Resource.Common_label_close</a>
+                                </button>
+                            </div>
+                        @*</div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-12 mt-1">
+                            <div class="col-md-12 mt-5  ">
+                                <div class="form-group">
+                                    @using (Html.BeginForm("SearchMember", "ProductOrder", new { role = "form", iditem = Model.CheckItemID, idmemberold = Model.IdMemberOld }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <fieldset id="myForm">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the member code, member name, email or mobile phone", @class = "form-control", id = "txtKeyword", name = "txtKeyword" })
+                                                                @Html.HiddenFor(m => m.ProductOrder.ProductItemId, new { @class = "form-control", id = "ProductItemId", name = "ProductItemId" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <div class="mt-0"><button type="submit" id="btnSearch" name="search" value="search" class="btn btn-primary btn-block waves-effect waves-light"><i class="fas fa-search"></i>&nbsp;@Resource.Common_label_search</button></div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    }
+                                    <div class="dtHorizontalVerticalExample mt-2" style="overflow: auto hidden">
+                                        <table id="dtHorizontalVerticalExample" class="   table table-bordered dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left">@Resource.Common_label_memberCode</th>
+                                                    <th class="text-left">@Resource.Common_label_firstName</th>
+                                                    <th class="text-left">@Resource.Common_label_lastName</th>
+                                                    <th class="text-left">@Resource.Common_label_point</th>
+                                                    <th class="text-left">@Resource.Common_label_selectMember</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.MemberViewModels)
+                                                {
+                                                    <tr>
+                                                        <td class="text-left">@item.MemberCode</td>
+                                                        <td class="text-left">@item.FirstName</td>
+                                                        <td class="text-left">@item.LastName</td>
+                                                        <td class="text-left">@item.Point</td>
+
+                                                        <td class="text-left">
+                                                            <button type="buton" data-id="@item.Id" value="@item.Id" class="btn btn-primary btn-sm" id="IdMember" aria-haspopup="true" aria-expanded="false">
+                                                                <a href=" @Url.Action("Create", "ProductOrder", new { member = item.Id, iditem = Model.CheckItemID })" class="text-white">@Resource.Common_label_select</a>
+                                                            </button>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                        <p style="float:left; width: 79px;">
+                                            @{
+                                                List<SelectListItem> lstPages = new List<SelectListItem>();
+                                                lstPages.Add(new SelectListItem() { Value = "10", Text = "10" });
+                                                lstPages.Add(new SelectListItem() { Value = "20", Text = "20" });
+                                                lstPages.Add(new SelectListItem() { Value = "30", Text = "30" });
+                                                lstPages.Add(new SelectListItem() { Value = "50", Text = "50" });
+                                                lstPages.Add(new SelectListItem() { Value = "100", Text = "100" });
+
+                                            }
+                                            @*@Html.DropDownListFor(m => m.Pager.Size, lstPages, new { @class = "form-control", id = "ddlPaging" })*@
+                                        </p>
+                                        <p>
+                                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> @*here*@
+            </div>
+        </div>
+         
+
+
+    </div> <!-- container-fluid -->
+
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+
+        $("input[name='Price']").TouchSpin({
+            min: 0,
+            max: 100000000000,
+            step: 1000,
+            decimals: 0,
+            initval: 0,
+            forcestepdivisibility: 'none',
+            stepinterval: 50,
+            maxboostedstep: 0,
+            prefix: ''
+        });
+
+
+        $("input[name='Quality']").TouchSpin({
+            min: 0,
+            max: 5,
+            step: 0.5,
+            decimals: 2,
+            initval: 0,
+            forcestepdivisibility: 'none',
+            stepinterval: 50,
+            maxboostedstep: 0,
+            prefix: ''
+        });
+    </script>
+
+    <script>
+        $("#nolimitStock").click(function () {
+            if ($(this).is(':checked')) {
+                $("#Stock").attr('disabled', true);
+            } if (!$(this).is(':checked')) {
+                $("#Stock").attr('disabled', false);
+            }
+        });
+
+        $("#nolimitDisplayOrder").click(function () {
+            if ($(this).is(':checked')) {
+                $("#DisplayOrder").attr('disabled', true);
+            } if (!$(this).is(':checked')) {
+                $("#DisplayOrder").attr('disabled', false);
+            }
+        });
+
+    </script>
+
+
+}

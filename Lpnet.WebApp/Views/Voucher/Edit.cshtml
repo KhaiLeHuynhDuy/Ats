@@ -1,0 +1,552 @@
+﻿@model Ats.Models.Voucher.VoucherViewModel;
+@using Lpnet.WebApp.Resources
+@{ ViewBag.Title = "Voucher | Panda Loyalty";
+    if (Model.Id == Guid.Empty)
+    {
+    ViewBag.Title = @Resource.ViewBag_Title_Voucher_Create;
+    }
+    else
+    {
+    ViewBag.Title = @Resource.ViewBag_Title_Voucher_Edit;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+@{
+    SelectList VoucherTemplateEnum = ViewBag.VoucherTemplate;
+    SelectList voucherCategories = ViewBag.VoucherCategories;
+    SelectList ChannelCategories = ViewBag.ChannelCategories;
+    SelectList CouponType = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "true", Text = "Cash" },
+        new SelectListItem() { Value = "false", Text = "Amount"},
+    }, "Value", "Text", "true");
+    SelectList ValidityPreiot = new SelectList(new List<SelectListItem>() {
+            new SelectListItem() { Value = "true", Text = "Relative Date" },
+            new SelectListItem() { Value = "false", Text = "Specific Date" },
+    }, "Value", "Text", "true");
+
+    SelectList VoucherTemplate = new SelectList(new List<SelectListItem>() {
+            new SelectListItem() { Value = "1", Text = "Text Voucher" },
+            new SelectListItem() { Value = "2", Text = "QR Code Voucher" },
+            new SelectListItem() { Value = "3", Text = "Barcode Voucher" },
+            new SelectListItem() { Value = "4", Text = "Both Barcode and QR Code" },
+    }, "Value", "Text", "true");
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6 form-group">
+                <div class="page-title-box">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Center", "Rewards")">@Resource.Common_label_rewards</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Voucher")">@Resource.Common_label_voucher</a></li>
+                        @if (Model.Id == Guid.Empty)
+                        {
+                            <li class="breadcrumb-item active"><a href="javascript: void(0);">Create</a></li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item active"><a href="javascript: void(0);">Edit</a></li>
+                        }
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        @using (Html.BeginForm("Edit", "Voucher", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+        {<!-- start page title -->
+            <div class="col-sm-9">
+                @if (Model.Id == Guid.Empty)
+                {
+                    <h4 class="font-size-20">@Resource.Common_label_addvoucher</h4>
+                }
+                else
+                {
+                    <h4 class="font-size-20">@Resource.Common_label_editvoucher </h4>
+                }
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="row  ">
+                                <div class="col-12 mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  text-left"><a class="text-danger">*</a>@Resource.Common_label_voucherTemplate:</label>
+                                        <div class="col-lg-7">
+                                            @Html.DropDownListFor(m => m.Templates, VoucherTemplateEnum, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-1 ">
+                                    <div class="form-group  row ">
+                                        <label for="txtcode" class="col-lg-2 mt-1  text-left"><a class="text-danger">*</a>@Resource.Common_label_voucherCode:</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.VoucherCode, new { @class = "form-control", id = "codeMember", name = "codeMember" })
+                                        </div>
+                                        <div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        @*<input type="checkbox" name="name" value="" id="autogenerated" />*@
+                                                        @Html.CheckBoxFor(m => m.VoucherCodeAutomatically, new { @class = "form-group", id = "autogenerated" })
+                                                    </div>
+                                                </div>
+                                                <label for="autogenerated" class="col-lg-11 text-left">@Resource.Common_label_autogeneratedvoucher </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1 ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 text-left mt-1"><a class="text-danger">*</a> @Resource.Common_label_voucherName</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.VoucherName, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row  ">
+                                <div class="col-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <div class="col-2">
+                                            <label class=" mt-1 text-left"><a class="text-danger">*</a> @Resource.Common_label_voucherCategory:</label>
+                                        </div>
+                                        <div class="col-7">
+                                            @Html.DropDownListFor(m => m.VoucherCategoryId, voucherCategories, new { placeholder = "", @class = "form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12  mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 mt-1 text-left"><a class="text-danger">*</a> @Resource.Common_label_type:</label>
+                                        <div class="col-lg-7">
+                                            @Html.DropDownListFor(m => m.VoucherType, CouponType, new { placeholder = "", @class = "form-control", id = "couponType" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1 cashAmount">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a> @Resource.Common_label_cashamount:</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @id = "cashAmount" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1 discount">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 mt-1   text-left"><a class="text-danger">*</a> @Resource.Common_label_discountRate</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.Discount, new { @class = "form-control", @id = "discount" })
+                                        </div>
+                                        <div class="mt-2"><lable clas=""></lable></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <dsiv class="row">
+                                <div class="col-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a>@Resource.Common_label_channel</label>
+                                        <div class="col-lg-7 ">
+                                            @Html.DropDownListFor(m => m.ChannelId, ChannelCategories, new { @class = "form-control", id = "codeMember", name = "codeMember" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a> @Resource.Common_label_voucherFaceValue</label>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.FaceValue, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                        <div class="col-lg-1 ">
+                                            <button type="button" class="btn btn-default waves-effect waves-light form-control text-center ">VNĐ</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a> @Resource.Common_label_voucherTemplateBanner:</label>
+                                        <div class="col-lg-7">
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input asp-for="ProfileImage" class="custom-file-input text-left" id="customFile">
+                                                    <label class="custom-file-label text-left" for="customFile"></label>
+                                                </div>
+                                                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1   text-left"><a class="text-danger">*</a> @Resource.Common_label_voucherAvailableStock:</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.AvailableStock, new { placeholder = "", @class = "form-control", @id = "AvailableStock" })
+                                        </div>
+                                        <div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="nolimit" />
+                                                    </div>
+                                                </div>
+                                                <label for="ckb_autocodegen" class="col-lg-11 text-left">@Resource.Common_label_nolimit </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12  mt-1  validityPeriodType">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2   mt-1  text-left"><a class="text-danger"></a>@Resource.Common_label_validityperiot:</label>
+                                        <div class="col-lg-7">
+                                            @Html.DropDownListFor(m => m.ValidityPeriodType, ValidityPreiot, new { placeholder = "", @class = "form-control", @href = "", id = "ValidityPeriodType", name = "ValidityPeriodType" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12  mt-1  relativeDate ">
+                                    <!-- Relative Date / Start From-->
+                                    <div class="form-group row">
+                                        <label for="txtPhoneNumber" class="col-lg-2 text-left"><a class="text-danger"></a></label>
+                                        <div class="col-7">
+                                            <div class="row">
+                                                <label class="text-left col-3 font-weight-light"><a class="text-danger"></a>@Resource.Common_label_startfrom:</label>
+                                                <div class=" col-9">
+                                                    @Html.TextBoxFor(m => m.AfterReceptionDay, new { @class = "form-control", @id = "afterReceptionDay" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 mt-2"><a> @Resource.Common_label_dayafterreception</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  mt-1   relativeDate ">
+                                    <!-- Relative Date / End To-->
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 text-left"><a class="text-danger"></a></label>
+                                        <div class="col-7">
+                                            <div class="row">
+                                                <label class="text-left col-3 font-weight-light"><a class="text-danger"></a>@Resource.Common_label_endto:</label>
+                                                <div class=" col-9">
+                                                    @Html.TextBoxFor(m => m.AfterEffectiveDay, new { @class = "form-control", @id = "afterEffectiveDay" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 mt-2"><a> @Resource.Common_label_dayafterreception</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  mt-1  specificDate ">
+                                    <!-- Specific Date-->
+                                    <div class="form-group row ">
+                                        <label class="col-lg-2  text-left"><a class="text-danger"></a></label>
+                                        <div class="col-lg-7">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    @Html.TextBoxFor(m => m.EffectiveDateBegin, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateBegin", type = "date", name = "effectiveDateBegin" })
+                                                </div>
+                                                <div class="col-2 mt-1 text-center"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                                <div class="col-5">
+                                                    @Html.TextBoxFor(m => m.EffectiveDateEnd, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateEnd", type = "date", name = "effectiveDateEnd" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dsiv>
+                            <div class="row">
+                                <div class="col-md-12 mt-1">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"><a class="text-danger">*</a>  @Resource.Common_label_redemptionconditions:</label>
+                                        <div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="minimumpurchase" />
+                                                    </div>
+                                                </div>
+                                                <a for="ckb_autocodegen" class="col-lg-11 text-left ">  @Resource.Common_label_minimumpurchaseof </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 text-left">
+                                            @Html.TextBoxFor(m => m.Price, new { placeholder = "", @class = "form-control", @id = "minimumpurchaseof" })
+                                        </div>
+                                        <div class="col-lg-1 ">
+                                            <button type="button" class="btn btn-default waves-effect waves-light form-control text-center ">VNĐ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"> </label>
+                                        <div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="minimumnumber" />
+                                                    </div>
+                                                </div>
+                                                <a for="ckb_autocodegen" class="col-lg-11 text-left ">  @Resource.Common_label_voucherminimumnumberof: </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            @Html.TextBoxFor(m => m.MinimumPurchase, new { placeholder = "", @class = "form-control", @id = "minimumnumberof" })
+                                        </div>
+                                        <div class="col-lg-1 ">
+                                            <button type="button" class="btn btn-default waves-effect waves-light form-control text-center">time(s)</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label text-left"> </label>
+                                        <div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="validitytimin" />
+                                                    </div>
+                                                </div>
+                                                <a for="ckb_autocodegen" class="col-lg-11 text-left ">@Resource.Common_label_voucherredemptionvaliditytiming</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="row timin">
+                                                <div class="col-lg-6">
+                                                    @Html.TextBoxFor(m => m.MinimumPurchase, new { placeholder = "", @class = "form-control", @type = "time", id = "timin1" })
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    @Html.TextBoxFor(m => m.MinimumPurchase, new { placeholder = "", @class = "form-control", @type = "time", id = "timin2" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 ">
+                                            <button type="button" id="clear" name="time" class="btn btn-default waves-effect waves-light form-control text-center "><i class="far fa-times-circle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-1">
+                                    <label for="" class="text-left"><a class="text-danger">*</a>@Resource.Common_label_termsconditions:</label>
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(m => m.TermAndConditions, new { placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row mt-2 ml-1">
+                                <a href="@Url.Action("Index", "Voucher")" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2 text-white">@Resource.Common_label_cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>}
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+    <script>
+        var couponType = $("#couponType option:selected").val();
+        console.log(couponType);
+        if (couponType == 'true') {
+            $(".cashAmount").show();
+            $(".discount").hide();
+        } else {
+            $(".cashAmount").hide();
+            $(".discount").show();
+        }
+        $("#couponType").on('change', function () {
+            if (this.value == 'true') {
+                $(".cashAmount").show();
+                $(".discount").hide();
+            } else {
+                $(".cashAmount").hide();
+                $(".discount").show();
+            }
+        });
+    </script>
+    <script>
+        var ValidityPeriodType = $("#ValidityPeriodType option:selected").val();
+        console.log(ValidityPeriodType);
+        if (ValidityPeriodType == 'true') {
+            $(".relativeDate").show();
+            $(".specificDate").hide();
+        } else {
+            $(".relativeDate").hide();
+            $(".specificDate").show();
+        }
+        $("#ValidityPeriodType").on('change', function () {
+            if (this.value == 'true') {
+                $(".relativeDate").show();
+                $(".specificDate").hide();
+            } else {
+                $(".relativeDate").hide();
+                $(".specificDate").show();
+            }
+        });
+    </script>
+    <script>
+        function myFunction() {
+            var x = Math.floor((Math.random() * 1000000) + 1);
+            document.getElementById("codeMember").innerHTML = x;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#ckb_autocodegen").click(function () {
+                $("#codeMember").attr('disabled', !$("#codeMember").attr('disabled'));
+            });
+        });
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+    <script>
+
+        $("input[name='Amount']").TouchSpin({
+            min: 0,
+            max: 10000000,
+            step: 1000,
+            initval: 0,
+            stepinterval: 30,
+            maxboostedstep: 1,
+            prefix: ''
+        });
+
+        $("input[name='Discount']").TouchSpin({
+            min: 0,
+            max: 100,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+        $("input[name='AfterReceptionDay']").TouchSpin({
+            min: 0,
+            max: 365,
+            initval: 0,
+            step: 1,
+            stepinterval: 50,
+            maxboostedstep: 1,
+            prefix: ''
+        });
+        $("input[name='AfterEffectiveDay']").TouchSpin({
+            min: 0,
+            max: 365,
+            initval: 0,
+            step: 1,
+            stepinterval: 50,
+            maxboostedstep: 1,
+            prefix: ''
+        });
+    </script>
+    <script>
+        $("#validitytimin").click(function () {
+            if ($(this).is(':checked')) {
+                $("#timin1").attr('disabled', false);
+                $("#timin2").attr('disabled', false);
+            } if (!$(this).is(':checked')) {
+                $("#timin1").attr('disabled', true).val('');
+                $("#timin2").attr('disabled', true).val('');
+            }
+        });
+        $("#clear").click(function () {
+            $("#timin1").val('')/*.prop('disabled', false)*/;
+            $("#timin2").val('')/*.prop('disabled', false)*/;
+            //$("#timin1").prop('disabled', false).val('00:00');
+            //$("#timin2").prop('disabled', false).val('00:00');
+        });
+        $("#minimumnumber").click(function () {
+            if ($(this).is(':checked')) {
+                $("#minimumnumberof").attr('disabled', false);
+            } if (!$(this).is(':checked')) {
+                $("#minimumnumberof").attr('disabled', true);
+            }
+        });
+        $("#minimumpurchase").click(function () {
+            if ($(this).is(':checked')) {
+                $("#minimumpurchaseof").attr('disabled', false);
+            } if (!$(this).is(':checked')) {
+                $("#minimumpurchaseof").attr('disabled', true);
+            }
+        });
+        $("#nolimit").click(function () {
+            if ($(this).is(':checked')) {
+                $("#AvailableStock").attr('disabled', true);
+            } if (!$(this).is(':checked')) {
+                $("#AvailableStock").attr('disabled', false);
+            }
+        });
+        $("#autogenerated").click(function () {
+            if ($(this).is(':checked')) {
+                $("#codeMember").attr('disabled', true);
+                $("#codeMember").val('');
+            } if (!$(this).is(':checked')) {
+                $("#codeMember").attr('disabled', false);
+            }
+        });
+        $(document).ready(function () {
+            if (!$("#validitytimin")[0].checked) {
+                $("#timin1").attr('disabled', true);
+                $("#timin2").attr('disabled', true);
+            }
+            if (!$("#minimumnumber")[0].checked) {
+                $("#minimumnumberof").attr('disabled', true);
+            } if (!$("#minimumpurchase")[0].checked) {
+                $("#minimumpurchaseof").attr('disabled', true);
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+
+}
+
+

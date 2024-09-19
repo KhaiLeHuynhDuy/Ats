@@ -1,0 +1,123 @@
+﻿@model Ats.Models.Account.WalletTransactionViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.WelcomeText = "Dashboard | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- Plugin css -->
+    <link href="~/assets/libs/chartist/chartist.min.css" rel="stylesheet">
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_wallet</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_wallet</a></li>
+                        <li class="breadcrumb-item active">#@Html.DisplayFor(m => m.Wallet.Id)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle waves-effect waves-light"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-settings mr-2"></i> @Resource.Common_label_setting
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">@Resource.Common_label_action</a>
+                            <a class="dropdown-item" href="#">@Resource.Common_label_anotheraction</a>
+                            <a class="dropdown-item" href="#">@Resource.Common_label_somethingelsehere</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">@Resource.Common_label_separatedlink</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h5 class="font-size-16 text-uppercase mt-0 text-white-50">@Resource.Common_label_balance</h5>
+                            <h4 class="font-weight-medium font-size-24">
+                                @Model.Wallet.Balance.ToString("#,###")
+                            </h4>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-white-50 mb-0 mt-1">@Model.Wallet.LastUpdate.ToString("hhh:mm dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">@Resource.Common_label_latestTrasaction</h4>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-centered table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">(#) @Resource.Common_label_id</th>
+                                        <th scope="col">@Resource.Common_label_name</th>
+                                        <th scope="col">@Resource.Common_label_date</th>
+                                        <th scope="col">@Resource.Common_label_amount</th>
+                                        <th scope="col" colspan="2">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Transations)
+                                    {
+                                        <tr>
+                                            <th scope="row">#@item.Id</th>
+                                            <td>
+                                                <div>
+                                                    <img src="~/assets/images/users/user-2.jpg" alt=""
+                                                         class="avatar-xs rounded-circle mr-2"> Philip Smead
+                                                </div>
+                                            </td>
+                                            <td>@item.Date.ToString("hhh:mm dd/MM/yyyy")</td>
+                                            <td>@item.Amount.ToString("#,###")</td>
+                                            <td><span class="badge badge-success">@Resource.Common_label_delivered</span></td>
+                                            <td>
+                                                <div>
+                                                    <a href="#" class="btn btn-outline-warning text-warning"><i class="mdi mdi-folder-open-outline"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <!-- Plugin Js-->
+    <script src="~/assets/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/assets/js/pages/dashboard.init.js"></script>
+}

@@ -1,0 +1,273 @@
+﻿@model Ats.Models.Voucher.VoucherSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Voucher_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+<link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+<link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+
+}
+@{
+    SelectList voucherCategories = ViewBag.VoucherCategories;
+    SelectList channelCategories = ViewBag.ChannelCategories;
+
+
+    SelectList VoucherType = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = null, Text = "--- Select --" },
+        new SelectListItem() { Value = "true", Text = "Cash" },
+        new SelectListItem() { Value = "false", Text = "Amount" },
+}, "Value", "Text");
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_rewards_voucher</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Center", "Rewards")">@Resource.Common_label_rewards</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_rewards_voucher</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-6" data-toggle=" " data-target=" " aria-expanded=" " aria-controls=" ">
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class=" text-center float-right">
+                            @*<button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#deleteNewModal">
+                                Delete
+                                </button>*@
+                            @*<button class="btn btn-primary waves-effect waves-light ml-1 " type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                <a href="@Url.Action("Edit", "Voucher")" class="text-white"><i class="mdi mdi-plus"></i> Add Voucher</a>
+                                </button>*@
+                            <button class="float-right btn btn-outline-info waves-effect waves-light ml-1 " type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                <a href="@Url.Action("Edit", "Voucher")" class="text-dark"><i class="mdi mdi-plus"></i>@Resource.Common_label_create @Resource.Sidebar_rewards_voucher</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "Voucher", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the name code Voucher ", @class = "form-control", id = "occupation-search-input" })
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="btnSearch" name="search" value="search" class="btn  btn-block btn-primary" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-magnify mr-2"></i>@Resource.Common_label_search
+                                        </button>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mt-0"><button class="btn btn-primary btn-block waves-effect waves-light" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample"><i class="fas fa-search"></i>&nbsp;@Resource.Common_label_searchAdvanced</button></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row collapse" id="collapseExample">
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 1 -->
+                                <div class="row form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for=" " class="col-lg-3 text-right mt-1">@Resource.Common_label_category</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.voucherCateid, voucherCategories, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 ">
+                                            <div class="row">
+                                                <label for=" " class="col-lg-3 text-right mt-1">@Resource.Common_label_vouchertype </label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.voucherType, VoucherType, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 2 -->
+                                <div class="row  form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="row">
+                                                <div class="col-lg-3 text-right">
+                                                    <label lass="text-right mt-1 ">@Resource.Common_label_voucherAvailableStock</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.stockFrom, new { placeholder = "", @class = "form-control", type = "", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                                <div class="col-1 mt-2 text-center">
+                                                    <a class="text-left"><i class="fas fa-arrow-right"></i> </a>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.stockTo, new { placeholder = "", @class = "form-control", type = "", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for=" " class="col-lg-3 text-right mt-1">@Resource.Common_label_channel</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.channelid, channelCategories, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- Advanced Search Row Button 4 -->
+                                <div class="col-12">
+                                        <div class="row ">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button runat="server" type="submit" class="btn btn-outline-info btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_reset</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button type="submit" id="btnSearch1" name="search" value="search" class=" btn btn-primary btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_search</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="dtHorizontalVerticalExample mt-2" style="overflow: auto hidden">
+                            <table id="dtHorizontalVerticalExample" class="   table table-bordered dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th> <input type="checkbox" id="checked" /></th>
+                                        <th>
+                                            @Resource.Common_label_code<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "code", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_name<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            @Resource.Common_label_type <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "type", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            @Resource.Common_label_channel<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "channel", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            @Resource.Common_label_effectivefrom<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "effectivefrom", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            @Resource.Common_label_effectiveto<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "effectiveto", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            @Resource.Common_label_availablestock<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "stock", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                                <i class="fa fa-fw fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="text-left">
+                                            @*@Resource.Common_label_operation*@ <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "isactive", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"> </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Vouchers)
+                                    {
+                                        <tr>
+                                            <td class="text-left"><input type="checkbox" id="checkedvalue" /></td>
+                                            <td class="text-left">@item.VoucherCode</td>
+                                            <td class="text-left">@item.VoucherName</td>
+                                            <td class="text-left">
+                                                @if (item.VoucherType != false)
+                                                {
+                                                    <a>Cash</a>
+                                                }
+                                                else
+                                                {
+                                                    <a>Amount</a>
+                                                }
+                                            </td>
+                                            <td class="text-left">@item.ChannelName</td>
+                                            @if (item.ValidityPeriodType == true)
+                                            {
+                                                <td class="text-left">@item.AfterReceptionDay - @Resource.Common_label_dayafterreception</td>
+                                                <td class="text-left">@item.AfterEffectiveDay - @Resource.Common_label_afteractivation</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-left">@item.EffectualDateBegin </td>
+                                                <td class="text-left">@item.EffectualDateEnd </td>
+                                            }
+                                            <td class="text-left">@item.AvailableStock</td>
+                                            <td class="text-right">
+                                                <div>
+                                                    <a href=" @Url.Action("Detail", "Voucher", new { id = item.Id })" class="btn btn-outline-primary"><i class="far fa-eye"></i></a>
+                                                    <a href=" @Url.Action("Edit", "Voucher", new { id = item.Id })" class="btn btn-outline-warning"><i class="mdi mdi-folder-open-outline"></i></a>
+                                                    <a href="@Url.Action("Delete", "Voucher", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-danger"><i class="mdi mdi-delete"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <p style="float:left; width: 79px;">
+                                @{
+                                    List<SelectListItem> lstPages = new List<SelectListItem>();
+                                    lstPages.Add(new SelectListItem() { Value = "10", Text = "10" });
+                                    lstPages.Add(new SelectListItem() { Value = "20", Text = "20" });
+                                    lstPages.Add(new SelectListItem() { Value = "30", Text = "30" });
+                                    lstPages.Add(new SelectListItem() { Value = "50", Text = "50" });
+                                    lstPages.Add(new SelectListItem() { Value = "100", Text = "100" });
+
+                                }
+                                @Html.DropDownListFor(m => m.Pager.Size, lstPages, new { @class = "form-control", id = "ddlPaging" })
+                            </p>
+                            <p class=" float-right">
+                                <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+@section scripts{
+
+}

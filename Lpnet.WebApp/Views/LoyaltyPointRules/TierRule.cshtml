@@ -1,0 +1,123 @@
+﻿@model Ats.Models.LoyaltyTier.LoyaltyTierSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_TierRule_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_tierrule</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("TierRule", "LoyaltyPointRules")">@Resource.Common_label_loyalty</a></li> 
+                        <li class="breadcrumb-item active">@Resource.Common_label_tierrule @*Tier Rule*@</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+
+                @*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+                @foreach (var item in Model.LoyaltyTiers)
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="">
+                                <div class="">
+                                    <div class="accordion" id="test">
+                                        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+                                        <div class="">
+                                            <div class="card-header" id="one">
+                                                <button class="btn btn-block text-left text-dar font-size-11" type="button" data-toggle="collapse" data-target="#collapseOneone" aria-expanded="true" aria-controls="collapseOne">
+                                                    <a class="  font-size-17"> <strong class="">Level @item.TierLevel</strong>: @item.TierName </a>
+                                                </button>
+                                            </div>
+                                            <div id="collapseOneone" class="collapse " aria-labelledby="one" data-parent="#test">
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-2">
+                                                            <label class="text-dark">@Resource.Common_label_tierInformation</label>
+                                                        </div>
+                                                        <div class="col-xl-9">
+                                                            <a>Tier name: @item.TierName</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-2 mb-1">
+                                                            <label></label>
+                                                        </div>
+                                                        <div class="col-xl-9">
+                                                            <a>Tier level: @item.TierLevel</a>
+                                                        </div>
+                                                    </div>
+                                                    @*//////////////////////////////////////////////////////////*@
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-2">
+                                                            <label class="text-dark">@Resource.Common_label_tiergenerosity</label>
+                                                        </div>
+                                                        <div class="col-xl-9">
+                                                            <a>Base generosity: Spend 1 SGD get 0.93458 point(s)</a>
+                                                        </div>
+                                                    </div>
+                                                    @*//////////////////////////////////////////////////////////*@
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-2">
+                                                            <label class="text-dark">@Resource.Common_label_upgraderule</label>
+                                                        </div>
+                                                        <div class="col-xl-9">
+                                                            <a>@item.UpgradePoint @*Total transactions amount: In the past 0 day(s),0 SGD - 1284 SGD*@</a>
+                                                        </div>
+                                                    </div>
+                                                    @*//////////////////////////////////////////////////////////*@
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-2">
+                                                            <label class="text-dark">@Resource.Common_label_downgraderule</label>
+                                                        </div>
+                                                        <div class="col-xl-9">
+                                                            <a>@item.DowngradePoint @*Never downgrade member*@</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+                }
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+

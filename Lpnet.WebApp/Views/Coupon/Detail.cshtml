@@ -1,0 +1,221 @@
+﻿@model Ats.Models.Coupon.CouponViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Coupon_Detail;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h5 {
+        border-left: 5px solid #626ed4;
+    }
+</style>
+
+
+@{
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6 form-group">
+                <div class="page-title-box">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Campaign")">@Resource.Common_label_campaign</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Coupon")">@Resource.Common_label_coupon</a></li> 
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Detail</a></li> 
+                    </ol>
+                    <h3 class="font-size-20">COUPON DETAIL</h3>
+                    @Html.DisplayFor(model => model.CouponName)
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row form-group ">
+                            <div class="col-md-12 m-1">
+                                <div class=" row">
+                                    <a   class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_couponcode:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.CouponCode)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 m-1">
+                                <div class=" row">
+                                    <a  class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_couponname:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.CouponName)
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-md-12 m-1">
+                                <div class=" row">
+                                    <a  class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_channel:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.ChannelName)
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="col-md-12  m-1">
+                                <div class=" row">
+                                    <a class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_coupontype:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @*@Html.DisplayFor(model => model.CouponType)*@
+                                        @if (Model.CouponType == false)
+                                        {<lable>Discount</lable>}
+                                        else
+                                        {<lable>CashAmount</lable>}
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.CouponType == false)
+                            {
+                                <div class="col-md-12 m-1 ">
+                                    <div class="row">
+                                        <a   class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_discountRate:</strong></a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.Discount)%
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12 m-1 ">
+                                    <div class="row">
+                                        <a   class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_cashamount:</strong></a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.CashAmount).00 VNĐ
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-12 m-1 ">
+                                <div class="row">
+                                    <a  class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_redemptionconditions:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Resource.Common_label_minimumpurchaseof - @Html.DisplayFor(model => model.MinimumPurchase)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 m-1 ">
+                                <div class="row">
+                                    <a   class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_validityperiod:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @*@Html.DisplayFor(model => model.ValidityPeriodType)*@
+                                        @if (Model.ValidityPeriodType == true)
+                                        {<lable><lable> @Resource.Common_label_relativeDate:</lable></lable>}
+                                    else
+                                    {<lable><lable> @Resource.Common_label_specificDate:</lable></lable>}
+                                    </div>
+                                </div>
+                                @if (Model.ValidityPeriodType == true)
+                                {
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-6 mt-2">
+                                            <a> @Html.DisplayFor(m => m.AfterReceptionDay)   @Resource.Common_label_dayafterreception</a><a class="m-2">-</a><a>@Html.DisplayFor(m => m.AfterEffectiveDay) @Resource.Common_label_afteractivation </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-5 mt-2">
+                                            <div class="row">
+                                                <div class="col-5 mt-2">
+                                                    @Html.DisplayFor(m => m.EffectiveDateBegin)
+                                                </div>
+                                                <div class="col-1 mt-2 text-left mr-3"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                                <div class="col-5 mt-2">
+                                                    @Html.DisplayFor(m => m.EffectiveDateEnd)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                            <div class="col-md-12 m-1 ">
+                                <div class="row">
+                                    <a   class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_termsconditions:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.TermAndConditions)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="@Url.Action("Index", "Coupon", new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+
+ 
+}

@@ -1,0 +1,68 @@
+﻿@using Ats.Web.Resources
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<section class="primary-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="content-header">
+                <p>
+                    @Resource.Dashboard
+                </p>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li class="active">@Resource.Timesheet</li>
+                </ol>
+            </div>
+            <div class="col-xs-9">
+                <div class="row">
+                    <div class="content">
+                        <div class="big-tree-day-month">
+                            <span class="first-month"> <strong>1</strong>/@DateTime.Today.Month</span>
+                            <div class="tree-day-month">
+                                <div class="length-dayofmonth">
+                                    <div class="box show-info-day color-custom">
+                                        <span style="font-size:12px">@Resource.Commit</span><br />
+                                        
+                                        <i class="fa fa-play color-custom-v2" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="box show-info-day-bottom">
+                                        <div class="child-box-bottom">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="last-month"><strong>@DateTime.DaysInMonth(@DateTime.Today.Year, @DateTime.Today.Month)</strong>/@DateTime.Today.Month</span>
+                        </div>
+                        <div class="box-table">
+                            <table class="table table-ats table-stripe background-header-table">
+                                <thead>
+                                    <tr>
+                                        <th>@Resource.Month</th>
+                                        <th>@Resource.Target</th>
+                                        <th>@Resource.Total</th>
+                                        <th>@Resource.Pending</th>
+                                        <th>@Resource.Approved</th>
+                                        <th>@Resource.Disapproved</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="content text-center">
+                    <canvas id="canvas" width="150" height="150"></canvas>
+                    <h3>@DateTime.Today.ToShortDateString()</h3>
+                    <h4><i>@Resource.Quote</i></h4>
+                    <p>H.Jackson Brown Jr</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

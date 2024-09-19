@@ -1,0 +1,724 @@
+﻿@model Ats.Models.Member.MemberSearchDetailViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title =  @Resource.ViewBag_Title_Member_Detail;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+       SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = null, Text = "Unspecific" }, new SelectListItem() { Value = "false", Text = Resource.Common_label_female }, new SelectListItem() { Value = "true", Text = Resource.Common_label_male } }, "Value", "Text");
+    SelectList occupations = ViewBag.Occupations;
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+    SelectList provinces = ViewBag.Provinces;
+    SelectList districts = ViewBag.Districts;
+    SelectList tiers = ViewBag.Tiers;
+}
+@section styles{
+    <link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+    <link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+    <!-- Responsive datatable examples -->
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-12 form-group mb-0">
+                <div class="page-title-box">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item active">@Html.DisplayFor(model => model.MemberDetailViewModel.MemberCode)</li>
+                    </ol>
+                    @*@Html.DisplayFor(model => model.LastName)*@
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-sm-12 form-group mb-3">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_MemberDetail</h3>
+                            <span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.FullName)</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_Level</h3>
+                            <span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.PointName)</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_Score</h3>
+                            <span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.Point)</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_DateCreate</h3>
+                            <span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.DateCreate)</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_Store</h3>
+                            @if (Model.MemberDetailViewModel.StoreName != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.StoreName)</span>}
+                        else
+                        {<span class="text-secondary">-</span>}
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="font-size-20">@Resource.Commom_Label_Channel</h3>
+                            @if (Model.MemberDetailViewModel.ChannelName != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.ChannelName)</span>}
+                        else
+                        {<span class="text-secondary">-</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3  mb-0">
+            <div class="card card-body h-100">
+                <div class="card-body">
+                    <div class="card directory-card mb-2">
+                        <div class="text-center">
+                            @if (Model.MemberDetailViewModel.ImageUrl == null)
+                            {<img src="/assets/images/services-icon/user.png" alt="" class="img-fluid img-thumbnail rounded-circle avatar-xl">
+                                <input type="hidden" name="MemberId" value="@Model.MemberDetailViewModel.Id">
+                            }
+                            else
+                            {<img src="@Html.Raw(Model.MemberDetailViewModel.ImageUrl)" alt="" class="img-fluid img-thumbnail rounded-circle avatar-xl">
+                                <input type="hidden" name="MemberId" value="@Model.MemberDetailViewModel.Id">}
+
+
+                        </div>
+                    </div>
+                    <h4 class="card-title font-size-18 text-center">@Html.DisplayFor(model => model.MemberDetailViewModel.MemberCode)</h4>
+                    <h4 class="card-title text-primary font-size-22 text-center">@Html.DisplayFor(model => model.MemberDetailViewModel.FullName)</h4>
+
+                    <div class="card mt-0 text-white bg-primary">
+                        <div>
+                            <h4 class="card-title font-size-24 text-center mt-2">@Html.DisplayFor(model => model.MemberDetailViewModel.PointName)</h4>
+                            <h4 class="card-title font-size-18 text-center">@Html.DisplayFor(model => model.MemberDetailViewModel.Point) Point</h4>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_birthday</h6>
+                            @if (Model.MemberDetailViewModel.DOB != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.DOBs)</span> }
+                        else
+                        { <span class="text-secondary">-</span>}
+                        </li>
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_phone</h6>
+                            @if (Model.MemberDetailViewModel.PhoneNumber != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.PhoneNumber)</span> }
+                        else
+                        { <span class="text-secondary">-</span>}
+                        </li>
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_email</h6>
+                            @if (Model.MemberDetailViewModel.Email != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.Email)</span> }
+                        else
+                        { <span class="text-secondary">-</span>}
+                        </li>
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_address</h6>
+                            @if (Model.MemberDetailViewModel.FullAddress != "")
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.FullAddress)</span> }
+                        else
+                        { <span class="text-secondary">-</span>}
+                        </li>
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_jobTitle</h6>
+                            @if (Model.MemberDetailViewModel.JobTitleId != null)
+                            {<span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.JobTitle)</span> }
+                        else
+                        { <span class="text-secondary">-</span>}
+                        </li>
+                        <li class="list-group-item ">
+                            <h6 class="mb-0">@Resource.Common_label_occupation</h6>
+                            <span class="text-secondary">@Html.DisplayFor(model => model.MemberDetailViewModel.Occupation)</span>
+                            @if (Model.MemberDetailViewModel.OccupationId == null)
+                            {<span class="text-secondary">-</span>}
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditDetailMember", "Member", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                    {
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                        <p class="badge badge-pill badge-danger font-italic font-size-12">@ViewBag.ErrorMessage</p>
+
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.MemberDetailViewModel.Id)
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h4 class="card-title mb-0 font-size-24 align-text-bottom">@Resource.Comom_Label_INFORMATION</h4>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class=" float-right d-md-block ">
+                                    <div class="text-center">
+                                        <button class=" btn btn-primary waves-effect waves-light d-none" id="btnsave" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            @Resource.Common_label_save
+                                        </button>
+                                        <a class="btn btn-primary waves-effect waves-light text-white" id="btnedit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-plus"></i> @Resource.Common_label_edit
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>@Resource.Common_label_memberCode</label>
+                                    <div>
+                                        @Html.TextBoxFor(m => m.MemberDetailViewModel.MemberCode, new { disabled = "disabled", @class = "form-control ", id = "txtcode" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_lastName</label>
+                                @Html.TextBoxFor(m => m.MemberDetailViewModel.LastName, new { disabled = "disabled", placeholder = "", @class = "form-control edit_member", id = "txtLastName", name = "txtLastName"  })
+                            </div>
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_firstName</label>
+                                @Html.TextBoxFor(m => m.MemberDetailViewModel.FirstName, new { disabled = "disabled", placeholder = "", @class = "form-control edit_member", id = "txtFirstName", name = "txtFirstName",required="required" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_sex</label>
+                                @Html.DropDownListFor(m => m.MemberDetailViewModel.Gender, genders, new { disabled = "disabled", @class = "form-control edit_member", id = "cbbGender" })
+                            </div>
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_birthday</label>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        @Html.DropDownListFor(m => m.MemberDetailViewModel.YOB, Model.Year, @Resource.Common_label_years, new { disabled = "disabled", placeholder = "", @class = "form-control edit_member", id = "txtYearOfBirth", name = "txtYearOfBirth" })
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select id="ddlBirthdayMonth" name="month" class="form-control edit_member" disabled="disabled">
+                                            <option value="0">@Resource.Common_label_month</option>
+                                            @for (int i = 1; i <= 12; i++)
+                                            {
+                                                if (Model.Month == i)
+                                                {
+                                                    <option selected="selected" value="@i">@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select id="ddlBirthdayDay" name="day" class="form-control edit_member" disabled="disabled">
+                                            <option value="0">@Resource.Common_label_day</option>
+                                            @for (int i = 1; i <= 31; i++)
+                                            {
+                                                if (Model.Day == i)
+                                                {
+                                                    <option selected="selected" value="@i">@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label><a class="text-danger mr-1 ">*</a>@Resource.Common_label_email</label>
+                                @Html.TextBoxFor(m => m.MemberDetailViewModel.Email, new { disabled = "disabled", placeholder = "", @class = "form-control edit_member", id = "txtEmail", name = "txtEmail" })
+                            </div>
+                            <div class="col-lg-6">
+                                <label><a class="text-danger mr-1">*</a>@Resource.Common_label_phone</label>
+                                @Html.TextBoxFor(m => m.MemberDetailViewModel.PhoneNumber, new { disabled = "disabled", placeholder = "", @class = "form-control edit_member",type="number", id = "txtPhoneNumber", name = "txtPhoneNumber",required="required" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_occupation</label>
+                                @Html.DropDownListFor(m => m.MemberDetailViewModel.OccupationId, occupations, new { disabled = "disabled", @class = "form-control edit_member", id = "lst_occupation" })
+                            </div>
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_jobTitle</label>
+                                @Html.DropDownListFor(m => m.MemberDetailViewModel.JobTitleId, jobTitles, new { disabled = "disabled", @class = "form-control edit_member", id = "lst_jobTitle" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <div class="col-lg-4">
+                                <label>@Resource.Common_label_province</label>
+                                @Html.DropDownListFor(m => m.MemberDetailViewModel.ProvinceId, provinces, new { disabled = "disabled", @class = "form-control edit_member", id = "lst_province" })
+                            </div>
+                            <div class="col-lg-4">
+                                <label>@Resource.Common_label_district</label>
+                                @Html.DropDownListFor(m => m.MemberDetailViewModel.DistrictId, districts, new { disabled = "disabled", @class = "form-control edit_member", id = "lst_district" })
+                            </div>
+                            <div class="col-lg-4">
+                                <label>@Resource.Common_label_address</label>
+                                @Html.TextBoxFor(m => m.MemberDetailViewModel.address1, new { disabled = "disabled", @class = "form-control edit_member", id = "txt_address" })
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>@Resource.Common_label_Status : </label>
+                                @Html.CheckBoxFor(m => m.MemberDetailViewModel.valid, new { disabled = "disabled", @class = "form-group edit_member", id = "ck_valid" })
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-lg-6">
+                            <h4 class="card-title mb-0 font-size-24 align-text-bottom">@Resource.Comom_Label_LOYALTY</h4>
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        </div>
+                        <div class="col-lg-6 float-right">
+                            <div class="float-right d-none d-md-block">
+                                <div class=" text-center">
+                                    <button class="btn btn-primary waves-effect waves-light" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createLoyalty">
+                                        <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="createLoyalty" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    @using (Html.BeginForm("CreateLoyalty", "Member", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => model.MemberDetailViewModel.Id)
+                                        <div class="modal-header">
+                                            <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+
+                                                <div class="form-group">
+                                                    <label>@Resource.Common_label_tierLevel</label>
+                                                    <div>
+                                                        @Html.DropDownListFor(m => m.MemberLoyaltyDetail.TierId, tiers, new { @class = "form-control", id = "creation-name", required = "required" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-6">
+                                                                <label>@Resource.Common_label_effectivefrom</label>
+                                                                @Html.TextBoxFor(m => m.MemberLoyaltyDetail.ActiveFrom, new { @class = "form-control", id = "creation-name", type = "date", required = "required" })
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>@Resource.Common_label_effectiveEnd</label>
+                                                                @Html.TextBoxFor(m => m.MemberLoyaltyDetail.ActiveEnd, new { @class = "form-control", id = "creation-name", type = "date" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-6">
+                                                                <label>@Resource.Common_label_upgradePoint</label>
+                                                                @Html.TextBoxFor(m => m.MemberLoyaltyDetail.UpgradePoint, new { placeholder = " ", @class = "form-control", id = "creation-name" })
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label>@Resource.Common_label_downgradePoint</label>
+                                                                @Html.TextBoxFor(m => m.MemberLoyaltyDetail.DowngradePoint, new { disabled = "disabled", placeholder = " ", @class = "form-control", id = "creation-name" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="loyalty.MemberId" value="@Model.MemberDetailViewModel.Id">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                        </div>
+                                    }
+
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <!-- edit modal -->
+                        <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div id="myModalContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="viewModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div id="viewmyModalContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered table-hover dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Resource.Common_label_tier <a href="@Url.Action(Model.Pager.Action, new {  page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_effectivefrom <a href="@Url.Action(Model.Pager.Action, new {  page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_effectiveto <a href="@Url.Action(Model.Pager.Action, new {  page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_upgradePoint <a href="@Url.Action(Model.Pager.Action, new {  page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_downgradePoint <a href="@Url.Action(Model.Pager.Action, new { page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+
+                                    </th>
+
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.MemberLoyaltyDetails)
+                                {
+                                    <tr>
+                                        <td>@item.TierName</td>
+                                        <td>@item.ActiveFromString</td>
+                                        <td>@item.ActiveEndString</td>
+                                        <td>@item.UpgradePoint</td>
+                                        <td>@item.DowngradePoint</td>
+
+
+                                        <td class="text-center">
+                                            <button type="button" data-id="@item.Id" class="btn btn-outline-primary view-loyalty mr-1" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#viewModal">
+                                                <i class="far fa-eye"></i>
+                                            </button>
+                                            <button type="button" data-id="@item.Id" class="btn btn-outline-warning edit-loyalty" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#editModal">
+                                                <i class="mdi mdi-folder-open-outline"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- End Page-content -->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 font-size-24">@Resource.Comom_Label_EARN_REDEEM_POINT.</h4>
+                    <hr />
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered table-hover dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Resource.Commom_label_TransactionDate <a href="@Url.Action(Model.PagerTow.Action, new {  pageTow = Model.PagerTow.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_point <a href="@Url.Action(Model.PagerTow.Action, new {  pageTow = Model.PagerTow.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_QrCode <a href="@Url.Action(Model.PagerTow.Action, new { pageTow = Model.PagerTow.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_productname <a href="@Url.Action(Model.PagerTow.Action, new {  pageTow = Model.PagerTow.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.MemberWalletsHistorys)
+                                {
+                                    <tr>
+                                        <td>@item.TransactionDate</td>
+                                        @if (item.PointTypeId <= 2 || item.PointTypeId == 4 || item.PointTypeId == 6 || item.PointTypeId == 7 || item.PointTypeId == 9 || item.PointTypeId == 10 || item.PointTypeId == 11 || item.PointTypeId == 13 || item.PointTypeId == 15)
+                                        {
+                                            <td><a class="text-success">+ </a>@item.Point</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td><a class="text-danger">- </a>@item.Point</td>
+                                        }
+                                        @if ( item.PointTypeId == 13)
+                                        {
+                                                <td>@item.BillNo</td>
+
+                                        }
+                                        else
+                                        {
+                                               <td></td>
+
+                                        }
+                                        <td>@item.refId</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <p>
+                            <partial name="~/Views/Shared/_pagerTow.cshtml" for="@Model.PagerTow">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 font-size-24"> @Resource.Common_label_GiftCouponVoucher</h4>
+                    <hr />
+
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered table-hover  dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Resource.Common_label_typeGiftCouponVoucher <a href="@Url.Action(Model.PagerThree.Action, new {  pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th class="align-text-bottom text-center">
+                                        @Resource.Common_label_code <a href="@Url.Action(Model.PagerThree.Action, new {  pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th class="align-text-bottom text-center">
+                                        @Resource.Common_label_name <a href="@Url.Action(Model.PagerThree.Action, new {  pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_AmountDiscount <a href="@Url.Action(Model.PagerThree.Action, new {  pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_effectivefrom <a href="@Url.Action(Model.PagerThree.Action, new { pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_effectiveto <a href="@Url.Action(Model.PagerThree.Action, new {  pageThree = Model.PagerThree.Page })" class="btn btn-xs btn-link p-0">
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.GiftVoucherCoupons)
+                                {
+                                    <tr>
+                                        <td>@item.Type</td>
+                                        <td>@item.Code</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            @if (item.TypeAmountDiscount == true)
+                                            {
+                                                @item.Amount
+                                            }
+                                            else
+                                            {
+                                                @item.Discount @Html.Raw("%")
+                                            }
+                                        </td>
+
+                                        <td>@item.EffectiveFromString</td>
+                                        <td>@item.EffectiveToString</td>
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-outline-info">Redeem</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <p>
+                            <partial name="~/Views/Shared/_pagerThree.cshtml" for="@Model.PagerThree">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#lst_province').on('change',
+            function () {
+                $('#lst_district').empty();
+                $.get("/Member/UpdateDistrict",
+                    { id: $("#lst_province").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#lst_district").append(o);
+                            }
+                        }
+                    });
+
+            });
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+    <script>
+        var LoyaltyDetail = '/Member/EditLoyalty';
+        $(function () {
+            $(".edit-loyalty").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: LoyaltyDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
+        var LoyaltyDetailView = '/Member/ViewLoyalty';
+        $(function () {
+            $(".view-loyalty").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: LoyaltyDetailView,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#viewmyModalContent').html(data);
+
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+    @*<script>
+
+            jQuery(document).ready(function ($) {
+                $('#datepicker').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                });
+
+            });
+
+        </script>*@
+    <script>
+        $(document).ready(function () {
+            $("#btnedit").click(function () {
+                $("#btnsave").toggleClass("d-none");
+                $('.edit_member').prop('disabled', function (i, v) { return !v; });
+            });
+
+        });
+    </script>
+
+
+
+
+
+}

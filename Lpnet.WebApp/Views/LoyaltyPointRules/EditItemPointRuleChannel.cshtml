@@ -1,0 +1,89 @@
+﻿@model Ats.Models.Loyalty.PointRuleChannelViewModel;
+@using Lpnet.WebApp.Resources
+@{ 
+    ViewBag.Title = @Resource.ViewBag_Title_PointRuleChannel_Edit;
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@{
+    SelectList listChannel = ViewBag.Channel;
+    SelectList listLoyaltyPointRule = ViewBag.LoyaltyPointRule;
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("EditItemPointRuleChannel", "LoyaltyPointRules", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_title_CustomPointRule</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_title_loyalty</a></li>
+                            <li class="breadcrumb-item active">@Resource.Common_label_editItemPointRuleChannel</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.LoyaltyPointRuleId)
+
+
+                            <div class="col-12 mt-1  ">
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <label class=" mt-1 text-left">@Resource.Common_label_selectchannel:</label>
+                                    </div>
+                                    <div class="col-7">
+                                        @Html.DropDownListFor(m => m.ChannelId, listChannel, new { disabled = "", placeholder = "", @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12  mt-1 ">
+                                <div class="form-group row">
+                                    <label for="txtcode" class="col-lg-2  mt-1  text-left">@Resource.Commom_Label_selectLoyatyPointRule:</label>
+                                    <div class="col-lg-7 ">
+                                        @Html.DropDownListFor(m => m.LoyaltyPointRuleId, listLoyaltyPointRule, new { disabled = "", @class = "form-control", id = "codeMember", name = "codeMember" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left">@Resource.Common_label_active:</label>
+                                    <div class="col-lg-6">
+                                        @Html.CheckBoxFor(m => m.Valid, new { @class = "form-group", id = "ckbActive" })
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="row mt-2 ml-1">
+                                <a href="@Url.Action("Detail", "LoyaltyPointRules" ,  new { Id = Model.LoyaltyPointRuleId })" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>}
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    
+
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+  
+}
+

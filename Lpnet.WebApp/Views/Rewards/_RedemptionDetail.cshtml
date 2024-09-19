@@ -1,0 +1,201 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Ats.Models.Reward.RedemptionItemViewModel;
+@using Lpnet.WebApp.Resources
+
+@using (Html.AjaxBeginForm("RedemptionRedeem", new AjaxOptions
+ {
+     HttpMethod = "post",
+     OnSuccess = "redemptionRedeemOnSuccess",
+     OnFailure = "redemptionRedeemOnOnFailure"
+ }))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Type)
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <h5 class="modal-title mt-0" id="redemptionDetailModalLabel">@Resource.Common_label_redemptionDetail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <h4 class="card-title">@Resource.Common_label_MemberInformation:</h4>
+            <div class="card">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="card-text"> @Resource.Common_label_memberName: <span>@($"{Model.Member.FirstName} {Model.Member.LastName}")</span></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_email: <span>@Model.Member.Email</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_tier: <span>@Model.Member.TierName</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_mobile: <span>@Model.Member.PhoneNumber</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="card-title">@Model.TypeName @Resource.Common_label_Information.ToLower():</h4>
+            <div class="card">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="card-text"> @Resource.Common_label_code: <span>@($"{Model.Code}")</span></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_effectivefrom: <span>@string.Format("{0:dd/MM/yyyy}", Model.EffectiveFrom)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_AmountDiscount: <span>@Model.Amount/ @Model.Discount</span>
+                            </div>
+                        </div>                       
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_name: <span>@Model.Name</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_effectiveto: <span>@string.Format("{0:dd/MM/yyyy}", Model.EffectiveTo)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_Status:
+                                @if (!Model.IsExpired)
+                                {
+                                    <span class="badge badge-success">@Resource.Common_label_active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">@Resource.Common_label_Expired</span>
+                                }
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="card-title">@Resource.Common_label_redemption:</h4>
+        <div class="card">
+            @if (!Model.IsExpired && !Model.RedeemedDate.HasValue)
+            {
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input checked id="rdReceiveCodeVia" name="rdReceiveCodeVia" placeholder="" type="radio" value="0">
+                            <span class="form-check-label">@Resource.Common_label_ReceiveCodeViaEmail</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input id="rdReceiveCodeVia" name="rdReceiveCodeVia" placeholder="" type="radio" value="1">
+                            <span class="form-check-label">@Resource.Common_label_ReceiveCodeViaMobile</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="card-text"><a class="text-danger mr-1">*</a>Verification code</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.VerificationCode, new { required="required", @class = "form-control", id = "txtVerificationCode", name = "txtVerificationCode" })
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="sendVerificationCode()">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <div class="card-text"><a class="text-danger mr-1">*</a>Invoice no</div>
+                    </div>
+                    </div>
+                    <div class="col-sm-9">
+                    <div class="form-group input-group-btn input-group-prepend">
+                    @Html.TextBoxFor(m => m.InvoiceNo, new { required="required", @class = "form-control", id = "txtInvoiceNo", name = "txtInvoiceNo" })
+                    </div>
+                    </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="card-text">@Resource.Common_label_remarks</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="form-group input-group-btn input-group-prepend">
+                            @Html.TextAreaFor(m => m.Remark, new { placeholder = "", @class = "form-control", id = "txtRemark", name = "txtRemark" })
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-6">                      
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_RedeemedDate: <span>@string.Format("{0:dd/MM/yyyy}", Model.RedeemedDate)</span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-sm-6">                      
+                         <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_RedeemedCode: <span>@Model.RedeemedCode</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-sm-12">                      
+                        <div class="form-group">
+                            <div class="card-text">
+                                @Resource.Common_label_remarks: <span>@Model.Remark</span>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        @if (!Model.IsExpired && !Model.RedeemedDate.HasValue)
+        {
+            <button class="btn btn-primary waves-effect waves-light">@Resource.Common_label_redeem</button>
+        }
+        <button class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+    </div>
+}

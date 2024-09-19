@@ -1,0 +1,87 @@
+﻿@model Ats.Security.Models.Account.LoginViewModel
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Login";
+}
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="big-layout-login">
+
+        <div class="big-language">
+            @await Html.PartialAsync("_SelectLanguagePartialLogin")
+        </div>
+        <div class="bg_login" style="background-image:url('../../assets/images/bg-login-02.jpg')" id="login-ats">
+        </div>
+        <div class="next_bg_login">
+        </div>
+        <div class="form-login-content">
+            <div class="logo-company-login">
+                <img src="../../assets/images/logo_01.png">
+            </div>
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <span>
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </span>
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = Ats.Web.Resources.Resource.Username, @class = "form-control input-lg", style = "background-color:transparent; border-radius:0px; max-width:100%" })
+                    <p>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
+                </div>
+                <div class="form-group">
+                    <span>
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </span>
+                    @Html.PasswordFor(m => m.Password, new { placeholder = Ats.Web.Resources.Resource.Password, @class = "form-control input-lg", style = "background-color:transparent; border-radius:0px; max-width:100%" })
+                    <p>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</p>
+                </div>
+                <div class="">
+                    <label class="ATS-custom-seleced" style="display: inline-block;font-weight: 400;">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Ats.Web.Resources.Resource.RememberMe?
+                        <span class="checkmark"></span>
+                    </label>
+                    @Html.ActionLink(Ats.Web.Resources.Resource.ForgotPassword, "ForgotPassword", null, new { style = "float: right" })
+                </div>
+                @Html.ValidationMessage("invalid", "", new { @class = "text-danger" });
+                @Html.ValidationMessage("incorrect", "", new { @class = "text-danger" });
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+                {
+                    <span class="field-validation-error text-danger" data-valmsg-for="incorrect" data-valmsg-replace="true">
+                        @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+                    </span>
+                }                    
+                <div class="text-center">
+                    <div style="margin-bottom: 20px;margin-top: 50px">
+                        <button type="submit" class="btn btn-ats-login" style="width:130px;padding-left:0px;padding-right:0px;">@Ats.Web.Resources.Resource.Loginss</button>
+                    </div>
+                    <div style="margin-bottom: 5px">
+                        @Html.ActionLink(Ats.Web.Resources.Resource.Register, "Register", new { }, new { htmlAttributes = new { @class = "btn btn-ats-register", style = "width:130px;padding-left:0px;padding-right:0px;" } })
+                    </div>
+                    @*<div>
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </div>*@
+                </div>
+            }
+        </div>
+    </div>
+    <script>
+        $(document).on('click', function (e) {
+            if ($(e.target).closest('.flag-popup-show').length == 1) {
+                if ($(e.target).closest('.flag-popup-show').next().hasClass('show_div') == true) {
+                    $('.flag-popup-hidden').removeClass('show_div');
+                }
+                else {
+                    $('.flag-popup-hidden').removeClass('show_div');
+                    $(e.target).closest('.flag-popup-show').next().addClass('show_div');
+                }
+            } else {
+                $('.flag-popup-hidden').removeClass('show_div');
+            }
+        });
+    </script>
+}

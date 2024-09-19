@@ -1,0 +1,137 @@
+﻿@model Ats.Models.Member.MemberLifecycleViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_MemberLifecycle_Detail;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h5 {
+        border-left: 5px solid #626ed4;
+    }
+</style>
+
+
+@{
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_analysis</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "MemberLifecycle")">@Resource.Common_label_memberlifecycle</a></li> 
+                        <li class="breadcrumb-item active">@Resource.Common_label_analysis</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row form-group ">
+                            <div class="col-md-12">
+                                <div class=" row">
+                                    <a for="txtPhoneNumber" class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_lifecyclestage:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.MemberLifeCycleName)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class=" row">
+                                    <a for="txtEmailAddress" class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_description</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.Remark)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class=" row">
+                                    <a for="txtEmailAddress" class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_estimatedaudience:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.TotalTransaction)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class="row">
+                                    <a for="txtEmailAddress" class="col-lg-2 col-form-label text-left text-dark"><strong>@Resource.Common_label_lastupdate:</strong></a>
+                                    <div class="col-6 mt-2">
+                                        @Html.DisplayFor(model => model.LastRegisterMonthDuration)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="@Url.Action("Index", "MemberLifecycle", new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+
+   
+}

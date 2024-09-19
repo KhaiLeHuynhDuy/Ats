@@ -1,0 +1,221 @@
+﻿@model Ats.Models.Product.ProductViewModel;
+@using Lpnet.WebApp.Resources
+@{
+
+    SelectList productCategories = ViewBag.ProductCategories;
+    SelectList brandCategories = ViewBag.BrandCategories;
+    SelectList unitCategories = ViewBag.UnitCategories;
+}
+
+<link href="~/assets/css/UploadFile.css" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="modal-header">
+        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Page_title_EditProduct</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label><a class="text-danger">*</a>@Resource.Common_label_code</label>
+                            @Html.TextBoxFor(m => m.Code, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                        </div>
+                        <div class="col-lg-6">
+                            <label>@Resource.Common_label_shortName</label>
+                            @Html.TextBoxFor(m => m.ShortName, new { placeholder = "", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label><a class="text-danger">*</a>@Resource.Common_label_name</label>
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label><a class="text-danger">*</a>@Resource.Common_label_productCategoryId</label>
+                            @Html.DropDownListFor(m => m.ProductCategoryId, productCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                        </div>
+                        <div class="col-lg-4">
+                            <label><a class="text-danger">*</a>@Resource.Common_label_brandId</label>
+                            @Html.DropDownListFor(m => m.BrandId, brandCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                        </div>
+                        <div class="col-lg-4">
+                            <label><a class="text-danger">*</a>@Resource.Common_label_unitId</label>
+                            @Html.DropDownListFor(m => m.UnitId, unitCategories, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label>@Resource.Common_label_RetailPrice</label>
+                            @Html.TextBoxFor(m => m.RetailPrice, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                        </div>
+                        <div class="col-lg-6">
+                            <label>@Resource.Common_label_PurchasedPrice</label>
+                            @Html.TextBoxFor(m => m.PurchasedPrice, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label>@Resource.Common_label_Currency</label>
+                            @Html.TextBoxFor(m => m.Currency, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                        </div>
+                        <div class="col-lg-6">
+                            <label>@Resource.Common_label_displayOrder</label>
+                            @Html.TextBoxFor(m => m.DisplayOrder, new { @Value = "", @class = "form-control", id = "creation-name" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="profile">
+                            <div class="avatar" style="width:100px;height:100px" id="avatar2">
+                                <div id="preview-update">
+                                    <img src="~/images/@Model.uniqueFileName"  class="avatar_img">
+                                </div>
+                                <div>
+                                    <label class="avatar_upload">
+                                        <input asp-for="ImageProfile" type="file" name="ImageProfile" id="upload2" accept=".png, .jpg, .jpeg">
+                                        <div class="nickname2 text-xl-center">
+                                            <span id="name2"></span>
+                                        </div>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>@Resource.Common_label_description</label>
+                <div>
+                    @Html.TextAreaFor(m => m.Description, new { placeholder = "", @class = "form-control", id = "creation-description", rows = "3" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            @Html.CheckBoxFor(m => m.AllowEarnPoint, new { @class = "form-group", @checked = "checked" })
+                            <label>Allow EarnPoint</label>
+                        </div>
+                        <div class="col-lg-4">
+                            @Html.CheckBoxFor(m => m.AllowRedeem, new { @class = "form-group", @checked = "checked" })
+                            <label>Allow Redeem</label>
+                        </div>
+                        <div class="col-lg-4">
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-group", @checked = "checked" })
+                            <label>@Resource.Common_label_active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="Id" value="@Model.Id">
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+    </div>
+}
+
+
+<script>
+    var upload2 = document.getElementById("upload2");
+    var preview2 = document.getElementById("preview-update");
+    var avatar2 = document.getElementById("avatar2");
+    var avatar_name2 = document.getElementById("name2");
+    var avatar_name_change_box =
+        document.getElementById("change-name-box");
+
+    var avatars2 = {
+        srcList: [],
+        activeKey: 1,
+        add: function (_name, _src) {
+            this.activeKey = this.srcList.length;
+            return (this.srcList.push({ name: _name, src: encodeURIComponent(_src) }) - 1);
+        },
+        changeName: function (key, _name) {
+
+            if (!Number.isInteger(key)) {
+                return false;
+            }
+            this.srcList[key].name = _name;
+            if (avatar_name2.dataset.key == key) {
+                avatar_name2.textContent = _name;
+            }
+            return _name;
+        },
+
+    };
+    upload2.addEventListener("change", handleFilesUpdate, false);
+    /** Handle uploading of files */
+    function handleFilesUpdate() {
+        var files = this.files;
+        console.log(preview, preview2);
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /^image\//;
+
+            if (!imageType.test(file.type)) {
+                avatar2.classList.add("avatar--upload-error");
+                setTimeout(function () {
+                    avatar2.classList.remove("avatar--upload-error");
+                }, 1200);
+                continue;
+            }
+
+            avatar2.classList.remove("avatar--upload-error");
+
+            while (preview2.firstChild) {
+                preview2.removeChild(preview2.firstChild);
+            }
+
+            var img = document.createElement("img");
+            img.file = file;
+            img.src = window.URL.createObjectURL(file);
+            img.onload = function () {
+                // window.URL.revokeObjectURL(this.src);
+            }
+            img.className = "avatar_img";
+
+            /* Clear focus and any text editing mode */
+            document.activeElement.blur();
+            window.getSelection().removeAllRanges();
+
+            var _avatarKey = avatars2.add(file.name, img.src);
+            avatar_name2.textContent = file.name;
+            avatar_name2.setAttribute("data-key", _avatarKey);
+            preview2.appendChild(img);
+            console.log(preview2);
+        }
+    }
+
+
+
+</script>

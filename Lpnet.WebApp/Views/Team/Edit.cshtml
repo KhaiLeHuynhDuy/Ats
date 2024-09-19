@@ -1,0 +1,119 @@
+﻿@model Ats.Models.Team.TeamViewModel;
+@using Lpnet.WebApp.Resources;
+@{
+  ViewBag.Title = @Resource.ViewBag_Title_Team_Edit;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    SelectList organizationTypes = ViewBag.TeamType;
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_teams</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "User")">@Resource.Sidebar_configurations_user</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "User")">@Resource.Sidebar_configurations_teams</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action("Detail", "Team", new { id = Model.Id})">@Resource.Common_label_edit</a></li> 
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Edit", "Team", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="form-group">
+                                <label>@Resource.Common_label_name</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter a name", @class = "form-control", id = "creation-name", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input", id = "edit-active", @checked = "checked" })
+                                    <label class="custom-control-label" for="edit-active">@Resource.Common_label_active</label>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
+                                        @Resource.Common_label_save
+                                    </button>
+                                    <a href="@Url.Action("Index", "Team",  new { pageIndex = 0 })" class="btn btn-secondary waves-effect">
+                                        @Resource.Common_label_cancel
+                                    </a>
+                                    <a href="@Url.Action("AddTeamUser", "Team", new { teamId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                        <i class="mdi mdi-plus"></i> @Resource.Common_label_addMember
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusUserMessage</p>
+                            @if (Model != null)
+                            {
+                                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6">@Resource.Common_label_members</th>
+                                        </tr>
+                                    </thead>
+                                    @{
+                                        if (Model.TeamUsers != null)
+                                        {
+                                            <tbody>
+                                                @foreach (var item in Model.TeamUsers)
+                                                {
+                                                    <tr>
+                                                        <td>@item.FirstName @item.LastName</td>
+                                                        <td>@item.UserName</td>
+                                                        <td>@item.Tag</td>
+                                                        <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                                        @{
+                                                            string sqlFormattedDate = item.EndDate == null
+                                                            ? ""
+                                                            : item.EndDate.Value.ToString("dd/MM/yyyy");
+                                                        }
+                                                        <td><span style="border-radius: 5px">@sqlFormattedDate</span></td>
+                                                        <td style="text-align:center;padding-left:0px;padding-right:0px">
+                                                            <a href='@Url.Action("EditTeamUser", "Team", new { id = item.Id })' class="btn btn-info btn-sm">
+                                                                <i class="mdi mdi-lead-pencil"></i>
+                                                            </a>
+                                                            <a href='@Url.Action("DeleteTeamUser", "Team", new { id = item.Id, teamId = Model.Id })'
+                                                               class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this item?(Bạn có muốn xóa?)');">
+                                                                <i class="mdi mdi-delete"></i>
+                                                            </a>
+                                                        </td>   
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        }
+                                    }
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <script src="~/assets/libs/parsleyjs/parsley.min.js"></script>
+
+    <script src="~/assets/js/pages/form-validation.init.js"></script>
+}

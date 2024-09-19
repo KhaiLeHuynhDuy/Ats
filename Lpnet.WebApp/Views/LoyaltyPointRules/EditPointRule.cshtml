@@ -1,0 +1,511 @@
+﻿@model Ats.Models.Loyalty.LoyaltyPointRulesViewModel;
+@using Lpnet.WebApp.Resources
+@{ 
+    ViewBag.Title = @Resource.ViewBag_Title_CustomPointRule_Edit;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .a {
+        white-space: nowrap;
+        width: 650px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+@{
+    SelectList listStore = ViewBag.Store;
+    SelectList listLoyaltyPointRule = ViewBag.LoyaltyPointRule;
+    SelectList listProduct = ViewBag.Products;
+    SelectList listChannel = ViewBag.Channel;
+    SelectList listCategory = ViewBag.ProductCategories;
+    SelectList listBrand = ViewBag.Brands;
+    SelectList BonusType = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "False", Text = @Resource.Comom_Label_fixedPoint },
+        new SelectListItem() { Value = "True", Text = Resource.Comom_Label_rate},
+}, "Value", "Text");
+    //SelectList Store = ViewBag.ListStore;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("EditPointRule", "LoyaltyPointRules", FormMethod.Post, new { @class = "form-horizontal form-wizard-wrapper", enctype = "multipart/form-data", role = "form" }))
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_title_CustomPointRule</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Megapoint</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("PointRuleStandard", "LoyaltyPointRules")">@Resource.Common_label_loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("PointRule", "LoyaltyPointRules")">@Resource.Common_label_pointrule</a></li>
+                            <li class="breadcrumb-item active">@Resource.Sidebar_Title_editPointRule</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+
+
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 text-left mt-1"><a class="text-danger">*</a>@Resource.Common_label_rulename:</label>
+                                    <div class="col-lg-7">
+                                        @Html.TextBoxFor(m => m.RuleName, new { placeholder = "", @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 text-left mt-1"><a class="text-danger">*</a>@Resource.Comom_Label_ruleType:</label>
+                                    <div class="col-lg-7">
+                                        @Html.DropDownListFor(m => m.BonusType, BonusType, new { placeholder = "", @class = "form-control", required = "", id = "bonusType" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1  ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 txt_EarningRate col-form-label text-left">@Resource.Comom_Label_earningPoint:</label>
+                                    <label class="col-lg-2 txt_RedemptionRate col-form-label text-left">@Resource.Comom_Label_earningRate:</label>
+                                    <div class="col-lg-7">
+                                        @Html.TextBoxFor(m => m.EarningRate, new { @class = "form-control", id = "txt_EarningRate" })
+                                    </div>
+                                    <div class="col-lg-3 mt-2 txt_test">
+                                        <span class="getEarningRate"></span> @Resource.Comom_Label_points
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12  mt-1  specificDate ">
+                                <!-- Specific Date-->
+                                <div class="form-group row ">
+                                    <label class="col-lg-2  text-left">@Resource.Common_label_validityperiot :</label>
+                                    <div class="col-lg-7">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                @Html.TextBoxFor(m => m.EffectiveFrom, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateBegin", type = "date", name = "effectiveDateBegin" })
+                                            </div>
+                                            <div class="col-2 mt-1 text-center"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                            <div class="col-5">
+                                                @Html.TextBoxFor(m => m.EffectiveTo, "{0:yyyy-MM-dd}", new { placeholder = "", @class = "form-control", id = "effectiveDateEnd", type = "date", name = "effectiveDateEnd" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1 ">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-left"> @Resource.Common_label_active:</label>
+                                    <div class="col-lg-6">
+                                        @Html.CheckBoxFor(m => m.Valid, new { @class = "form-group", id = "ckbActive" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1">
+                                <label for="" class="text-left">@Resource.Common_label_remark:</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(m => m.Remark, new { placeholder = "", @class = "form-control" })
+                            </div>
+
+
+                            <div class="row mt-2 ml-1">
+                                <a href="@Url.Action("PointRule","LoyaltyPointRules")" class="text-white btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2">@Resource.Common_label_cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusCateMessage</p>
+                        <div class="row">
+                            <div class="col-6 text-left ">
+                                <label class="font-size-24">@Resource.Commom_Label_addProductCategoriestoPointRuleCategory</label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="@Url.Action("CreateItemPointRuleCategory", "LoyaltyPointRules", new { ruleId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                    <i class="mdi mdi-plus "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover   table-bordered table-centered table-nowrap mb-0 text-left table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Resource.Common_label_ProductCate</th>
+                                    <th scope="col">@Resource.Common_label_displayOrder</th>
+                                    <th scope="col">@Resource.Common_label_description</th>
+                                    <th scope="col" class="text-left">@Resource.Common_label_Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PointRuleCategories)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.DisplayOrder</td>
+                                    <td><div class="Desc a">@item.Description</div> </td>
+                                    <td class="text-left">
+                                        @{if (item.Valid == true)
+                                            {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                        else
+                                        {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("EditItemPointRuleCategory", "LoyaltyPointRules", new { id = item.Id })" class="btn btn-outline-info "><i class="mdi mdi-folder-open-outline"></i></a>
+                                        <a href="@Url.Action("DeleteItemPointRuleCategory", "LoyaltyPointRules", new { id = item.Id, ruleId = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-info text-dark" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row Point Rule Category -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusProductMessage</p>
+                        <div class="row">
+                            <div class="col-6 text-left ">
+                                <label class="font-size-24">@Resource.Commom_Label_addProducttoPointRuleProduct</label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="@Url.Action("CreateItemPointRuleProduct", "LoyaltyPointRules", new { ruleId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                    <i class="mdi mdi-plus "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-centered table-nowrap mb-0 text-left table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Resource.Common_label_productcode</th>
+                                    <th scope="col">@Resource.Common_label_productname</th>
+                                    <th scope="col">@Resource.Common_label_description</th>
+                                    <th scope="col" class="text-left">@Resource.Common_label_Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PointRuleProducts)
+                                {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>@item.ProductName</td>
+                                    <td><div class="Desc a">@item.Desc</div> </td>
+                                    <td class="text-left">
+                                        @{if (item.Valid == true)
+                                            {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                        else
+                                        {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("EditItemPointRuleProduct", "LoyaltyPointRules", new { id = item.Id })" class="btn btn-outline-info "><i class="mdi mdi-folder-open-outline"></i></a>
+                                        <a href="@Url.Action("DeleteItemPointRuleProduct", "LoyaltyPointRules", new { id = item.Id ,  ruleid = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-info text-dark" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row Point Rule Product-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusStoreMessage</p>
+                        <div class="row">
+                            <div class="col-6 text-left ">
+                                <label class="font-size-24">@Resource.Commom_Label_addStoretoPointRuleStore</label>
+                            </div>
+                            <div class="col-6">
+                                <a href="@Url.Action("CreateItemPointRuleStore", "LoyaltyPointRules", new { ruleId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                    <i class="mdi mdi-plus "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover  table-bordered table-centered table-nowrap mb-0 text-left table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Resource.Common_label_StoreNameCol</th>
+                                    <th scope="col">@Resource.Common_label_AddressCol</th>
+                                    <th scope="col">@Resource.Common_label_city</th>
+                                    <th scope="col" class="text-right">@Resource.Common_label_Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PointRuleStores)
+                                {
+                                    <tr>
+                                        <td>@item.StoreName</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.City</td>
+                                        <td class="text-right">
+                                            @{if (item.Valid == true)
+                                                {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                            else
+                                            {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                            }
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="@Url.Action("EditItemPointRuleStore", "LoyaltyPointRules", new { id = item.Id })" class="btn btn-outline-info "><i class="mdi mdi-folder-open-outline"></i></a>
+                                            <a href="@Url.Action("DeleteItemPointRuleStore", "LoyaltyPointRules", new { id = item.Id , ruleId = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-info text-dark" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-delete"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row Point Rule Store -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusBrandMessage</p>
+                        <div class="row">
+                            <div class="col-6 text-left ">
+                                <label class="font-size-24">@Resource.Commom_Label_addBrandToPointRuleBrand</label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="@Url.Action("CreateItemPointRuleBrand", "LoyaltyPointRules", new { ruleId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                    <i class="mdi mdi-plus "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover  table-bordered table-centered table-nowrap mb-0 text-left table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Resource.Common_label_BrandCode</th>
+                                    <th scope="col">@Resource.Common_label_BrandName</th>
+                                    <th scope="col">@Resource.Common_label_description</th>
+                                    <th scope="col" class="text-left">@Resource.Common_label_Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.pointRuleBrands)
+                                {
+                                <tr>
+                                    <td>@item.BrandCode</td>
+                                    <td>@item.BrandName</td>
+                                    <td><div class="Desc a">@item.Desc</div> </td>
+                                    <td class="text-left">
+                                        @{if (item.Valid == true)
+                                            {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                        else
+                                        {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("EditItemPointRuleBrand", "LoyaltyPointRules", new { id = item.Id })" class="btn btn-outline-info "><i class="mdi mdi-folder-open-outline"></i></a>
+                                        <a href="@Url.Action("DeleteItemPointRuleBrand", "LoyaltyPointRules", new { id = item.Id, ruleid = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-info text-dark" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row Point Rule Brand-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusChannelMessage</p>
+                        <div class="row">
+                            <div class="col-6 text-left ">
+                                <label class="font-size-24">@Resource.Commom_Label_addChanneltoPointRuleChannel</label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="@Url.Action("CreateItemPointRuleChannel", "LoyaltyPointRules", new { ruleId = Model.Id })" class="btn btn-success float-right waves-effect">
+                                    <i class="mdi mdi-plus "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover  table-bordered table-centered table-nowrap mb-0 text-left table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Resource.Common_label_ChannelName</th>
+                                    <th scope="col">@Resource.Common_label_description</th>
+                                    <th scope="col" class="text-right">@Resource.Common_label_Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PointRuleChannels)
+                                {
+                                <tr>
+                                    <td>@item.ChannelName</td>
+                                    <td><div class="Desc a">@item.Desc</div> </td>
+                                    <td class="text-right">
+                                        @{if (item.Valid == true)
+                                            {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                        else
+                                        {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("EditItemPointRuleChannel", "LoyaltyPointRules", new { id = item.Id })" class="btn btn-outline-info "><i class="mdi mdi-folder-open-outline"></i></a>
+                                        <a href="@Url.Action("DeleteItemPointRuleChannel", "LoyaltyPointRules", new { id = item.Id ,  ruleid = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-info text-dark" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row Point Rule channel-->
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+    <script>
+        var bonusType = $("#bonusType option:selected").val();
+        console.log(bonusType);
+        if (bonusType == 'True') {
+            $(".txt_EarningRate").show();
+            $(".txt_RedemptionRate").hide();
+            $(".txt_test").hide();
+        } else {
+            $(".txt_EarningRate").show();
+            $(".txt_RedemptionRate").hide();
+            $(".txt_test").hide();
+        }
+        if (bonusType == 'False') {
+            $(".txt_EarningRate").show();
+            $(".txt_RedemptionRate").hide();
+            $(".txt_test").hide();
+        } else {
+            $(".txt_EarningRate").hide();
+            $(".txt_RedemptionRate").show();
+            $(".txt_test").show();
+        }
+        $("#bonusType").on('change', function () {
+            if (this.value == 'True') {
+                $(".txt_EarningRate").hide();
+                $(".txt_RedemptionRate").show();
+                $(".txt_test").show();
+            } else {
+                $(".txt_EarningRate").show();
+                $(".txt_RedemptionRate").hide();
+                $(".txt_test").hide();
+            }
+            if (this.value == 'False') {
+                $(".txt_EarningRate").show();
+                $(".txt_RedemptionRate").hide();
+                $(".txt_test").hide();
+            } else {
+                $(".txt_EarningRate").hide();
+                $(".txt_RedemptionRate").show();
+                $(".txt_test").show();
+            }
+        });
+    </script>
+
+    <script>
+
+        $(function () {
+
+            $("#txt_EarningRate,#txt_RedemptionRate").on("input", function (e) {
+
+                var q = $("#txt_EarningRate").val();
+                var p = $("#txt_RedemptionRate").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = parseFloat(q) * parseFloat(p);
+                }
+                $('.gettotal').text(result);
+                $('.getEarningRate').text(q);
+                $('.getRedemptionRate').text(p);
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.Desc').click(function () {
+                $(this).toggleClass('a').siblings().removeClass('a');
+            });
+        });
+    </script>
+
+
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+
+        $("input[name='RedemptionRate']").TouchSpin({
+            min: 0,
+            max: 1000000000,
+            step: 1,
+            stepinterval: 50,
+            maxboostedstep: 1000,
+
+        });
+
+
+        $("input[name='EarningRate']").TouchSpin({
+            min: 0,
+            max: 1000000000,
+            step: 1,
+            stepinterval: 50,
+            maxboostedstep: 10,
+
+        });
+
+    </script>
+
+
+
+}
+

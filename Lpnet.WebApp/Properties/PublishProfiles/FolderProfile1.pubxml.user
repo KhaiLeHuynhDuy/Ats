@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\defaultuser0.LAPTOP-POTNR7PE\Desktop\02_agn\agn-habber\src\releases\kansas\kansas4</_PublishTargetUrl>
+    <History>True|2021-12-23T02:19:20.3089436Z;True|2021-12-23T09:14:08.5856804+07:00;True|2021-12-21T16:21:25.4712535+07:00;True|2021-12-21T16:07:42.7248583+07:00;True|2021-12-21T14:50:52.6903339+07:00;True|2021-12-21T14:09:00.6765880+07:00;True|2021-12-21T13:22:18.9470715+07:00;True|2021-12-21T08:09:29.6435905+07:00;True|2021-12-17T17:11:16.1907498+07:00;True|2021-12-17T13:35:18.7412362+07:00;False|2021-12-17T13:34:19.7658745+07:00;True|2021-12-17T13:23:33.7097119+07:00;False|2021-12-17T13:21:36.1329948+07:00;True|2021-12-17T13:02:31.0819803+07:00;True|2021-12-14T10:29:45.0990423+07:00;True|2021-12-13T17:39:59.2047166+07:00;True|2021-12-13T08:21:42.8653081+07:00;True|2021-12-08T16:04:14.9146614+07:00;True|2021-12-07T15:53:51.6813027+07:00;True|2021-12-07T15:51:43.1728506+07:00;</History>
+  </PropertyGroup>
+</Project>

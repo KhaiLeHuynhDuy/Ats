@@ -1,0 +1,227 @@
+﻿@model Ats.Models.Product.ProductCollectionSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Detail Product Collection | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h5 {
+        border-left: 5px solid #626ed4;
+    }
+</style>
+
+@section styles{
+    <!-- DataTables -->
+    <!--<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="~/assets/css/createMemberTag.css" rel="stylesheet" />-->
+    <!-- Responsive datatable examples -->
+    <!--<link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />-->
+}
+
+@{
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6 form-group">
+                <div class="page-title-box">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Campaign")">@Resource.Common_label_campaign</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "ProductCollection")">@Resource.Common_label_productCollection</a></li> 
+                        <li class="breadcrumb-item active"><a href="javascript: void(0);">@Resource.Common_label_detail</a></li>
+                    </ol>
+                    <h3 class="font-size-20">@Resource.Common_label_productCollection</h3>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        @using (Html.BeginForm("Detail", "Gift", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ProductCollection.Id)
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row form-group ">
+
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_productCollectionName: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.ProductCollection.Name)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 m-1 mt-1">
+                                    <div class="row">
+                                        <div class="col-md-12 m-1 ">
+                                            <div class="row">
+                                                <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_validityperiod: </a>
+                                                <div class="col-5">
+                                                    <div class="row">
+                                                        <div class="col-5 mt-2">
+                                                            @Html.DisplayFor(m => m.ProductCollection.EffectiveDateBegin)
+                                                        </div>
+                                                        <div class="col-1 mt-2 text-left mr-3"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                                        <div class="col-5 mt-2">
+                                                            @Html.DisplayFor(m => m.ProductCollection.EffectiveDateEnd)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-12 m-2"> 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card ">
+                                                <div class="card-body">
+                                                    <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                                                    @using (Html.BeginForm("AddItem", "ProductCollection", new { role = "form" }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <div class="">
+                                                            <div class="row">
+                                                                <div class="col-6 text-left">
+                                                                    <label> @Resource.Common_label_productsofthecollection</label>
+                                                                </div>
+                                                              
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3" >
+
+                                                            <table id="datatable" class="table table-bordered table-sm table-hover dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-left"> @Resource.Common_label_productname</th>
+                                                                        <th class="text-left"> @Resource.Common_label_price</th>
+                                                                        <th class="text-left"> @Resource.Common_label_stock</th>
+                                                                        <th class="text-left"> @Resource.Common_label_displayOrder</th>
+
+                                                                      
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    @foreach (var item in Model.ProductCollectionItems)
+                                                                    {
+                                                                        <tr>
+                                                                            <td class="text-left">@item.ProductName</td>
+                                                                            <td class="text-left">@item.Price</td>
+                                                                            <td class="text-left">@item.Stock</td>
+                                                                            <td class="text-left">@item.DisplayOrder </td>
+
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row --> 
+                                </div>
+                                
+
+
+
+
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="@Url.Action("Index", "ProductCollection", new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    @*<button type="submit" class="btn btn-primary waves-effect waves-light ml-3">Send</button>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container-fluid -->
+        }
+
+    </div>
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+
+    <!-- Required datatable js -->
+    <!--<script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>-->
+    <!-- Buttons examples -->
+    <!--<script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>-->
+    <!-- Responsive examples -->
+    <!--<script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>-->
+
+    <!-- Datatable init js -->
+    <!--<script src="~/assets/js/pages/datatables.init.js"></script>-->
+
+}

@@ -1,0 +1,128 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>848ee717-f321-4f8b-9627-801458d6ad4b</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="wwwroot\assets\import_excel_member\**" />
+    <Compile Remove="wwwroot\assets\libs\morris.js\**" />
+    <Compile Remove="wwwroot\assets\libs\select2\**" />
+    <Compile Remove="wwwroot\ExportExcel\**" />
+    <Compile Remove="wwwroot\ImportExcel\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="wwwroot\assets\import_excel_member\**" />
+    <Content Remove="wwwroot\assets\libs\morris.js\**" />
+    <Content Remove="wwwroot\assets\libs\select2\**" />
+    <Content Remove="wwwroot\ExportExcel\**" />
+    <Content Remove="wwwroot\ImportExcel\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="wwwroot\assets\import_excel_member\**" />
+    <EmbeddedResource Remove="wwwroot\assets\libs\morris.js\**" />
+    <EmbeddedResource Remove="wwwroot\assets\libs\select2\**" />
+    <EmbeddedResource Remove="wwwroot\ExportExcel\**" />
+    <EmbeddedResource Remove="wwwroot\ImportExcel\**" />
+    <None Remove="Data\**" />
+    <None Remove="wwwroot\assets\import_excel_member\**" />
+    <None Remove="wwwroot\assets\libs\morris.js\**" />
+    <None Remove="wwwroot\assets\libs\select2\**" />
+    <None Remove="wwwroot\ExportExcel\**" />
+    <None Remove="wwwroot\ImportExcel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\MemberGroupTagController.cs" />
+    <Compile Remove="Controllers\MemberWalletController .cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Member\_ViewLoyalty.cshtml" />
+    <Content Remove="Views\Product\_EditProduct.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Unobtrusive.Ajax" Version="1.1.3" />
+    <PackageReference Include="bootstrap-select" Version="1.13.18" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.17" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Quartz" Version="3.3.3" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="19.2.0.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\images\ImageAccessDenied\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\lib\bootstrap\" />
+    <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
+    <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
+    <Folder Include="wwwroot\lib\jquery-validation\" />
+    <Folder Include="wwwroot\lib\jquery-validation\dist\" />
+    <Folder Include="wwwroot\lib\jquery\" />
+    <Folder Include="wwwroot\lib\jquery\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Channel\Index.cshtml" />
+    <None Include="Views\Member\_ViewLoyalty.cshtml" />
+    <None Include="Views\Member\_EditLoyalty.cshtml" />
+    <None Include="Views\Channel\_Detail.cshtml" />
+    <None Include="Views\Product\_EditProduct.cshtml" />
+    <None Include="wwwroot\assets\libs\advanced-multiselect-easy\easySelect\easySelect.js" />
+    <None Include="wwwroot\assets\libs\bootstrap-datepicker\.github\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\assets\libs\bootstrap-datepicker\.github\PULL_REQUEST_TEMPLATE.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ats.Build\Ats.Build.csproj" />
+    <ProjectReference Include="..\Ats.Commons\Ats.Commons.csproj" />
+    <ProjectReference Include="..\Ats.Data\Ats.Data.csproj" />
+    <ProjectReference Include="..\Ats.Domain\Ats.Domain.csproj" />
+    <ProjectReference Include="..\Ats.Models\Ats.Models.csproj" />
+    <ProjectReference Include="..\Ats.Security\Ats.Security.csproj" />
+    <ProjectReference Include="..\Ats.Services\Ats.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Resource.vi.Designer.cs">
+      <DependentUpon>Resource.vi.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.vi.resx">
+      <LastGenOutput>Resource.vi.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

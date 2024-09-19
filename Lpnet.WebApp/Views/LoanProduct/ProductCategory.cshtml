@@ -1,0 +1,198 @@
+﻿@model Ats.Models.Product.ProductCategorySearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Data Table | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_productMng_productCategory</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Megapoint</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_title_configurations</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_productMng_productCategory</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                        </button>
+                    </div>
+                </div>
+
+                <!-- create new modal -->
+                <div id="createNewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("CreateProductCategory", "Product", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+
+                                        <div class="form-group">
+                                            <label>@Resource.Common_label_name</label>
+                                            <div>
+                                                @Html.TextBoxFor(m => m.ProductCategory.Name, new { placeholder = "", @class = "form-control", id = "creation-name", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>@Resource.Common_label_description</label>
+                                            <div>
+                                                @Html.TextAreaFor(m => m.ProductCategory.Description, new { placeholder = "", @class = "form-control", id = "creation-description", rows = "5" })
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            @Html.CheckBoxFor(m => m.ProductCategory.IsActive, new { @class = "custom-control-input", id = "edit-active", @checked = "checked" })
+                                            <label class="custom-control-label" for="edit-active">@Resource.Common_label_active</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- edit modal -->
+                <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div id="myModalContent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("SearchProductCategory", "Product", new { role = "form" }, FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <label for="example-search-input" class="col-sm-1 col-form-label">@Resource.Common_label_search</label>
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "", @class = "form-control", id = "occupation-search-input" })
+                                </div>
+                                @*@Html.HiddenFor(m => m.Page, new { Value = 1 })*@
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Resource.Common_label_id <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "id", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_name<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>@Resource.Common_label_description</th>
+                                    <th>
+                                        @Resource.Common_label_active <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "isactive", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ProductCategories)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <th>@item.Description</th>
+                                        <td>
+                                            @if (item.IsActive)
+                                            {
+                                                <span class="badge badge-info">@item.IsActive</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">@item.IsActive</span>
+                                            }
+                                        </td>
+                                        <td class="text-right">
+                                            <div>
+                                                <a href="@Url.Action("DetailProductCategory", "Product", new { id = item.Id })" class="btn btn-info btn-sm"><i class="mdi mdi-lead-pencil"></i></a>
+                                                <a href="@Url.Action("DeleteProductCategory", "Product", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+    <!-- Required datatable js -->
+    <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/assets/js/pages/datatables.init.js"></script>
+}

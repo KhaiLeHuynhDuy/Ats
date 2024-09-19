@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<p>
+    <ul>
+        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+        <li>@Html.ActionLink("Projects", "Projects", "Admin")</li>
+        <li>@Html.ActionLink("Departments", "Departments", "Admin")</li>
+        <li>@Html.ActionLink("Activities", "Activities", "Admin")</li>
+        <li>@Html.ActionLink("Tasks", "Tasks", "Admin")</li>
+        <li>@Html.ActionLink("Roles", "Roles", "Admin")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</p>

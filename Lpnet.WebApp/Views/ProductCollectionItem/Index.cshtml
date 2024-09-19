@@ -1,0 +1,265 @@
+﻿@model Ats.Models.Product.ProductCollectionItemSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Data Table | Panda Loyalty ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+    <link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+@{
+    SelectList product = ViewBag.Product;
+    SelectList productCollection = ViewBag.ProductCollection;
+   
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_coupon</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Panda Loyalty </a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_campaign</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_configurations_coupon</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-6" data-toggle=" " data-target=" " aria-expanded=" " aria-controls=" ">
+                    </div>
+                    <div class="col-6 mt-2">
+                        <div class=" text-center float-right">                           
+                            <button class="btn btn-primary waves-effect waves-light ml-1 " type="button" aria-haspopup="true" aria-expanded="false" data-toggle="" data-target="">
+                                <a href="@Url.Action("Create", "ProductCollectionItem")" class="text-white"><i class="mdi mdi-plus"></i> @Resource.Common_label_addProductCollectionItem</a>
+                            </button>
+                            <button class="btn btn-primary waves-effect waves-light ml-1 mr-4" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNew">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "ProductCollectionItem", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the name code Coupon ", @class = "form-control", id = "occupation-search-input" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" id="btnSearch" name="search" value="search" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-magnify mr-2"></i>@Resource.Common_label_search
+                                    </button>
+                                    <button class="btn btn-primary waves-effect ml-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                                        <i class="fas fa-search mr-2"></i>@Resource.Common_label_searchAdvanced
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row collapse" id="collapseExample">
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 1 -->
+                                    <div class="row form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for="txtMemberCode" class="col-lg-3  mt-2 text-right">@*@Resource.Common_label_selectaproduct*@ Product</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.ProductCollectionItem.ProductId, product, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6 ">
+                                            <div class="  row">
+                                                <label for="txtMemberCode" class="col-lg-3 mt-2 text-right">@*@Resource.Common_label_selectaproductCollectionItem*@ Collection</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.ProductCollectionItem.ProductCollectionId, productCollection, new { placeholder = "", @class = "form-control", id = "txtMemberCode", name = "txtMemberCode" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-12">
+                                    <!-- Advanced Search Row 2 -->
+                                    <div class="row  form-group">
+                                        <div class=" col-lg-6 ">
+                                            <div class="row">
+                                                <div class="col-lg-3 text-right mt-2">
+                                                    <label lass="text-right  ">@Resource.Common_label_voucherAvailableStock</label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.StockFrom, new { placeholder = "", @class = "form-control", type = "", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                                <div class="col-1 mt-2 text-center">
+                                                    <a class="text-left"><i class="fas fa-arrow-right"></i> </a>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.StockTo, new { placeholder = "", @class = "form-control", type = "", id = "txtDOB", name = "txtDOB" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-0">
+                                    <!-- Advanced Search Row Button 4 -->
+                                    <div class="col-12">
+                                        <div class="row collapse" id="collapseExample">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button runat="server" type="submit" class="btn btn-outline-info btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_reset</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button type="submit" id="btnSearch1" name="search" value="search" class=" btn btn-primary btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_search</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="dtHorizontalVerticalExample mt-2" style="overflow: auto hidden">
+                            <table id="dtHorizontalVerticalExample" class="   table table-bordered dt-responsive nowrap table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th> <input type="checkbox" id="checked" /></th>
+                                        <th class="text-left">
+                                            @Resource.Sidebar_configurations_product<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"></a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_productCollectionName<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"></a>
+                                        </th>
+                                        <th class="text-left">
+                                            Price<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"></a>
+                                        </th>
+                                        <th class="text-left">
+                                            @Resource.Common_label_availablestock<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"> </a>
+                                        </th>
+
+                                        <th class="text-left">
+                                            @Resource.Common_label_operation <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "isactive", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0"> </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ProductCollectionItems)
+                                    {
+                                    <tr>
+                                        <td class="text-left"><input type="checkbox" id="checkedvalue" /></td>
+                                        <td class="text-left">@item.ProductName</td>
+                                        <td class="text-left">@item.ProductCollectionName</td>
+                                        <td class="text-left">@item.Price VNĐ</td>
+                                        <td class="text-left">@item.Stock</td>
+
+                                        <td class="text-left">
+                                            <div>
+                                                <button type="button" data-id="@item.Id" class="btn btn-primary btn-sm  " aria-haspopup="true" aria-expanded="false">
+                                                    <a href=" @Url.Action("Detail", "ProductCollectionItem", new { id = item.Id })" class="text-white">@Resource.Common_label_View</a>
+                                                </button>
+                                                <button type="button" data-id="@item.Id" class="btn btn-primary btn-sm  " aria-haspopup="true" aria-expanded="false">
+                                                    <a href=" @Url.Action("Edit", "ProductCollectionItem", new { id = item.Id })" class="text-white">@Resource.Common_label_edit</a>
+                                                </button>
+                                                <button type="button" data-id="@item.Id" class="btn btn-primary btn-sm  " aria-haspopup="true" aria-expanded="false">
+                                                    <a href=" @Url.Action("Order", "ProductCollectionItem", new { id = item.Id })" class="text-white">Order</a>
+                                                </button>
+                                                <a href="@Url.Action("Delete", "ProductCollectionItem", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-sm btn-primary ml-2">@Resource.Common_label_delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <p style="float:left; width: 79px;">
+                                @{
+                                    List<SelectListItem> lstPages = new List<SelectListItem>();
+                                    lstPages.Add(new SelectListItem() { Value = "10", Text = "10" });
+                                    lstPages.Add(new SelectListItem() { Value = "20", Text = "20" });
+                                    lstPages.Add(new SelectListItem() { Value = "30", Text = "30" });
+                                    lstPages.Add(new SelectListItem() { Value = "50", Text = "50" });
+                                    lstPages.Add(new SelectListItem() { Value = "100", Text = "100" });
+
+                                }
+                                @Html.DropDownListFor(m => m.Pager.Size, lstPages, new { @class = "form-control", id = "ddlPaging" })
+                            </p>
+                            <p class=" float-right">
+                                <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <script>
+        var occupationDetail = '/Coupon/Detail';
+        $(function () {
+            $(".coupon-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+    <!-- Required datatable js -->
+    <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/assets/js/pages/datatables.init.js"></script>
+}

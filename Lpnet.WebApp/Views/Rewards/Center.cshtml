@@ -1,0 +1,64 @@
+﻿@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Rewards_Center;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_rewardsCenter</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a>@Resource.Common_label_rewards</a></li> 
+                        <li class="breadcrumb-item active">@Resource.Common_label_rewardsCenter</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        <button class="btn btn-outline-info text-dark float-right waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("PointRule", "Loyalty", new { role = "form" }, FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                @*<label for="example-search-input" class="col-sm-1 col-form-label">@Resource.Common_label_search</label>*@
+                                <div class="col-sm-3">
+                                    @*@Html.TextBoxFor(m => m.Keyword, new { placeholder = "", @class = "form-control", id = "occupation-search-input" })*@
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        @Resource.Common_label_search <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+

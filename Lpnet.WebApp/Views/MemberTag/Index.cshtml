@@ -1,0 +1,171 @@
+﻿@model Ats.Models.Member.MemberTagSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_MemberTag_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    SelectList membertagCategories = ViewBag.MemberTagCategories;
+
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_title_membertag</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Member")">@Resource.Sidebar_title_member</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_title_membertag</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <div class=" text-center float-right">
+                            <button class="btn btn-outline-info text-dart float-right " type="button">
+                                <a href="@Url.Action("Edit", "MemberTag")" class="text-dark"><i class="mdi mdi-plus"></i>@Resource.Common_label_create @Resource.Sidebar_title_membertag</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "MemberTag", new { role = "form" }, FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the MemberTag Category, Tag Name", @class = "form-control", id = "occupation-search-input" })
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="btn btn-info" aria-haspopup="true" aria-expanded="false">
+                                                <a class="text-white"><i class="mdi mdi-magnify"></i>@Resource.Common_label_search</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-4">
+                                    <div class="float-right d-none d-md-block">
+                                        <div class=" text-center">
+                                            <button class="btn btn-outline-info text-dark" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                                                <a href="@Url.Action("Edit", "MemberTag")" class="text-dark"><i class="mdi mdi-plus"></i>@Resource.Common_label_create @Resource.Sidebar_title_membertag</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                        }
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; word-break: break-word;">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        @Resource.Common_label_membertagcategory<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "membertagcategory", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_tagname<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "tagname", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_type<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "tagtype", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_totalmembers<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "totalmembers", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.ManageLead_form_label_creationdate <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "lastupdate", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.MemberTags)
+                                {
+                                    <tr>
+                                        <td class="text-left">@item.TagCategoryName</td>
+                                        <td class="text-left">@item.TagName</td>
+                                        <td class="text-left">
+                                            @if (@item.TagType)
+                                            {
+                                            <b> @Resource.Common_label_conditionalTag</b>
+                                            }
+                                            else
+                                            {
+                                             <b> @Resource.Common_label_unConditionalTag</b>
+                                            }
+                                        </td>
+                                        <td class="text-left">@item.TotalMember</td>
+                                        <td class="text-left">@item.LastUpdates</td>
+                                        <td class="text-right">
+                                            <div>
+
+                                                <a href="@Url.Action("Edit", "MemberTag", new {@id=item.Id})" data-id="Edit" class="btn btn-outline-warning text-center " aria-haspopup="true" aria-expanded="false">
+                                                    <i class="mdi mdi-folder-open-outline"></i>
+                                                </a>
+                                                <a href="@Url.Action("Delete", "MemberTag", new { @id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-outline-danger text-center" aria-haspopup="true" aria-expanded="false">
+                                                <i class="mdi mdi-delete"></i>
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+               
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+   
+}

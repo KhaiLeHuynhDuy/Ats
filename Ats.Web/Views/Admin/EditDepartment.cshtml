@@ -1,0 +1,257 @@
+﻿@using Ats.Web.Resources
+@using Ats.Commons.Utilities;
+@model Ats.Models.Department.DepartmentViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resource.Department;
+    var dic = new Dictionary<string, object>();
+    if (Model != null && Model.Id != Guid.Empty)
+    {
+        ViewBag.SubTitle = Resource.EditDepartment;
+        dic.Add("readonly", "readonly");
+    }
+    else
+    {
+        ViewBag.SubTitle = Resource.AddDepartment;
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="primary-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content-header">
+                    <p>
+                        @Resource.Department
+                    </p>
+                    <span>@ViewBag.SubTitle</span>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                        <li><a class="no-link">@Resource.Admin</a></li>
+                        <li class="active">@Html.ActionLink(Resource.Departments, "Departments", "Admin")</li>
+                    </ol>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="content">
+                            <div class="box-header">
+                                <div class="padding">
+                                    @if (ViewBag.StatusMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-success-action">
+                                                <i class="fa fa-check"></i>
+                                                @ViewBag.StatusMessage
+                                            </span>
+                                        </div>
+                                    }
+                                    @if (ViewBag.ErrorMessage != null)
+                                    {
+                                        <div id="notification">
+                                            <span class="text-error-action">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                @ViewBag.ErrorMessage
+                                            </span>
+                                        </div>
+                                    }
+                                    @*<span>
+                                            @Resource.Detail
+                                        </span>*@
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.Code</span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.DepartmentCode, StringUtils.GetHtmlAttributes(new { @class = "form-control" }, dic))
+                                            @Html.ValidationMessageFor(model => model.DepartmentCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.Name</span>
+                                        <div class="form-group ats-input">
+                                            @Html.TextBoxFor(model => model.DepartmentName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="red_label">@Resource.Manager</span>
+                                        <div class="form-group ats-select">
+                                            @Html.DropDownListFor(model => model.ManagerId, new SelectList(ViewBag.ActiveUsers, "Value", "Text"))
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:15px;">
+                                    <div class="col-xs-4">
+                                        <span class="default_label">@Resource.Desc</span>
+                                        <div class="form-group textarea-ats">
+                                            @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = 5 })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 20px; margin-bottom: 30px;">
+                                <div class="col-xs-12">
+                                    <span class="">
+                                        <input type="submit" value="@Resource.Save" class="btn-ats-save" />
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="box-table">
+                                @if (Model != null)
+                                {
+                                    <table class="table table-ats table-stripe table-bordered">
+                                        <thead style="background: #ebebeb">
+                                            <tr>
+                                                <th colspan="5">@Resource.Users</th>
+                                                <th class="add_table_th">@Html.ActionLink("+", "AddDepartmentUser", new { id = Model.Id })</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.DepartmentUsers)
+                                            {
+                                            <tr>
+                                                <td>@item.FirstName @item.LastName</td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.Tag</td>
+                                                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                                @{
+                                                    string sqlFormattedDate = item.EndDate == null
+                                                    ? ""
+                                                    : item.EndDate.Value.ToString("dd/MM/yyyy");
+                                                }
+                                                <td><span style="border-radius: 5px">@sqlFormattedDate</span></td>
+                                                <td style="text-align:center;padding-left:0px;padding-right:0px">
+                                                    <a href='@Url.Action("EditDepartmentUser", new { id = item.Id })'
+                                                       style="margin-right: 7px">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href='@Url.Action("RemoveDepartmentUser", new { id = item.Id, did = Model.Id })'
+                                                       class="" onclick="return confirm('Are you sure you wish to delete this item?(Bạn có muốn xóa?)');">
+                                                        <i style="color:#bd081c" class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+
+
+@*<h2>@Resource.Department</h2>
+    <p>@Resource.Admin/@Html.ActionLink(Resource.Departments, "Departments", "Admin")</p>
+    <h4>@Resource.Detail</h4>
+
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <p class="text-danger">@ViewBag.ErrorMessage</p>
+
+    <div>
+        <hr />
+        <div class="dl-horizontal">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <table style="width: 100%;">
+                    <tr>
+                        <td><b>@Resource.Code:</b></td>
+                        <td>
+                            @Html.TextBoxFor(model => model.DepartmentCode, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DepartmentCode, "", new { @class = "text-danger" })
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>@Resource.Name:</b></td>
+                        <td>
+                            @Html.TextBoxFor(model => model.DepartmentName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>@Resource.Manager:</b></td>
+                        <td>
+                            @Html.DropDownListFor(model => model.ManagerId, new SelectList(ViewBag.ActiveUsers, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Project" })
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>Note:</b></td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Note, new { @class = "form-control" })
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="@Resource.Save" class="btn btn-success" /></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4"><hr /></td>
+                    </tr>
+                    @if (Model != null)
+                    {
+
+                        <tr>
+                            <td></td>
+                            <td><strong>@Resource.Users</strong></td>
+                            <td></td>
+                            <td>@Html.ActionLink("+", "AddDepartmentUser", new { id = Model.Id }, new { style = " color: white;", @class = "btn btn-success btn-xs" })</td>
+                        </tr>
+                        foreach (var item in Model.Users)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.UserName | @item.FirstName @item.LastName </td>
+                                <td>@item.Tag</td>
+                                <td>@Html.ActionLink("X", "RemoveDepartmentUser", new { id = item.Id, did = Model.Id }, new { @class = "btn btn-danger btn-xs", onclick = "return confirm('Are you sure you wish to remove this item?');" })</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            }
+        </div>
+    </div>*@
+@section scripts
+{
+    <script>
+        $(document).ready(function ($) {
+            
+            $('tbody td:nth-child(5) span').each(function () {
+                var tyear = $(this);
+                var dateParts = tyear.text().split("/");
+                var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+                if (dateObject < Date.now()) {
+                    $(this).closest('tr td:nth-child(5) span').css('background-color', '#fa0000').css('color','black');
+                }
+            });
+        });
+    </script>
+}

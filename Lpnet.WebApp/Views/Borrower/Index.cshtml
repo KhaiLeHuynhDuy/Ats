@@ -1,0 +1,473 @@
+﻿@model Ats.Models.Borrower.BorrowerSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Data Table | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    SelectList genders = new SelectList(new List<SelectListItem>() { new SelectListItem() { Value = null, Text = "--- Chọn ---" }, new SelectListItem() { Value = "false", Text = Resource.Common_label_female }, new SelectListItem() { Value = "true", Text = Resource.Common_label_male } }, "Value", "Text");
+    SelectList jobTitles = ViewBag.JobTitles;
+    SelectList occupations = ViewBag.Occupations;
+
+    SelectList addresses1 = ViewBag.Addresses1;
+    SelectList addresses2 = ViewBag.Addresses2;
+
+    SelectList loanProducts = ViewBag.LoanProducts;
+    SelectList loanPeroid = ViewBag.LoanPeriod;
+
+    SelectList amounts = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "0", Text = "--- Chọn ---" },
+        new SelectListItem() { Value = "1", Text = "Dưới 5 triệu" },
+        new SelectListItem() { Value = "2", Text = "5 triệu - 10 triệu" },
+        new SelectListItem() { Value = "3", Text = "10 triệu - 30 triệu" },
+        new SelectListItem() { Value = "4", Text = "30 triệu - 50 triệu" },
+        new SelectListItem() { Value = "5", Text = "Trên 50 triệu" },
+        }, "Value", "Text");
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_borrowerManagement_manageBorrowers</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Megapoint</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_title_borrowerManagement</a></li>
+                        <li class="breadcrumb-item active">@Resource.Sidebar_borrowerManagement_manageBorrowers</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class="text-center">
+                        <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                        </button>
+                        <button class="btn btn-success waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="">
+                            <i class="mdi mdi-library"></i> @Resource.Common_label_assignment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- create new modal -->
+                <div id="createNewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Create", "Borrower", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtFirstName" class="col-lg-3 col-form-label text-danger text-left">@Resource.Common_label_firstName</label>
+                                                    <div class="col-lg-2">
+                                                        @Html.TextBoxFor(m => m.Borrower.FirstName, new { placeholder = "", @class = "form-control", id = "txtFirstName", name = "txtFirstName", required = "required" })
+                                                    </div>
+                                                    <label for="txtLastName" class="col-lg-2 col-form-label text-left">@Resource.Common_label_lastName</label>
+                                                    <div class="col-lg-5">
+                                                        @Html.TextBoxFor(m => m.Borrower.LastName, new { placeholder = "", @class = "form-control", id = "txtLastName", name = "txtLastName" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="ddlGender" class="col-lg-3 col-form-label text-left">@Resource.Common_label_sex</label>
+                                                    <div class="col-lg-2">
+                                                        @Html.DropDownListFor(m => m.Borrower.Gender, genders, new { @class = "form-control", id = "ddlGender", name = "ddlGender" })
+                                                    </div>
+                                                    <label for="txtPersonalID" class="col-lg-2 col-form-label text-left">@Resource.Common_label_personalId</label>
+                                                    <div class="col-lg-5">
+                                                        @Html.TextBoxFor(m => m.Borrower.PersonalId, new { placeholder = "", @class = "form-control", id = "txtPersonalID", name = "txtPersonalID" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtYearOfBirth" class="col-lg-3 col-form-label text-left">@Resource.Common_label_yearOfBirth</label>
+                                                    <div class="col-lg-2">
+                                                        @Html.TextBoxFor(m => m.Borrower.YOB, new { placeholder = "", @class = "form-control", id = "txtYearOfBirth", name = "txtYearOfBirth" })
+                                                    </div>
+                                                    <label for="txtBirthdayMonth" class="col-lg-2 col-form-label text-left">@Resource.Common_label_birthday</label>
+                                                    <div class="col-lg-2">
+                                                        <select id="ddlBirthdayDay" name="lead.Day" class="form-control">
+                                                            <option value="0">@Resource.Common_label_day</option>
+                                                            @for (int i = 1; i <= 31; i++)
+                                                            {
+                                                                <option value="@i">@i</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <select id="ddlBirthdayMonth" name="lead.Month" class="form-control">
+                                                            <option value="0">@Resource.Common_label_month</option>
+                                                            @for (int i = 1; i <= 12; i++)
+                                                            {
+                                                                <option value="@i">@i</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    @Html.HiddenFor(m => m.Borrower.DOB)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtEmailAddress" class="col-lg-3 col-form-label text-left">@Resource.Common_label_email</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.TextBoxFor(m => m.Borrower.Email, new { placeholder = "", @class = "form-control", id = "txtEmailAddress", name = "txtEmailAddress" })
+                                                    </div>
+                                                    <label for="txtPhoneNumber" class="col-lg-2 col-form-label text-left">@Resource.Common_label_phone</label>
+                                                    <div class="col-lg-3">
+                                                        @Html.TextBoxFor(m => m.Borrower.Phone, new { placeholder = "", @class = "form-control", id = "txtPhoneNumber", name = "txtPhoneNumber" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtAddress3" class="col-lg-3 col-form-label text-left">@Resource.Common_label_address</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Borrower.Address1, new { placeholder = "", @class = "form-control", id = "txtAddress3", name = "txtAddress3" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtAddress1" class="col-lg-3 col-form-label text-left">@Resource.Common_label_province</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.DropDownListFor(m => m.Borrower.ProvinceId, addresses1, new { @class = "form-control", id = "ProvinceId", name = "ddlAddress1" })
+                                                    </div>
+                                                    <label for="txtAddress2" class="col-lg-2 col-form-label text-left">@Resource.Common_label_district</label>
+                                                    <div class="col-lg-3">
+                                                        @Html.DropDownListFor(m => m.Borrower.DistrictId, addresses2, new { @class = "form-control", id = "DistrictId", name = "ddlAddress2" })
+                                                    </div>
+                                                    @Html.HiddenFor(m => m.Borrower.DistrictId)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="ddlOccupation" class="col-lg-3 col-form-label text-left">@Resource.Common_label_occupation</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.DropDownListFor(m => m.Borrower.OccupationId, occupations, new { @class = "form-control", id = "ddlOccupation", name = "ddlOccupation" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtCompany" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_companyName</label>
+                                                    <div class="col-lg-9">
+                                                        @Html.TextBoxFor(m => m.Borrower.CompanyName, new { placeholder = "", @class = "form-control", id = "txtCompany", name = "txtCompany" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="ddlJobTitle" class="col-lg-3 col-form-label text-left">@Resource.Common_label_jobTitle</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.DropDownListFor(m => m.Borrower.JobTitleId, jobTitles, new { @class = "form-control", id = "ddlJobTitle", name = "ddlJobTitle" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-1 mb-3" />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="ddlLoanType" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanProduct</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.DropDownListFor(m => m.Borrower.LoanProductId, loanProducts, new { @class = "form-control", id = "ddlLoanType", name = "ddlLoanType" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <label for="txtLoanAmount" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanAmount</label>
+                                                    <div class="col-lg-4">
+                                                        @Html.TextBoxFor(m => m.Borrower.Amount, new { placeholder = "", @class = "form-control", id = "txtLoanAmount", name = "txtLoanAmount" })
+                                                    </div>
+                                                    <label for="txtLoanAmount" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_loanPeriod</label>
+                                                    <div class="col-lg-3">
+                                                        @Html.DropDownListFor(m => m.Borrower.LoanPeroid, loanPeroid, new { @class = "form-control", id = "creation-selection" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "Borrower", new { role = "form" }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="txtKeyword">@Resource.Common_label_keyword</label>
+                                            @Html.TextBoxFor(m => m.Keyword, new { placeholder = "", @class = "form-control", id = "txtKeyword", name = "txtKeyword" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ddlLocations">@Resource.Common_label_location</label>
+                                            @Html.DropDownListFor(m => m.ProvinceId, addresses1, new { @class = "form-control", id = "ddlLocations", name = "ddlLocations" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ddlOccupations">@Resource.Common_label_occupation</label>
+                                            @Html.DropDownListFor(m => m.OccupationId, occupations, new { @class = "form-control", id = "ddlOccupations", name = "ddlOccupations" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ddlLoanProduct">@Resource.ManageLead_form_label_loanProduct</label>
+                                            @Html.DropDownListFor(m => m.LoanProductId, loanProducts, new { @class = "form-control", id = "ddlLoanProduct", name = "ddlLoanProduct" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ddlAmountRanges">@Resource.ManageLead_form_label_amount</label>
+                                            @Html.DropDownListFor(m => m.LoanAmountId, amounts, new { @class = "form-control", id = "ddlAmountRanges", name = "ddlAmountRanges" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ddlLoanPeriods">@Resource.ManageLead_form_label_loanPeriod</label>
+                                            @Html.DropDownListFor(m => m.LoanPeriodId, loanPeroid, new { @class = "form-control", id = "ddlLoanPeriods", name = "ddlLoanPeriods" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="btnSearch">&nbsp;</label>
+                                            <div class="mt-0"><button type="submit" id="btnSearch" class="btn btn-danger btn-block waves-effect waves-light"><i class="fas fa-search"></i>&nbsp;@Resource.Common_label_search</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        @Resource.Common_label_firstName <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "firstname", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_lastName <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "lastname", sort = !Model.Pager.OrderSort , Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th width="1%"></th>
+                                    <th>
+                                        @Resource.Common_label_yearOfBirth <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "dob", sort = !Model.Pager.OrderSort , Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.Common_label_phone<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "email", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.ManageLead_form_label_loanAmount<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "amonut", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.ManageLead_form_label_loanProduct
+                                        <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "product", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.ManageLead_form_label_loanPeriod
+                                        <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "period", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        @Resource.ManageLead_form_label_leadDate<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "leaddate", sort = !Model.Pager.OrderSort, Model.ProvinceId, Model.OccupationId, Model.LoanProductId, loanPeriod = Model.LoanPeriodId, loanAmount = Model.LoanAmountId, page = Model.Pager.Page, Model.Pager.Size })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Borrowers)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            <input id="ckCheckLead" type="checkbox" value="false" name="CheckLead" />
+                                            <input type="hidden" value="false" name="CheckLead" />
+                                        </td>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        @*<td>@{if (item.Gender) @Html.Raw("Male") else @Html.Raw("Female") }</td>*@
+                                        <td>@{ if (item.Gender) @Html.Raw("<i class='fas fa-mars text-success'></i>") else @Html.Raw("<i class='fas fa-venus text-pink'></i>")}</td>
+                                        <td>@{if (@item.YOB > 0) @item.YOB } </td>
+                                        <td>
+                                            @item.Phone
+                                        </td>
+                                        <td class="text-right">@item.Amount.ToString("#,###")</td>
+
+                                        <td>@item.LoadProductName</td>
+                                        <td>@item.LoanPeroidName</td>
+                                        <td>
+                                            @item.BorrowerDate.ToString("dd/MM/yyyy HH:mm")
+                                        </td>
+                                        <td class="text-right">
+                                            <div>
+                                                <a href="@Url.Action("Profile", "Borrower", new { id = item.Id })" class="btn btn-info btn-sm"><i class="mdi mdi-folder-open-outline"></i></a>
+                                                <a href="@Url.Action("Delete", "Borrower", new { id = item.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <p style="float:left; width: 79px;">
+                            @{
+                                List<SelectListItem> lstPages = new List<SelectListItem>();
+                                lstPages.Add(new SelectListItem() { Value = "10", Text = "10" });
+                                lstPages.Add(new SelectListItem() { Value = "20", Text = "20" });
+                                lstPages.Add(new SelectListItem() { Value = "30", Text = "30" });
+                                lstPages.Add(new SelectListItem() { Value = "50", Text = "50" });
+                                lstPages.Add(new SelectListItem() { Value = "100", Text = "100" });
+
+                            }
+                            @Html.DropDownListFor(m => m.Pager.Size, lstPages, new { @class = "form-control", id = "ddlPaging" })
+                        </p>
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#ProvinceId').on('change',
+            function () {
+                $('#DistrictId').empty();
+                $.get("/Borrower/UpdateDistrict",
+                    { id: $("#ProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#DistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+
+        $('#ddlPaging').on('change',
+            function () {
+
+                $.ajax({
+                    method: "GET",
+                    url: "/Borrower/OnChangePagingDropdownlist",
+                    data: {
+                        search: $("#txtSearch").val(),
+                        province: $("#ddlLocations").val(),
+                        occupation: $("#ddlOccupations").val(),
+                        loanProduct: $("#ddlLoanProduct").val(),
+                        loanPeriod: $("#ddlLoanPeroid").val(),
+                        loanAmount: $("#ddlLoanAmount").val(),
+                        size: $("#ddlPaging").val(),
+                        page: @Model.Pager.Page}
+                })
+                    .done(function (response) {
+                        window.location.href = response.url;
+                    });
+            });
+
+    </script>
+    <!-- Required datatable js -->
+    <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/assets/js/pages/datatables.init.js"></script>
+}

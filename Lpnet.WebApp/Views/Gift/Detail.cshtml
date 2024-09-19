@@ -1,0 +1,262 @@
+﻿@model Ats.Models.Gift.GiftViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_GIft_Detail;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h5 {
+        border-left: 5px solid #626ed4;
+    }
+</style>
+
+@{
+    SelectList MemberTagCategories = ViewBag.MemberTagCategories;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6 form-group">
+                <div class="page-title-box">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Center", "Rewards")">@Resource.Common_label_rewards</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Gift")">@Resource.Common_label_gift</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_detail</a></li>
+                    </ol>
+                    <h3 class="font-size-20">@Resource.Common_label_detailGift</h3>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        @using (Html.BeginForm("Send", "Gift", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row form-group ">
+
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark">@Resource.Common_label_giftCode: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.GiftCode)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_gifName: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.GiftName)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark">@Resource.Common_label_giftcategory: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.GiftCategoryName)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 m-2">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class=" row">
+                                                <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_giftType: </a>
+                                                <div class="col-6 mt-2">
+                                                    @if (Model.GiftType == false)
+                                                    {<lable>Discount</lable>}
+                                                    else
+                                                    {<lable>Cash</lable>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (Model.GiftType == false)
+                                        {
+                                            <div class="col-md-12 mt-3 ">
+                                                <div class="row">
+                                                    <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_discountRate: </a>
+                                                    <div class="col-6 mt-2">
+                                                        @Html.DisplayFor(model => model.Discount)%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-12 mt-3 ">
+                                                <div class="row">
+                                                    <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_cashamount: </a>
+                                                    <div class="col-6 mt-2">
+                                                        @Html.DisplayFor(model => model.Amount)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark">@Resource.Common_label_selectchannel </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.ChannelName)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 m-2">
+                                    <div class=" row">
+                                        <a for="txtPhoneNumber" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_availablestock: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.AvailableStock)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 m-1 mt-3">
+                                    <div class="row">
+                                        <div class="col-md-12 m-1 ">
+                                            <div class="row">
+                                                <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_validityperiod: </a>
+                                                <div class="col-6 mt-2">
+                                                    @*@Html.DisplayFor(model => model.ValidityPeriodType)*@
+                                                    @if (Model.ValidityPeriodType == true)
+                                                    {<lable>@Resource.Common_label_relativeDate</lable>}
+                                                else
+                                                {<lable>@Resource.Common_label_specificDate</lable>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (Model.ValidityPeriodType == true)
+                                        {
+                                            <div class="col-md-12 mt-1" id="RelativeDate">
+                                                <div class="row">
+                                                    <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> </a>
+                                                    <div class="col-6 mt-2">
+                                                        <a>   @Html.DisplayFor(m => m.AfterReceptionDay) @Resource.Common_label_afterReception</a><a class="m-2">-</a><a>@Html.DisplayFor(m => m.AfterEffectiveDay)  @Resource.Common_label_afterEffective </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-12 mt-1" id="SpecificDate">
+                                                <div class="row">
+                                                    <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> </a>
+                                                    <div class="col-5">
+                                                        <div class="row">
+                                                            <div class="col-5 mt-2">
+                                                                @Html.DisplayFor(m => m.EffectiveDateBegin)
+                                                            </div>
+                                                            <div class="col-1 mt-2 text-left mr-3"><a class=""><i class="fas fa-arrow-right"></i></a></div>
+                                                            <div class="col-5 mt-2">
+                                                                @Html.DisplayFor(m => m.EffectiveDateEnd)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-12 m-2 ">
+                                        <div class="row">
+                                            <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_specification: </a>
+                                            <div class="col-6 mt-2">
+                                                @Html.DisplayFor(model => model.Specification)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 m-2 ">
+                                        <div class="row">
+                                            <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_description: </a>
+                                            <div class="col-6 mt-2">
+                                                @Html.DisplayFor(model => model.Desc)
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-12 m-2 ">
+                                    <div class="row">
+                                        <a for="txtEmailAddress" class="col-lg-3 col-form-label text-left text-dark"> @Resource.Common_label_termsconditions: </a>
+                                        <div class="col-6 mt-2">
+                                            @Html.DisplayFor(model => model.TermAndConditions)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="@Url.Action("Index", "Gift", new { pageIndex = 0 })" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container-fluid -->
+        }
+
+    </div>
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $('input.input-qty').each(function () {
+            var $this = $(this),
+                qty = $this.parent().find('.is-form'),
+                min = Number($this.attr('min')),
+                max = Number($this.attr('max'))
+            if (min == 0) {
+                var d = 0
+            } else d = min
+            $(qty).on('click', function () {
+                if ($(this).hasClass('minus')) {
+                    if (d > min) d += -1
+                } else if ($(this).hasClass('plus')) {
+                    var x = Number($this.val()) + 1
+                    if (x <= max) d += 1
+                }
+                $this.attr('value', d).val(d)
+            })
+        })
+    </script>
+
+}

@@ -1,0 +1,339 @@
+﻿@model Ats.Models.Reports.MemberReportsSearchViewModel;
+
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_NewMemberReport_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/assets/css/tableCenter.css" rel="stylesheet" />
+    <link href="~/assets/css/scrollTableSearch.css" rel="stylesheet" />
+   <link href="~/assets/libs/bootstap-loader/dist/css/component-spinners.css" rel="stylesheet" />
+   
+
+   
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+         
+            @using (Html.BeginForm("ExportNewMember", "Reports", FormMethod.Get, new { target = "_blank", role = "form" }))
+              {
+          
+            <div class="row align-items-center">
+
+               @Html.AntiForgeryToken()                  
+               @Html.HiddenFor(m=> m.DateFrom)
+                @Html.HiddenFor(m=> m.DateTo)
+              
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_memberReport</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_reports</a></li>
+                        <li class="breadcrumb-item active">@Resource.Common_label_memberReport</li>
+                    </ol>
+                </div>
+            </div>
+        
+       
+               <div class="col-sm-6">
+                <div class="page-title-box">
+                    <div class="form-group float-right">
+            
+                       <div class="mt-0">
+                           <button type="submit" value="export" id="spinner" name="export" class="btn btn-info btn-spinner btn-spinner-example"
+                       >@Resource.Commom_label_ExportExcel  <i class="mdi mdi-download"></i>
+                      </button>
+                      </div>
+                    
+                     </div>
+                </div>
+            </div>
+            
+         
+        
+            </div>
+                 }
+                </div>
+       
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-xl-center"><h4 class="text-white mt-2">@Resource.Common_label_ControlPannel</h4></div>
+                    <div class="card-body ">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>    
+                         @using (Html.BeginForm("SearchMemberReport", "Reports", new { role = "form" }, FormMethod.Post))
+                        {
+                             @Html.AntiForgeryToken()
+                            <fieldset id="myForm">
+                                <div class="row">
+                                    <div class="col-12 mt-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label class="mb-0 mb-1"> @Resource.Common_label_DateRange</label>
+                                                <div class="input-daterange input-group" id="datepicker">
+                                                    @Html.TextBoxFor(m => m.DateFrom, new { placeholder = "", @class = "form-control", id = "eventStartDate", @type = "text" })
+                                                    @Html.TextBoxFor(m => m.DateTo, new { placeholder = "", @class = "form-control", id = "eventEndDate", @type = "text" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-5">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button runat="server" type="submit" class="btn btn-outline-info btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_reset</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <div class="mt-0"><button type="submit" value="reset" name="reset" class=" btn btn-primary btn-block waves-effect waves-light">&nbsp;@Resource.Common_label_Generate</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                      }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card  h-100">
+                    <div class="card-header bg-soft-dark">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <h4 class="font-size-16 mt-2">
+                                        <a class="ml-0 mr-0">
+                                            <i class="mdi mdi-power-on text-white" style="font-weight:bold"></i>
+                                        </a>
+
+                                        <a class="ml-0">
+                                            @Html.DisplayFor(Model => Model.StringDateFrom)
+                                        </a>
+                                        @if (Model.DateTo != null || Model.DateFrom != null)
+                                        {
+                                            <a class="ml-2 mr-2">
+                                                <i class="mdi mdi-slash-forward"></i>
+                                            </a>
+                                        }
+
+
+                                        @Html.DisplayFor(Model => Model.StringDateTo)
+                                    </h4>
+
+                                </div>
+                                <div class="col-6">
+
+                                    <h4 class="font-size-16 mt-2">
+                                        <a class="ml-0 mr-0">
+                                            <i class="mdi mdi-power-on text-white" style="font-weight:bold"></i>
+                                        </a>
+                                        @if (Model.PagerNewMemberReports.TotalItem != 0)
+                                        {
+
+                                            <a class="ml-0">@Resource.Commom_label_ThereAreNewMembers1 @Html.DisplayFor(Model => Model.PagerNewMemberReports.TotalItem) @Resource.Commom_label_ThereAreNewMembers2</a>
+
+                                        }
+                                        else
+                                        { <a class="ml-0"></a>
+                                        }
+                                    </h4>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- end page title -->
+                        <div class="dtHorizontalVerticalExample " style="overflow: auto hidden">
+                            <table id="dtHorizontalVerticalExample" class="table table-hover table-bordered table-sm " cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_memberCode <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "membercode", sort = !Model.PagerNewMemberReports.OrderSort, page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_firstName <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "firstname", sort = !Model.PagerNewMemberReports.OrderSort ,page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_lastName <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "lastname", sort = !Model.PagerNewMemberReports.OrderSort ,  page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_sex<a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "gender", sort = !Model.PagerNewMemberReports.OrderSort, page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_yearOfBirth <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "dob", sort = !Model.PagerNewMemberReports.OrderSort ,  page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_tier <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "tier", sort = !Model.PagerNewMemberReports.OrderSort , page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_point<a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "registerdate", sort = !Model.PagerNewMemberReports.OrderSort,  page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_registrationDate<a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "registerdate", sort = !Model.PagerNewMemberReports.OrderSort,  page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_province<a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "province", sort = !Model.PagerNewMemberReports.OrderSort,  page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_phone<a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "phone", sort = !Model.PagerNewMemberReports.OrderSort, page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+                                            </a>
+                                        </th>
+                                        <th class="text-center align-text-bottom">
+                                            @Resource.Common_label_Status <a href="@Url.Action(Model.PagerNewMemberReports.Action, new { search = Model.PagerNewMemberReports.Search, field = "active", sort = !Model.PagerNewMemberReports.OrderSort ,page = Model.PagerNewMemberReports.Page, Model.PagerNewMemberReports.Size })" class="btn btn-xs btn-link p-0">
+
+                                            </a>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.memberReports)
+                                    {
+
+                                        <tr>
+
+                                            <td class="abc-center">@item.MemberCode</td>
+                                            <td>@item.FirstName</td>
+                                            <td>@item.LastName</td>
+                                            <td class="text-center">@{ if (item.Gender == null) @Html.Raw("") else if (!item.Gender.Value) @Html.Raw("<i class='fas fa-venus text-pink'></i>") else @Html.Raw("<i class='fas fa-mars text-success'></i>")} </td>
+                                            <td>@item.YOB </td>
+                                            <td>@item.TierName</td>
+                                            <td class="text-center">@item.Point</td>
+                                            <td>@item.CreateDate</td>
+
+                                            <td>@item.ProvinceName</td>
+                                            <td>@item.PhoneNumber</td>
+                                            <td class="text-center">
+                                                @{if (item.Active == true)
+                                                    {<span class="badge badge-success">@Resource.Common_label_activated</span>}
+                                                else
+                                                {<span class="badge badge-dark">@Resource.Common_label_deactive</span>}
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                               <p>
+                                    <partial name="~/Views/Shared/_pagerNewMemberReports.cshtml" for="@Model.PagerNewMemberReports">
+                                </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+    </div>
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+
+    <script>
+       
+     //   function sendExport() {
+           
+     //       var sendCodeUrl ="/Reports/Export";
+        
+     //        var data = $('#myForm').serializeArray().reduce(function(obj, item) {
+     //               obj[item.name] = item.value;
+     //               return obj;
+     //           }, {});
+     //             console.log(JSON.stringify(data));
+     //       $.ajax({
+     //           type: "GET",
+     //           global: false,
+     //           url: "/Reports/Export",
+     //           contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+     //           dataType: "blob",
+     //           data: data,
+     //          beforeSend: function(){
+     //              startLoadder();
+     //          },
+     //           ////datatype: "json",
+     //          success: function (response) {
+     //             console.log(response);
+     //           var blob = new Blob([response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+     //           var downLoadUrl = URL.createObjectURL(blob);
+
+     //           var a = document.createElement('a');
+     //           a.href = downLoadUrl;
+     //           a.download = "NewMemberReport.xlsx";
+     //           document.body.appendChild(a);
+     //           a.click();
+     //         },
+     //       complete: function () {
+     //           stopLoader();
+     //        }
+     //       });
+     //       return false;
+     //    }
+
+     //    function startLoadder()
+     //    {
+     //        $("#spinner").text('loading...');
+     //       $("#spinner").attr("disabled", true);
+
+     //    }
+         
+     //    function stopLoader()
+     //    {
+     //        $("#spinner").text('export');
+     //         $("#spinner").attr("disabled", false);
+
+     //    }
+       </script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/libs/bootstap-loader/dist/js/component-spinners.js"></script>
+
+
+    <script>
+
+
+        $("#eventEndDate").datepicker({
+            minViewMode: 1,
+            maxViewMode: 2,
+            showOnFocus: true,
+            format: "mm/yyyy"
+        }).on('changeDate', function (ev) {
+            endtDate: ev.date.setMonth(ev.date.getMonth()), $("#eventStartDate").datepicker('setEndDate', ev.date);
+        });
+
+        $("#eventStartDate").datepicker({
+            minViewMode: 1,
+            maxViewMode: 2,
+            updateViewDate: true,
+            format: "mm/yyyy"
+        }).on('changeDate', function (ev) {
+            startDate: ev.date.setMonth(ev.date.getMonth()), $("#eventEndDate").datepicker('setStartDate', ev.date);
+        });
+    </script>
+
+
+    
+}

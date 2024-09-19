@@ -1,0 +1,1036 @@
+﻿@model Ats.Models.Lead.LeadProfileViewModel;
+@using Lpnet.WebApp.Resources
+@using Ats.Commons.Utilities
+@{
+    ViewBag.Title = "Form Xeditable | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SelectList occupations = ViewBag.Occupations;
+    SelectList jobTitles = ViewBag.JobTitles;
+
+    SelectList originalFiles = ViewBag.OriginalFiles;
+    SelectList originalFileAdditions = ViewBag.OriginalFileAdditions;
+
+    SelectList loanPurpose = ViewBag.LoanPurpose;
+    SelectList incomeReceivedMethod = ViewBag.IncomeReceivedMethod;
+    SelectList healthInsurance = ViewBag.HealthInsurance;
+    SelectList electricityBill = ViewBag.ElectricityBill;
+    SelectList vehicleRegistrationCertificate = ViewBag.VehicleRegistrationCertificate;
+    SelectList lifeInsurance = ViewBag.LifeInsurance;
+    SelectList bankAccount = ViewBag.BankAccount;
+    SelectList internetBill = ViewBag.InternetBill;
+    SelectList simCard = ViewBag.SimCard;
+    SelectList maritalStatus = ViewBag.MaritalStatus;
+    SelectList leadSource = ViewBag.LeadSource;
+    SelectList loanProducts = ViewBag.LoanProducts;
+    SelectList loanPeriod = ViewBag.LoanPeroid;
+
+    SelectList provinces = ViewBag.Provinces;
+    SelectList districts = ViewBag.Districts;
+    SelectList documentType = ViewBag.DocumentType;
+    SelectList commentType = ViewBag.CommentType;
+    SelectList bookType = ViewBag.BookType;
+}
+
+@section styles{
+    <!-- Plugins css -->
+    <link href="~/assets/libs/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @if (Model != null)
+        {
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_lead</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Megapoint</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_title_leadManagement</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_leadManagement_manageLeads</a></li>
+                            <li class="breadcrumb-item active">@Resource.Common_label_lead #@Html.DisplayFor(m => m.LeadId)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="float-right d-none d-md-block">
+                        <div class=" text-center">
+                            <button class="btn btn-success waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-thumb-up-outline"></i> @Resource.Common_label_accept
+                            </button>
+                            <button class="btn btn-warning waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-thumb-down-outline"></i> @Resource.Common_label_reject
+                            </button>
+                            <button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#bookModal">
+                                <i class="mdi mdi-book"></i> @Resource.Common_label_book
+                            </button>
+                        </div>
+                    </div>
+                    <!-- book modal -->
+                    <div id="bookModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bookModal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                @using (Html.BeginForm("AddLoanBook", "Lead", FormMethod.Post, new { @class = "custom-validation", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <div class="form-group">
+                                                <label>@Resource.Common_label_price</label>
+                                                <div>
+                                                    @Html.TextBoxFor(m => m.LoanBook.Price, new { placeholder = "", @class = "form-control", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>@Resource.Common_label_bookType</label>
+                                                <div>
+                                                    @Html.DropDownListFor(m => m.LoanBook.BookType, bookType, new { @class = "form-control", id = "creation-selection", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>@Resource.ManageLead_form_label_loanProduct</label>
+                                                <div>
+                                                    @Html.DropDownListFor(m => m.LoanBook.LoanProductId, loanProducts, new { @class = "form-control", id = "creation-selection", required = "required" })
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="loanBook.leadId" value="@Model.Id">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                    </div>
+                                }
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
+            </div>
+            <!-- end page title -->
+            <!-- start lead summary -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card mini-stat bg-primary text-white h-100">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="media-body ml-3">
+                                    <h5 class="font-size-18 mt-0 mb-1">@Html.DisplayFor(m => m.FirstName) - @Html.DisplayFor(m => m.LastName)</h5>
+                                    <p class="font-size-12 mb-2">@ViewBag.OccupationName</p>
+                                    <p class="mb-0">@Html.DisplayFor(m => m.HalfAddress)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card mini-stat bg-info text-white h-100">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="media-body ml-3">
+                                    <h5 class="font-size-18 mt-0 mb-1"><i class="ti-money"></i>@Html.DisplayFor(m => m.Amount)</h5>
+                                    <p class="font-size-12 mb-2">@ViewBag.LoanProductName</p>
+                                    <p class="mb-0">@Html.DisplayFor(m => m.LeadDate)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card mini-stat bg-warning text-white h-100">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="media-body ml-3">
+                                    <h5 class="font-size-18 mt-0 mb-1"><i class="ti-mobile"></i>&nbsp;@Html.DisplayFor(m => m.Phone)</h5>
+                                    <p class="font-size-12 mb-2">@Html.DisplayFor(m => m.Email)</p>
+                                    <p class="mb-0">&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card mini-stat bg-pink text-white h-100">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="media-body ml-3">
+                                    <h5 class="font-size-18 mt-0 mb-1"><i class="ti-microsoft"></i>&nbsp;@Html.DisplayFor(m => m.CompanyName)</h5>
+                                    <p class="font-size-12 mb-2">@ViewBag.JobTitleName</p>
+                                    <p class="mb-0">&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead personal information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            @using (Html.BeginForm("EditLeadProfile", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.Common_label_lead #@Html.DisplayFor(m => m.LeadId)</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtFirstName" class="col-lg-3 col-form-label text-left">@Resource.Common_label_firstName</label>
+                                                <div class="col-lg-3">
+                                                    @Html.TextBoxFor(m => m.FirstName, new { placeholder = "", @class = "form-control", id = "txtFirstName", name = "txtFirstName", required = "required" })
+                                                </div>
+                                                <label for="txtLastName" class="col-lg-2 col-form-label text-left">@Resource.Common_label_lastName</label>
+                                                <div class="col-lg-4">
+                                                    @Html.TextBoxFor(m => m.LastName, new { placeholder = "", @class = "form-control", id = "txtLastName", name = "txtLastName" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlGender" class="col-lg-3 col-form-label text-left">@Resource.Common_label_sex</label>
+                                                <div class="col-lg-3">
+                                                    <select id="ddlGender" name="gender" class="form-control">
+                                                        @{
+                                                            if (Model.Gender == true)
+                                                            {
+                                                                <option selected="selected" value="true">@Resource.Common_label_male</option>
+                                                                <option value="false">@Resource.Common_label_female</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="true">@Resource.Common_label_male</option>
+                                                                <option selected="selected" value="false">@Resource.Common_label_female</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <label for="txtOccupation" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_maritalStatus</label>
+                                                <div class="col-lg-4">
+                                                    @Html.DropDownListFor(m => m.MaritalStatus, maritalStatus, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtYearOfBirth" class="col-lg-3 col-form-label text-left">@Resource.Common_label_yearOfBirth</label>
+                                                <div class="col-lg-3">
+                                                    @Html.TextBoxFor(m => m.YOB, new { placeholder = "", @class = "form-control", id = "txtYearOfBirth", name = "txtYearOfBirth" })
+                                                </div>
+                                                <label for="txtBirthdayMonth" class="col-lg-2 col-form-label text-left">@Resource.Common_label_birthday</label>
+                                                <div class="col-lg-2">
+                                                    <select id="ddlBirthdayDay" name="day" class="form-control">
+                                                        <option value="0">@Resource.Common_label_day</option>
+                                                        @for (int i = 1; i <= 31; i++)
+                                                        {
+                                                            if (Model.Day == i)
+                                                            {
+                                                                <option selected="selected" value="@i">@i</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@i">@i</option>
+                                                            }
+
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <select id="ddlBirthdayMonth" name="month" class="form-control">
+                                                        <option value="0">@Resource.Common_label_month</option>
+                                                        @for (int i = 1; i <= 12; i++)
+                                                        {
+                                                            if (Model.Month == i)
+                                                            {
+                                                                <option selected="selected" value="@i">@i</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@i">@i</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtPersonalID" class="col-lg-3 col-form-label text-left">@Resource.Common_label_personalId</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.PersonalId, new { placeholder = "", @class = "form-control", id = "txtPersonalID", name = "txtPersonalID" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtPersonalIDRegDate" class="col-lg-3 col-form-label text-left">@Resource.Common_label_idRegisteredDate</label>
+                                                <div class="col-lg-3">
+                                                    @Html.EditorFor(m => Model.PersonalIdRegisteredDate, new { htmlAttributes = new { @Value = Model.PersonalIdRegisteredDate, @class = "form-control", type = "text", id = "datepicker", autocomplete = "off" } })
+                                                </div>
+                                                <label for="txtPersonalIDRegPlace" class="col-lg-2 col-form-label text-left">@Resource.Common_label_idRegisteredPlace</label>
+                                                <div class="col-lg-4">
+                                                    @Html.DropDownListFor(model => model.PersonalIdRegisterPlace, provinces, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtPhoneNumber" class="col-lg-3 col-form-label text-left">@Resource.Common_label_phone</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.Phone, new { placeholder = "", @class = "form-control", id = "txtPhoneNumber", name = "txtPhoneNumber" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtEmailAddress" class="col-lg-3 col-form-label text-left">@Resource.Common_label_email</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.Email, new { placeholder = "", @class = "form-control", id = "txtEmailAddress", name = "txtEmailAddress" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-1 mb-3" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtAddress" class="col-lg-3 col-form-label text-left">@Resource.Common_label_address</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.Address1, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlProvince" class="col-lg-3 col-form-label text-left">@Resource.Common_label_province</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(model => model.ProvinceId, provinces, new { @class = "form-control", id = "ProvinceId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlDistrict" class="col-lg-3 col-form-label text-left">@Resource.Common_label_district</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(model => model.DistrictId, districts, new { @class = "form-control", id = "DistrictId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-1 mb-3" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtAdditionalAddress" class="col-lg-3 col-form-label text-left">@Resource.Common_label_additionalAddress</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.AdditionalAddress, new { placeholder = "", @class = "form-control", id = "creation-name" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtAdditionalProvince" class="col-lg-3 col-form-label text-left">@Resource.Common_label_province</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(model => model.AdditionalProvinceId, provinces, new { @class = "form-control", id = "AdditionalProvinceId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtAdditionalDistrict" class="col-lg-3 col-form-label text-left">@Resource.Common_label_district</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(model => model.AdditionalDistrictId, districts, new { @class = "form-control", id = "AdditionalDistrictId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead comp
+                
+                
+                information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageCompanyInfo</p>
+                            @using (Html.BeginForm("EditLeadCompanyInfo", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageLead_form_title_JobIncome</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtOccupation" class="col-lg-3 col-form-label text-left">@Resource.Common_label_occupation</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.OccupationId, occupations, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtCompanyName" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_companyName</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.CompanyName, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtCompanyRegisterNumber" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_registerNumber</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.ResigterNumber, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtJobTitle" class="col-lg-3 col-form-label text-left">@Resource.Common_label_jobTitle</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.JobTitleId, jobTitles, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtCompanyPosition" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_position</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.Position, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtMonthlyIncome" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_incomeAmount</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.MonthyIncome, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtIncomeReceivedMethod" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_incomeReceivedMethod</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.IncomeReceivedMethod, incomeReceivedMethod, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead personal information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageOtherInfo</p>
+                            @using (Html.BeginForm("EditLeadOtherInfo", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.ManageLead_form_title_AdditionalInformation</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlVehicleRegistrationCertificate" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_vehicleRegistrationCertificate</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.VehicleRegistrationCertificate, vehicleRegistrationCertificate, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlHealthInsurance" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_healthInsurance</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.HealthInsurance, healthInsurance, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlLifeInsurance" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_lifeInsurance</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.LifeInsurance, lifeInsurance, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlElectricityBill" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_electricityBill</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.ElectricityBill, electricityBill, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlInternetBill" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_internetBill</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.InternetBill, internetBill, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlSimCard" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_simCard</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.SimCard, simCard, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlBankAccount" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_bankAccount</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.BankAccount, bankAccount, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlOriginalFile" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_originalFile1</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.OriginalFileId, originalFiles, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlOriginalFileAddition" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_originalFile2</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.OriginalFileAdditionId, originalFileAdditions, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageLoanInfo</p>
+                            @using (Html.BeginForm("EditLeadLoanInfo", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.Common_label_loanInfo</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlLoanPurpose" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanPurpose</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.LoanPurpose, loanPurpose, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlLoanProduct" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanProduct</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.LoanProductId, loanProducts, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtLoanAmount" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanAmount</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextBoxFor(m => m.Amount, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlLoanPeriod" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_loanPeriod</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.LoanPeriod, loanPeriod, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead information -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageRemarkInfo</p>
+                            @using (Html.BeginForm("EditLeadRemarkInfo", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>@Resource.Common_label_remarkInfo</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-danger waves-effect waves-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-floppy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="ddlLeadSource" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_leadSource</label>
+                                                <div class="col-lg-9">
+                                                    @Html.DropDownListFor(m => m.LeadSource, leadSource, new { @class = "form-control", id = "creation-selection" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtRemark" class="col-lg-3 col-form-label text-left">@Resource.Common_label_remarkInfo</label>
+                                                <div class="col-lg-9">
+                                                    @Html.TextAreaFor(m => m.Remark, new { placeholder = "", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="txtLoanDate" class="col-lg-3 col-form-label text-left">@Resource.ManageLead_form_label_leadDate</label>
+                                                <div class="col-lg-9">
+                                                    @Html.EditorFor(m => Model.LeadDate, new { htmlAttributes = new { @Value = Model.LeadDate, @class = "form-control", type = "text", id = "datepicker2", autocomplete = "off" } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-lg-3"></div>
+                                                <div class="custom-control custom-checkbox">
+                                                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input", id = "edit-active", @checked = "checked" })
+                                                    <label class="custom-control-label" for="edit-active">@Resource.Common_label_active</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <!-- lead documents -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>@Resource.Common_label_additionalDocuments</h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="float-right d-none d-md-block">
+                                        <div class=" text-center">
+                                            <button class="btn btn-success waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createDocumentModal">
+                                                <i class="mdi mdi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- create new modal -->
+                                    <div id="createDocumentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createDocumentModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                @using (Html.BeginForm("AddAdditionalFile", "Lead", FormMethod.Post, new { @class = "custom-validation", enctype = "multipart/form-data" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_documentName</label>
+                                                                <div>
+                                                                    @Html.TextBoxFor(m => m.Document.DocumentName, new { placeholder = "", @class = "form-control", required = "required" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_documentType</label>
+                                                                <div>
+                                                                    @Html.DropDownListFor(m => m.Document.DocumentType, documentType, new { @class = "form-control", id = "creation-selection", required = "required" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Upload File</label>
+                                                                <div>
+                                                                    @Html.TextBoxFor(m => m.Document.File, new { type = "file", @class = "filestyle", required = "required" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_remark</label>
+                                                                <div>
+                                                                    @Html.TextAreaFor(m => m.Document.Remark, new { placeholder = "", @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="document.leadId" value="@Model.Id">
+                                                            <input type="hidden" name="document.leadNum" value="@Model.LeadId">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                                    </div>
+                                                }
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="table-responsive">
+                                <table class="table table-hover table-centered table-nowrap mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">@Resource.Common_label_documentName</th>
+                                            <th scope="col">@Resource.Common_label_documentType</th>
+                                            <th scope="col">@Resource.Common_label_remark</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Documents)
+                                        {
+                                            <tr>
+                                                <td>@item.DocumentName</td>
+                                                <td>@item.DocumentType.ToName()</td>
+                                                <td>@item.Remark</td>
+                                                <td class="text-right">
+                                                    <div>
+                                                        <a href="@item.Url" class="btn btn-info btn-sm"><i class="mdi mdi-download"></i></a>
+                                                        <a href="@Url.Action("DeleteAdditionalFile", "Lead", new { id = item.Id, leadId = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <!-- lead comments -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>@Resource.Common_label_comments</h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="float-right d-none d-md-block">
+                                        <div class=" text-center">
+                                            <button class="btn btn-success waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createCommentModal">
+                                                <i class="mdi mdi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- create comment modal -->
+                                    <div id="createCommentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createDocumentModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                @using (Html.BeginForm("AddComment", "Lead", FormMethod.Post, new { @class = "custom-validation" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_commentText</label>
+                                                                <div>
+                                                                    @Html.TextAreaFor(m => m.Comment.CommentText, new { placeholder = "", @class = "form-control", required = "required" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>@Resource.Common_label_commentType</label>
+                                                                <div>
+                                                                    @Html.DropDownListFor(m => m.Comment.CommentType, commentType, new { @class = "form-control", id = "creation-selection", required = "required" })
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="comment.leadId" value="@Model.Id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                                    </div>
+                                                }
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    <!-- edit modal -->
+                                    <div id="editCommentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div id="editCommentModalContent">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="table-responsive">
+                                <table class="table table-hover table-centered table-nowrap mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">@Resource.Common_label_commentText</th>
+                                            <th scope="col">@Resource.Common_label_commentType</th>
+                                            <th scope="col">@Resource.Common_label_commenter</th>
+                                            <th scope="col">@Resource.Common_label_dateAdded</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Comments)
+                                        {
+                                            <tr>
+                                                <td>@item.CommentText</td>
+                                                <td>@item.CommentType.ToName()</td>
+                                                <td>
+                                                    @if (item.User != null)
+                                                    {
+                                                        @*@String.Format("{0} {1}", item.User.FirstName, item.User.LastName);*@
+                                                        @item.User.UserName;
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @item.CommentDate.Value.ToString("dd/MM/yyyy HH:mm")
+                                                </td>
+                                                <td class="text-right">
+                                                    <div>
+                                                        <button type="button" data-id="@item.Id" class="btn btn-primary btn-sm comment-detail" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#editCommentModal">
+                                                            Edit
+                                                        </button>
+                                                        <a href="@Url.Action("DeleteComment", "Lead", new { id = item.Id, leadId = Model.Id })" onclick="return confirm('Are you sure you wish to delete this item?');" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        }
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <script type="text/javascript">
+        //Address
+        $('#ProvinceId').on('change',
+            function () {
+
+                $('#DistrictId').empty();
+                $.get("/Lead/UpdateDistrict",
+                    { id: $("#ProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#DistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+        //Additional address
+        $('#AdditionalProvinceId').on('change',
+            function () {
+
+                $('#AdditionalDistrictId').empty();
+                $.get("/Lead/UpdateDistrict",
+                    { id: $("#AdditionalProvinceId").val() },
+                    function (response) {
+                        if (response) {
+                            //debugger;
+                            var items = response.data;
+                            for (var i = 0; i < items.length; i++) {
+                                //add item to multi select box
+                                var o = new Option(items[i].text, items[i].value);
+                                $(o).html(items[i].text);
+                                $("#AdditionalDistrictId").append(o);
+                            }
+                        }
+                    });
+
+            });
+    </script>
+    @*Comment detail*@
+    <script>
+        var commentDetail = '/Lead/CommentDetail';
+        $(function () {
+            $(".comment-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: commentDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#editCommentModalContent').html(data);
+                        $('#editCommentModal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#datepicker').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+            $('#datepicker2').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+        });
+
+    </script>
+    <!-- Plugins js -->
+    <script src="~/assets/libs/moment/min/moment.min.js"></script>
+    <script src="~/assets/libs/bootstrap-editable/js/index.js"></script>
+
+    <!-- Init js-->
+    <script src="~/assets/js/pages/form-xeditable.init.js"></script>
+}

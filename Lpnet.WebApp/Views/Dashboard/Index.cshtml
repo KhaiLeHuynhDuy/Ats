@@ -1,0 +1,485 @@
+﻿@using Lpnet.WebApp.Resources
+@{
+    var lista = ViewBag.ListCampaign;
+
+    SelectList RewardTypeList = new SelectList(new List<SelectListItem>() {
+        new SelectListItem() { Value = "1", Text = "All Year" },
+        new SelectListItem() { Value = "2", Text = "Year"},
+    }, "Value", "Text", "1");
+
+    string[] datachart = ViewBag.DataChart;
+    int totalmember = ViewBag.TotalNewMember;
+    int InactiveMember = ViewBag.TotalMemberInactiveOfYear;
+    int totalmemberinmonths = ViewBag.TotalNewMemberInMonths;
+    int totalmemberinactivebyyear = ViewBag.TotalMemberInByYear;
+    int datatoday = ViewBag.Month;
+
+}
+
+
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_DashBoard_Index;
+
+    if (ViewBag.ModeName == Contants.LAYOUT_VERTICAL)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUT_COMPACT_SIDEBAR)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_compact_sidebar.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUTS_BOXED)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_boxed.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUT_ICON_SIDEBAR)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_icon_sidebar.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUT_HORIZONTAL)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_horizontal.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUT_HORIZONTAL_BOXED)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_horizontal_boxed.cshtml";
+    }
+    else if (ViewBag.ModeName == Contants.LAYOUT_HORIZONTAL_TOPBAR_LIGHT)
+    {
+        Layout = "~/Views/Shared/Layouts/_layout_horizontal_topbar_light.cshtml";
+    }
+}
+
+@section styles{
+    <style>
+    </style>
+    <!-- Plugin css -->
+    @*<link href="~/css/site.css" rel="stylesheet" />*@
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Common_label_Dashboard</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item active">@Resource.Common_label_WelcometoMegapointDashboard</li>
+                    </ol>
+                </div>
+            </div>
+
+            @*<div class="col-sm-6">
+                    <div class="float-right d-none d-md-block">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary active">
+                                <input type="radio" name="options" id="option1" checked> &nbsp;&nbsp;&nbsp;Me&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="radio" name="options" id="option3"> Team
+                            </label>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="float-right mb-1">
+                    <lable id="filter" class="font-size-15 text-dark mr-2"><strong>@Resource.Common_label_daterangestatistical</strong> </lable>
+                    @Html.TextBox("datetodate", " ", new { @type = "", @name = "FilterDateToDate", @class = " " })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-left mini-stat-img mr-4">
+                                <img src="~/assets/images/services-icon/01.png" alt="">
+                            </div>
+                            <h5 class="font-size-16 text-uppercase mt-0 text-white-50">  @Resource.Common_label_Numberofcodescans</h5>
+                            <h4 class="font-weight-medium font-size-24">
+                                <a id="numberofcodescans">1,685</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-left mini-stat-img mr-4">
+                                <img src="~/assets/images/services-icon/02.png" alt="">
+                            </div>
+                            <h5 class="font-size-16 text-uppercase mt-0 text-white-50"> @Resource.Common_label_Numberofredemptions</h5>
+                            <h4 class="font-weight-medium font-size-24">
+                                <a id="numberofredemptions">52,368</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-left mini-stat-img mr-4">
+                                <img src="~/assets/images/services-icon/03.png" alt="">
+                            </div>
+                            <h5 class="font-size-16 text-uppercase mt-0 text-white-50">  @Resource.Common_label_Numberofnewmembers</h5>
+                            <h4 class="font-weight-medium font-size-24">
+                                <a id="numberofnewmembers">1578</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-4">@Resource.Common_label_specialoffers</h4>
+                        <div class="row">
+                            @foreach (var item in lista)
+                            {
+                                <div class="col-xl-3">
+                                    <div class=" text-center">
+                                        @if (item.RewardType == REWARDS_TYPE.GIFTCARD)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })"><img class="mt-0" src="~/images/ImagesCampaignDashboard/gift.png" height="105" width="135" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.COUPON)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })"> <img class="mt-0" src="~/images/ImagesCampaignDashboard/discount.png" height="105" width="150" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.VOUCHER)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })"><img src="~/images/ImagesCampaignDashboard/voucher.png" height="105" width="135" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.NO_REWARDS)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })">  <img src="~/images/ImagesCampaignDashboard/quatang.png" height="105" width="135" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.BONUS_POINT)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })">  <img src="~/images/ImagesCampaignDashboard/quatang.png" height="105" width="135" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.MULTIPLE_POINT)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })">  <img src="~/images/ImagesCampaignDashboard/quatang.png" height="105" width="135" /></a>
+                                        }
+                                        @if (item.RewardType == REWARDS_TYPE.PRODUCT)
+                                        {
+                                            <a id="image" href="@Url.Action("DetailFourCampaign", "Campaign", new { id = item.Id })">  <img src="~/images/ImagesCampaignDashboard/quatang.png" height="105" width="135" /></a>
+                                        }
+                                    </div>
+                                    <div>
+                                        <p class="text-center mt-2">@item.CampaignName</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+        <!-- end row -->
+        <!-- Bar Chart-->
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="row card-columns">
+                            <!-- row title-->
+                            <div class="col-xl-1">  </div>
+                            <div class="col-xl-10">
+                                <div class="row text-center font-size-20">
+                                    <div class="col-4">
+                                        <a class="totalmemberinactivebyyear"><strong>@totalmemberinactivebyyear</strong></a>
+                                        <a> @Resource.Common_label_totalmembers</a>
+                                    </div>
+                                    <div class="col-4">
+                                        @if(totalmemberinmonths !=0)
+                                        { <a class="totalmemberinmonths"><strong>@totalmemberinmonths</strong></a>
+                                            <a> @Resource.Common_label_Newmembers <strong>@datatoday</strong></a>
+                                        }
+                                        else
+                                        {
+                                        
+
+                                        }
+                                       
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="InactiveMember"><strong>@InactiveMember</strong></a>
+                                        <a> @Resource.Common_label_Inactived</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <!-- row chart-->
+                            <div class="col-xl-1"> </div>
+                            <div class="col-xl-10 mt-2">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="col-xl-1"></div>
+
+                            <!-- row lable-->
+                            <div class="col-xl-5"> </div>
+                            <div class="col-xl-2 mt-3"><p class="mt-2 ml-5 text-center font-size-18"><strong> @Resource.Common_label_NewMembersChart</strong></p></div>
+                            <div class="col-xl-1"></div>
+                            <div class="col-xl-3 mt-3">
+                                <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Html.DropDownList("VualeYearStirng", Enumerable.Range(2010, DateTime.Now.Year - 2009).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), @Resource.Commom_label_ThisYear, new { @class = "form-control hoverboot-wrap", @id = "select" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--end row lable-->
+                        </div><!-- End Bar Chart-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+
+            </div>
+        </div>
+
+
+        <div class="row datatest">
+            <div class="col-xl-12 mb-4">
+                <input id="data1" type="text" value="@datachart[0]" /> <input id="data2" type="text" value="@datachart[1]" /> <input id="data3" type="text" value="@datachart[2]" /> <input id="data4" type="text" value="@datachart[3]" /> <input id="data5" type="text" value="@datachart[4]" /><input id="data12" type="text" value="@datachart[11]" />
+                <input id="data6" type="text" value="@datachart[5]" /> <input id="data7" type="text" value="@datachart[6]" /> <input id="data8" type="text" value="@datachart[7]" /> <input id="data9" type="text" value="@datachart[8]" /> <input id="data10" type="text" value="@datachart[9]" /><input id="data11" type="text" value="@datachart[10]" />
+            </div>
+        </div>
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    @*<script src="~/assets/libs/chart.js/Chart.bundle.min.js"></script>
+        <script src="~/assets/js/pages/chartjs.init.js"></script>*@
+    <script type="text/javascript">
+
+    var initidata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    initidata[0] = $("#data1").val();
+    initidata[1] = $("#data2").val();
+    initidata[2] = $("#data3").val();
+    initidata[3] = $("#data4").val();
+    initidata[4] = $("#data5").val();
+    initidata[5] = $("#data6").val();
+    initidata[6] = $("#data7").val();
+    initidata[7] = $("#data8").val();
+    initidata[8] = $("#data9").val();
+    initidata[9] = $("#data10").val();
+    initidata[10] = $("#data11").val();
+    initidata[11] = $("#data12").val();
+
+        $(document).ready(function () {
+            // getMemberOfMonth('@ViewBag.Year'); 
+            $('#datetodate').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            }); // end function
+
+            $('#datetodate').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                var daterange = $(this).val();
+                GetStatistics(daterange);
+
+            }); // end function
+
+            $('#datetodate').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                $("#datetodate").show();
+                var daterange;
+                //GetStatisticsClear();
+                GetStatisticsThisMonth();
+            }); // end function
+
+
+            $("#datetodate").show();
+            var a = $("#datetodate").val();
+            if (a == "") {
+                $("#datetodate").show();
+            }
+
+            
+            $("#filter").click(function () {
+                document.getElementById("datetodate").autofocus = true;
+                $("#datetodate").show();
+                $("#datetodate").click();
+            }); // end function
+
+            $('select').change(function () {
+                var se = $("#select").val();
+                getMemberOfMonth(se);
+                //getMemberOfMonthData(se);
+
+            });
+            //$('select').change(function () {
+            //    var se = $("#select").val();
+            //    getMemberOfMonth(se);
+            //    //getMemberOfMonthData(se);
+
+            //});
+
+            const ctx = $('#myChart');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Members Analytisc',
+                        data: initidata ,
+                        backgroundColor: [
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499'
+                        ],
+                        borderColor: [
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499',
+                            '#02a499'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            $("#data1").hide(); $("#data2").hide(); $("#data3").hide(); $("#data4").hide(); $("#data5").hide(); $("#data6").hide(); $(".datatest").hide();
+            $("#data7").hide(); $("#data8").hide(); $("#data9").hide(); $("#data10").hide(); $("#data11").hide(); $("#data12").hide();
+           
+
+            var GetStatistics = function (daterange) {
+                $.ajax({
+                    method: "GET",
+                    url: "/Dashboard/GetStatisticsDateToJson",
+                    data: { datetodate: daterange }
+                })
+                    .done(function (msg) {
+                        //console.log(msg);
+                        $("#numberofredemptions").text(msg.numberOfRedemptions);
+                        $("#numberofnewmembers").text(msg.numberOfNewMembers);
+                        $("#numberofcodescans").text(msg.numberOfCodeScans);
+                    });
+            }; // end function
+
+            var GetStatisticsClear = function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/Dashboard/GetStatisticsDateToJsonClear",
+                    data: {}
+                })
+                    .done(function (msg) {
+                        $("#numberofredemptions").text(msg.numberOfRedemptions);
+                        $("#numberofnewmembers").text(msg.numberOfNewMembers);
+                        $("#numberofcodescans").text(msg.numberOfCodeScans);
+                    });
+            }; // end function
+
+            var GetStatisticsThisMonth = function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/Dashboard/GetStatisticsDateToJsonThisMonth",
+                    data: {}
+                })
+                    .done(function (msg) {
+                        $("#numberofredemptions").text(msg.numberOfRedemptions);
+                        $("#numberofnewmembers").text(msg.numberOfNewMembers);
+                        $("#numberofcodescans").text(msg.numberOfCodeScans);
+                        $("#datetodate").val(msg.dateToDateThisMonth);
+                        console.log(msg);
+                    });
+            }; // end function
+
+            var getMemberOfMonth = function (year) {
+                $.ajax({
+                    method: "GET",
+                    url: "/Dashboard/GetNewMemberByYearToJson",
+                    data: { years: year }
+                })
+                    .done(function (msg) {
+                        initidata[0] = msg.data[0];
+                        initidata[1] = msg.data[1];
+                        initidata[2] = msg.data[2];
+                        initidata[3] = msg.data[3];
+                        initidata[4] = msg.data[4];
+                        initidata[5] = msg.data[5];
+                        initidata[6] = msg.data[6];
+                        initidata[7] = msg.data[7];
+                        initidata[8] = msg.data[8];
+                        initidata[9] = msg.data[9];
+                        initidata[10] = msg.data[10];
+                        initidata[11] = msg.data[11];
+                        myChart.data.datasets[0].data.push(msg.data);
+                        myChart.update();
+                     
+
+                        //var total = parseInt(msg.data[0]) + parseInt(msg.data[1]) + parseInt(msg.data[2]) + parseInt(msg.data[3]) + parseInt(msg.data[4]) + parseInt(msg.data[5]) + parseInt(msg.data[6]) + parseInt(msg.data[7]) + parseInt(msg.data[8]) + parseInt(msg.data[9]) + parseInt(msg.data[10]) + parseInt(msg.data[11]);
+                        $(".totalmemberinmonths").text(msg.totalmemberinmonths);
+                        $(".totalmemberinactivebyyear").text(msg.total);
+                        $(".InactiveMember").text(msg.totalMemberInactive); 
+                    });
+            }; // end function
+
+           GetStatisticsThisMonth();
+            var year = null;
+            getMemberOfMonth(year);
+          
+        });
+    </script>
+
+    <!-- Filter date to date-->
+    <!-- Peity chart-->
+    @*<script src="~/assets/libs/peity/jquery.peity.min.js"></script>*@
+
+    <!-- Plugin Js-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @*<script src="~/assets/libs/chartist/chartist.min.js"></script>
+        <script src="~/assets/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js"></script>
+        <script src="~/assets/js/pages/dashboard.init.js"></script>*@
+}

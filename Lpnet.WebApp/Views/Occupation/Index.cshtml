@@ -1,0 +1,247 @@
+﻿@model Ats.Models.Occupation.OccupationSearchViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = @Resource.ViewBag_Title_Occupation_Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">@Resource.Sidebar_configurations_occupation</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Panda Loyalty</a></li>
+                        <li class="breadcrumb-item"><a>@Resource.Common_label_category</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action("Index", "Occupation")">@Resource.Sidebar_configurations_occupation</a></li> 
+                    </ol>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class=" text-center">
+                        @*<button class="btn btn-primary waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                    <i class="mdi mdi-plus"></i> @Resource.Common_label_create
+                </button>*@
+                        <button class="btn btn-outline-info float-right text-dark waves-effect waves-light" type="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#createNewModal">
+                            <i class="mdi mdi-plus"></i> @Resource.Common_label_create @Resource.Sidebar_configurations_occupation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- create new modal -->
+                <div id="createNewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Create", "Occupation", new { @class = "custom-validation", role = "form" }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_create</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+
+                                        <div class="form-group">
+                                            <label>@Resource.Common_label_name</label>
+                                            <div>
+                                                @Html.TextBoxFor(m => m.Occupation.Name, new { placeholder = "Enter a name", @class = "form-control", id = "creation-name", required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            @Html.CheckBoxFor(m => m.Occupation.IsActive, new { @class = "custom-control-input", id = "edit-active", @checked = "checked" })
+                                            <label class="custom-control-label" for="edit-active">@Resource.Common_label_active</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+                                </div>
+                            }
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- edit modal -->
+                <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div id="myModalContent">
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div id="myModalContent">
+                                @using (Html.BeginForm("Delete", "Occupation", new { @class = "custom-validation", role = "form" }, FormMethod.Get))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0" id="editModalLabel">@Resource.Common_label_delete</h5>
+                                        <a class="close" href="@Url.Action("Index", "Occupation")" aria-hidden="true">×</a>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div style="text-align:center" id="iconclose">
+                                            <img src="~/images/iconClose.png" width="150" />
+                                        </div>
+                                        <gap></gap>
+
+                                        <h1 class="text-center"><b>@Resource.Common_label_deleteMessage</b></h1>
+                                        <h5 class="font-size-22"><b>@Resource.Common_label_deleteMessages</b></h5>
+
+                                        <input type="hidden" id="hiddenMemberId" />
+                                    </div>
+
+                                    <div class="modal-footer ">
+                                        <a href="@Url.Action("Index", "Occupation")" class="btn btn-secondary waves-effect">@Resource.Common_label_close</a>
+                                        <button type="submit" class="btn btn-danger" onclick="DeleteMember()">@Resource.Common_label_delete</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessage</p>
+                        @using (Html.BeginForm("Search", "Occupation", new { role = "form" }, FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(m => m.Keyword, new { placeholder = "Please enter the Name", @class = "form-control", id = "occupation-search-input" })
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                                        @Resource.Common_label_search <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        @Resource.Common_label_id <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "id", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_name<a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "name", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    <th class="text-left">
+                                        @Resource.Common_label_active <a href="@Url.Action(Model.Pager.Action, new { search = Model.Pager.Search, field = "isactive", sort = !Model.Pager.OrderSort, page = Model.Pager.Page })" class="btn btn-xs btn-link p-0">
+                                            <i class="fa fa-fw fa-sort"></i>
+                                        </a>
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Occupations)
+                                {
+                                    <tr>
+                                        <td class="text-left">@item.Id</td>
+                                        <td class="text-left">@item.Name</td>                                   
+                                        <td class="text-left">
+                                            @if (item.IsActive)
+                                            {
+                                                <span class="badge badge-info">@item.IsActive</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">@item.IsActive</span>
+                                            }
+                                        </td>
+                                        <td class="text-right">
+                                            <div>
+                                                <button type="button" data-id="@item.Id" class="btn btn-outline-warning occupation-detail" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#editModal">
+                                                    <i class="mdi mdi-folder-open-outline"></i>
+                                                </button>
+                                                <a href="#" onclick="ConfirmDelete('@item.Id')" class="btn btn-outline-danger"><i class="mdi mdi-delete"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <p>
+                            <partial name="~/Views/Shared/_pager.cshtml" for="@Model.Pager">
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+@section scripts{
+    <script>
+        var occupationDetail = '/Occupation/Detail';
+        $(function () {
+            $(".occupation-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <script>
+        var ConfirmDelete = function (Id) {
+            $("#hiddenMemberId").val(Id);
+            $("#deleteModal").modal('show');
+
+        }
+
+        var DeleteMember = function () {
+            $("#iconclose").show();
+
+            var empId = $("#hiddenMemberId").val();
+
+            $.ajax({
+
+                type: "Get",
+                url: "/Occupation/Delete?id=" + empId,
+                data: { id: empId },
+
+            })
+        }
+    </script>
+   
+}

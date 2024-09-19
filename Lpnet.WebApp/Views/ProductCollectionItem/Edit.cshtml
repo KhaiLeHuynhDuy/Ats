@@ -1,0 +1,195 @@
+﻿@model Ats.Models.Product.ProductCollectionItemViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    ViewBag.Title = "Data Table | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    SelectList product = ViewBag.Product;
+    SelectList productCollection = ViewBag.ProductCollection;
+
+}
+
+
+@section styles{
+
+    <link href="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Edit", "ProductCollectionItem", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <!-- start page title -->
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="page-title-box">
+                        <h4 class="font-size-18">@Resource.Common_label_productCollection</h4>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Panda Loyalty</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Common_label_productCollection</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="badge badge-pill badge-success font-italic font-size-12">@ViewBag.StatusMessageProfile</p>
+                            <div class="row  ">
+                                <div class="col-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a>@Resource.Common_label_selectaproduct</label>
+                                        <div class="col-lg-7 ">
+                                            @Html.DropDownListFor(m => m.ProductId, product, new { @class = "form-control", id = "codeMember", name = "codeMember" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12  mt-1 ">
+                                    <div class="form-group row">
+                                        <label for="txtcode" class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a>Select Product Collection</label>
+                                        <div class="col-lg-7 ">
+                                            @Html.DropDownListFor(m => m.ProductCollectionId, productCollection, new { @class = "form-control", id = "codeMember", name = "codeMember" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1   text-left"><a class="text-danger">*</a>  @Resource.Common_label_availablestock:</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.Stock, new { placeholder = "", @class = "form-control", @id = "AvailableStock" })
+                                        </div>
+                                        @*<div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="nolimit" />
+                                                    </div>
+                                                </div>
+                                                <label for="ckb_autocodegen" class="col-lg-11 text-left">@Resource.Common_label_nolimit </label>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1   text-left"><a class="text-danger">*</a>  @Resource.Common_label_availablestock:</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.DisplayOrder, new { placeholder = "", @class = "form-control", @id = "AvailableStock" })
+                                        </div>
+                                        @*<div class=" col-3 text-left mt-2 ">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div class=" ">
+                                                        <input type="checkbox" name="name" value="" onclick="fun()" id="nolimit" />
+                                                    </div>
+                                                </div>
+                                                <label for="ckb_autocodegen" class="col-lg-11 text-left">@Resource.Common_label_nolimit </label>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-1  ">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2  mt-1  text-left"><a class="text-danger">*</a> @Resource.Common_label_price</label>
+                                        <div class="col-lg-7">
+                                            @Html.TextBoxFor(m => m.Price, new { placeholder = "", @class = "form-control" })
+                                        </div>
+                                        <div class="col-lg-1 ">
+                                            <label type="button" class="btn btn-primary " aria-haspopup="true" aria-expanded="false">VNĐ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @*<div class="col-12 mt-1  ">
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <label class=" mt-1 text-left"><a class="text-danger">*</a> @Resource.Common_label_active:</label>
+                                    </div>
+                                    <div class="col-7">
+                                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-group", id = "ckbActive" })
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="row">
+                                <div class="col-md-12 mt-1">
+                                    <label for="" class="text-left"><a class="text-danger">*</a>@Resource.Common_label_remark:</label>
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(m => m.Remark, new { placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="row mt-2 ml-1">
+                                <button type="button" class="btn btn-primary waves-effect waves-light col-md-3 mt-3 mr-2"> <a href="@Url.Action("Index", "ProductCollection")" class="text-white">@Resource.Common_label_cancel</a></button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light col-md-3 mt-3">@Resource.Common_label_save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+@section scripts{
+    <script>
+        var occupationDetail = '/TagMemberTag/Detail';
+        $(function () {
+            $(".tag-detail").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({
+                    type: "GET",
+                    url: occupationDetail,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#editModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+
+        $("input[name='Price']").TouchSpin({
+            min: 0,
+            max: 10000000,
+            step: 1000,
+            decimals: 2,
+            initval: 0,
+            forcestepdivisibility: 'none',
+            stepinterval: 50,
+            maxboostedstep: 0,
+            prefix: ''
+        });
+
+    </script>
+
+}

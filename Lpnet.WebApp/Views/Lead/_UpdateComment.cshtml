@@ -1,0 +1,35 @@
+﻿@model Ats.Models.Comment.CommentViewModel;
+@using Lpnet.WebApp.Resources
+@{
+    SelectList commentType = ViewBag.CommentType;
+}
+@using (Html.BeginForm("EditComment", "Lead", new { @class = "custom-validation" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="modal-header">
+        <h5 class="modal-title mt-0" id="createNewModalLabel">@Resource.Common_label_edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <div> 
+            <div class="form-group">
+                <label>@Resource.Common_label_commentText</label>
+                <div>
+                    @Html.TextAreaFor(m => m.CommentText, new { placeholder = "", @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label>@Resource.Common_label_commentType</label>
+                <div>
+                    @Html.DropDownListFor(m => m.CommentType, commentType, new { @class = "form-control", id = "creation-selection", required = "required" })
+                </div>
+            </div>
+            <input type="hidden" name="leadId" value="@Model.LeadId">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">@Resource.Common_label_save</button>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">@Resource.Common_label_close</button>
+    </div>
+}

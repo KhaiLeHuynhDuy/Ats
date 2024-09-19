@@ -1,0 +1,535 @@
+﻿@model Ats.Models.Lead.LeadProfileViewModel;
+@using Lpnet.WebApp.Resources
+@using Ats.Commons.Utilities
+@{
+    ViewBag.Title = "Inbox | Panda Loyalty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="page-title-box">
+                    <h4 class="font-size-18">Lead</h4>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Megapoint</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">@Resource.Sidebar_main_search_searchLeads</a></li>
+                        <li class="breadcrumb-item active">@Resource.Common_label_lead #@Model.LeadId</li>
+                    </ol>
+                </div>
+            </div>
+
+            @*<div class="col-sm-6">
+                <div class="float-right d-none d-md-block">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-settings mr-2"></i> Settings
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Left sidebar -->
+                <div class="email-leftbar card">
+                    <div class="row text-center">
+                        <div class="col-12 mb-3">
+                            @{
+                                var avatar_photo = "female-0.png";
+                                if (Model.Gender)
+                                    avatar_photo = "male-0.png";
+                            }
+                            <img src="~/assets/images/users/@avatar_photo" alt="" class="img-fluid img-thumbnail rounded-circle avatar-lg">
+                        </div>
+
+                        <div class="media-body col-12">
+                            <h5 class="text-primary font-size-18 mt-0 mb-1">@Model.FirstName @Model.LastName</h5>
+                            <p class="font-size-12 mb-2"></p>
+                            <p class="mb-0"> @ViewBag.JobTitleName</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="text-center mb-1">
+                        @ViewBag.LeadDate
+                    </p>
+                    <p class="mb-1">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis atque corrupti quos dolores et...</p>
+
+                    <a href="@Url.Action("Compose","Email")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light"><i class="mdi mdi-lock-open-variant-outline"></i> @Resource.Common_label_open</a>
+                </div>
+                <!-- End Left sidebar -->
+                <!-- Right Sidebar -->
+                <div class="email-rightbar mb-3">
+                    <div class="card">
+                        <!-- lead personal information -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @using (Html.BeginForm("EditLeadProfile", "Lead", new { @class = "form-horizontal form-wizard-wrapper", role = "form" }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(model => model.Id)
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h4>@Resource.Common_label_lead #@Model.LeadId</h4>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtFirstName" class="col-lg-2 col-form-label text-left">@Resource.Common_label_firstName</label>
+                                                            <div class="col-lg-3">
+                                                                @Html.TextBoxFor(m => m.FirstName, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <label for="txtLastName" class="col-lg-2 col-form-label text-left">@Resource.Common_label_lastName</label>
+                                                            <div class="col-lg-5">
+                                                                @Html.TextBoxFor(m => m.LastName, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="ddlGender" class="col-lg-2 col-form-label text-left">@Resource.Common_label_sex</label>
+                                                            <div class="col-lg-3">
+                                                                @{
+                                                                    string gender = "";
+                                                                    if (Model.Gender == false) gender = Resource.Common_label_female;
+                                                                    else gender = Resource.Common_label_male;
+                                                                    <input type="text" value="@gender" class="form-control" readonly="readonly" />
+                                                                }
+                                                            </div>
+                                                            <label for="ddlMaritalStatus" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_maritalStatus</label>
+                                                            <div class="col-lg-5">
+                                                                <input type="text" value="@ViewBag.MaritalStatus" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtPersonalID" class="col-lg-2 col-form-label text-left">@Resource.Common_label_personalId</label>
+                                                            <div class="col-lg-10">
+                                                                @Html.TextBoxFor(m => m.PersonalId, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtIdRegisteredDate" class="col-lg-2 col-form-label text-left">@Resource.Common_label_idRegisteredDate</label>
+                                                            <div class="col-lg-3">
+                                                                <input type="text" value="@ViewBag.PersonalIdRegisteredDate" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtIdRegisteredPlace" class="col-lg-2 col-form-label text-left">@Resource.Common_label_idRegisteredPlace</label>
+                                                            <div class="col-lg-5">
+                                                                <input type="text" value="@Model.PersonalIdRegisteredPlace" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtYearOfBirth" class="col-lg-2 col-form-label text-left">@Resource.Common_label_yearOfBirth</label>
+                                                            <div class="col-lg-3">
+                                                                @Html.TextBoxFor(m => m.YOB, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <label for="txtBirthdayMonth" class="col-lg-2 col-form-label text-left">@Resource.Common_label_birthday</label>
+                                                            <div class="col-lg-2">
+                                                                @Html.TextBoxFor(m => m.DOB.Value.Day, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                @Html.TextBoxFor(m => m.DOB.Value.Month, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtPhoneNumber" class="col-lg-2 col-form-label text-left">@Resource.Common_label_phone</label>
+                                                            <div class="col-lg-10">
+                                                                @Html.TextBoxFor(m => m.Phone, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtEmailAddress" class="col-lg-2 col-form-label text-left">@Resource.Common_label_email</label>
+                                                            <div class="col-lg-10">
+                                                                @Html.TextBoxFor(m => m.Email, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtAddress" class="col-lg-2 col-form-label text-left">@Resource.Common_label_address</label>
+                                                            <div class="col-lg-10">
+                                                                @Html.TextBoxFor(m => m.FullAddress, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtAddress" class="col-lg-2 col-form-label text-left">@Resource.Common_label_additionalAddress</label>
+                                                            <div class="col-lg-10">
+                                                                @Html.TextBoxFor(m => m.FullAdditionalAddress, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <!-- lead income information -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="form-horizontal" class="form-horizontal form-wizard-wrapper">
+                                            <h4>@Resource.ManageLead_form_title_JobIncome</h4>
+                                            <hr />
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtOccupation" class="col-lg-2 col-form-label text-left">@Resource.Common_label_occupation</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@Model.Occupation" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtCompanyName" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_companyName</label>
+                                                            <div class="col-lg-4">
+                                                                @Html.TextBoxFor(m => m.CompanyName, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <label for="txtCompanyRegisterNumber" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_registerNumber</label>
+                                                            <div class="col-lg-4">
+                                                                @Html.TextBoxFor(m => m.ResigterNumber, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtJobTitle" class="col-lg-2 col-form-label text-left">@Resource.Common_label_jobTitle</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@Model.JobTitle" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtCompanyPosition" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_position</label>
+                                                            <div class="col-lg-4">
+                                                                @Html.TextBoxFor(m => m.Position, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtMonthlyIncome" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_incomeAmount</label>
+                                                            <div class="col-lg-4">
+                                                                @Html.TextBoxFor(m => m.MonthyIncome, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <label for="txtIncomeReceivedMethod" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_incomeReceivedMethod</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.IncomeReceivedMethod" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <!-- other information -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="form-horizontal" class="form-horizontal form-wizard-wrapper">
+                                            <h4>@Resource.ManageLead_form_title_AdditionalInformation</h4>
+                                            <hr />
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtVehicleRegistrationCertificate" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_vehicleRegistrationCertificate</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.VehicleRegistrationCertificate" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtHealthInsurance" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_healthInsurance</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.HealthInsurance" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtLifeInsurance" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_lifeInsurance</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.LifeInsurance" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtElectricityBill" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_electricityBill</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.ElectricityBill" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtInternetBill" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_internetBill</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.InternetBill" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtSimCard" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_simCard</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.SimCard" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtBankAccount" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_bankAccount</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.BankAccount" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtOriginalFile" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_originalFile1</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@Model.OriginalFile" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtOriginalFileAddition" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_originalFile2</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@Model.OriginalFileAddition" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <!-- loan information -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="form-horizontal" class="form-horizontal form-wizard-wrapper">
+                                            <h4>@Resource.Common_label_loanInfo</h4>
+                                            <hr />
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtLoanPurpose" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_loanPurpose</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.LoanPurpose" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                            <label for="txtLoanProduct" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_loanProduct</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@Model.LoanProduct" class="form-control" readonly="readonly" />
+                                                            </div>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <label for="txtLoanAmount" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_loanAmount</label>
+                                                            <div class="col-lg-4">
+                                                                @Html.TextBoxFor(m => m.Amount, new { placeholder = "", @class = "form-control", @readonly = true })
+                                                            </div>
+                                                            <label for="txtLoanPeriod" class="col-lg-2 col-form-label text-left">@Resource.ManageLead_form_label_loanPeriod</label>
+                                                            <div class="col-lg-4">
+                                                                <input type="text" value="@ViewBag.LoanPeriod" class="form-control" readonly="readonly" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <!-- lead attachments -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="form-horizontal" class="form-horizontal form-wizard-wrapper">
+                                            <h4>Attachments</h4>
+                                            <hr />
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-centered table-nowrap mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">(#) Id</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Amount</th>
+                                                            <th scope="col" colspan="2">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">#14256</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-2.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> Philip Smead
+                                                                </div>
+                                                            </td>
+                                                            <td>15/1/2018</td>
+                                                            <td>$94</td>
+                                                            <td><span class="badge badge-success">Delivered</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">#14257</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-3.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> Brent Shipley
+                                                                </div>
+                                                            </td>
+                                                            <td>16/1/2019</td>
+                                                            <td>$112</td>
+                                                            <td><span class="badge badge-warning">Pending</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">#14258</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-4.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> Robert Sitton
+                                                                </div>
+                                                            </td>
+                                                            <td>17/1/2019</td>
+                                                            <td>$116</td>
+                                                            <td><span class="badge badge-success">Delivered</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">#14259</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-5.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> Alberto Jackson
+                                                                </div>
+                                                            </td>
+                                                            <td>18/1/2019</td>
+                                                            <td>$109</td>
+                                                            <td><span class="badge badge-danger">Cancel</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">#14260</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-6.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> David Sanchez
+                                                                </div>
+                                                            </td>
+                                                            <td>19/1/2019</td>
+                                                            <td>$120</td>
+                                                            <td><span class="badge badge-success">Delivered</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">#14261</th>
+                                                            <td>
+                                                                <div>
+                                                                    <img src="~/assets/images/users/user-2.jpg" alt=""
+                                                                         class="avatar-xs rounded-circle mr-2"> Philip Smead
+                                                                </div>
+                                                            </td>
+                                                            <td>15/1/2018</td>
+                                                            <td>$94</td>
+                                                            <td><span class="badge badge-warning">Pending</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div> <!-- card -->
+                </div> <!-- end Col-9 -->
+
+            </div>
+        </div><!-- End row -->
+    </div> <!-- container-fluid -->
+</div>
+
+
